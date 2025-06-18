@@ -1,0 +1,715 @@
+/*   :::: Lenguaje ::::::   */
+
+.language-dropdown {
+  position: relative;
+  display: block;
+  font-family: Arial, sans-serif;
+  user-select: none;
+  margin-left: auto;
+  font-size: 0.95em;
+}
+
+.language-dropdown-mobile {
+  display: none;
+}
+
+.language-dropdown button {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 0.3em 0.6em;
+  font-size: 1em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  border-radius: 4px;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-content: flex-start;
+  transition: border 0.2s;
+}
+
+.language-dropdown button:focus {
+  outline: 2px solid #8e2de2;
+  outline-offset: 2px;
+}
+
+.language-dropdown .flag-icon,
+.language-dropdown img.flag-icon {
+  width: 20px;
+  height: 14px;
+  object-fit: cover;
+  margin-right: 0.5em;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.language-dropdown .arrow {
+  margin-left: auto;
+  font-size: 1em;
+  vertical-align: middle;
+}
+
+.language-dropdown ul {
+  position: absolute;
+  background: #17181a;
+  list-style: none;
+  padding: 0.3em 0;
+  margin: 0.3em 0 0 0;
+  border: 1px solid white;
+  border-radius: 4px;
+  width: 150px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  scrollbar-width: thin;
+  scrollbar-color: #8e2de2 #17181a;
+}
+.language-dropdown ul::-webkit-scrollbar {
+  width: 6px;
+  background: #17181a;
+}
+.language-dropdown ul::-webkit-scrollbar-thumb {
+  background: #8e2de2;
+  border-radius: 8px;
+}
+
+.language-dropdown ul[hidden] {
+  display: none;
+}
+
+.language-dropdown li {
+  padding: 0.3em 1em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: white;
+  transition: background 0.16s, color 0.18s;
+}
+
+.language-dropdown li:hover,
+.language-dropdown li:focus-within {
+  background: #23235b;
+  color: #fff;
+}
+
+.language-dropdown li button.lang-option {
+  width: 100%;
+  text-align: left;
+  padding: 0.3em 0.6em;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 0.95em;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.language-dropdown li button.lang-option:focus,
+.language-dropdown li button.lang-option:hover {
+  background: #23235b;
+  color: #fff;
+}
+
+.fi {
+  margin-right: 0.5em;
+  font-size: 1.3em;
+  vertical-align: middle;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.search-btn-desktop {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: 0.2em 0.5em;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.2s;
+}
+.search-btn-desktop:hover {
+  background: rgba(138, 43, 226, 0.13);
+  border-radius: 50%;
+}
+
+
+
+
+/* Secciones */
+
+/* =====================================================
+   1. SECCIONES GENERALES
+===================================================== */
+
+.seccion {
+  /* Bloque base para cualquier sección principal */
+  padding: 4em 2em;
+  max-width: 900px;
+  margin: auto;
+  text-align: center;
+  /* background: rgba(0, 0, 0, 0.4); opcional, comenta/descomenta si lo usas */
+  border-radius: 10px;
+  margin-top: 2em;
+}
+
+
+/* =====================================================
+   2. SECCIÓN HERO
+   ------------------------------------------------------
+   Estructura de hijos:
+   2.1. .titulo-animado (Contiene letras humo, texto, emoji)
+   2.2. .hero-desc     (Descripción principal, sin CSS aquí)
+   2.3. .btn-cta       (Botón principal)
+===================================================== */
+
+/* --- 2. Sección Hero (contenedor principal) --- */
+.hero {
+  /* No pongas font-size aquí, es un contenedor */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 100vw;
+  overflow-wrap: break-word;
+  /* Evita desbordes horizontales */
+  word-break: break-word;
+}
+
+/* =====================================================
+   2.1. HIJO 1 DE HERO: TÍTULO ANIMADO
+===================================================== */
+
+/* --- 2.1. Contenedor del título animado --- */
+.titulo-animado {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+/* --- 2.1.1. Ajuste del título principal en Hero --- */
+section.hero .titulo-principal {
+  margin-top: 3rem;
+}
+
+/* --- 2.1.2. Variante alineada del título principal --- */
+
+.titulo-principal.alineado {
+  font-size: clamp(1.2rem, 3vw, 1.8em);
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* =====================================================
+   2.1.1. NIETO: LETRAS HUMO DENTRO DEL TÍTULO ANIMADO
+===================================================== */
+
+ul.letras-humo {
+  display: flex;
+  cursor: default;
+}
+
+
+ul.letras-humo li {
+  list-style: none;
+  color: #fff;
+  letter-spacing: 1px;
+  font-size: 2em;
+  font-weight: bold;
+  filter: blur(0);
+  transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+}
+
+.titulo-principal ul.letras-humo li {
+  font-size: 3em;
+  /* tamaño grande solo para "Hola, soy Marvin" */
+}
+
+ul.letras-humo:hover li {
+  animation: humo 2s linear forwards;
+}
+
+
+
+/* =====================================================
+   2.1.2. NIETO: TEXTO NORMAL DENTRO DEL TÍTULO PRINCIPAL
+===================================================== */
+
+.titulo-principal .texto-normal {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-top: 1rem;
+  text-shadow: 0 0 10px rgba(138, 43, 226, 0.8);
+}
+
+/* =====================================================
+   2.1.3. NIETO: EMOJI MARVIN DENTRO DEL TÍTULO ANIMADO
+===================================================== */
+
+.con-icono {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.alineado {
+  display: flex;
+  align-items: center;
+  /* centra verticalmente */
+  justify-content: center;
+  gap: 0.4em;
+}
+
+.emoji-marvin {
+  width: 80px;
+  height: auto;
+  margin-left: 0.3em;
+  transition: transform 0.3s ease;
+}
+
+.emoji-marvin:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.8));
+}
+
+/* =====================================================
+   2.2. HIJO 2 DE HERO: DESCRIPCIÓN
+===================================================== */
+
+/* .hero-desc (Sin CSS propio aquí, sólo estructura en HTML) */
+
+/* =====================================================
+   2.3. HIJO 3 DE HERO: BOTÓN CTA
+===================================================== */
+
+.btn-cta {
+  background-color: #8a2be2;
+  color: white;
+  padding: 0.8em 1.6em;
+  border: none;
+  border-radius: 30px;
+  font-size: 1em;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn-cta:hover {
+  background-color: #5d1a9f;
+}
+
+.btn-cta:focus {
+  outline: 2px solid #d5b4ff;
+  outline-offset: 3px;
+}
+
+
+
+
+/* Buscador*/
+
+.buscador-seccion {
+  margin-top: 2em;
+  position: relative;
+  max-width: 700px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.buscador-seccion input {
+  width: 100%;
+  padding: 0.8em 1em 0.8em 2.5em;
+  text-align: center;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 1em;
+  font-weight: 600;
+  box-shadow: 0 0 16px rgba(138, 43, 226, 0.6);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+
+.buscador-seccion input::placeholder {
+  color: #e0d0ff;
+  font-size: 1em;
+}
+
+
+.buscador-seccion input:focus {
+  box-shadow: 0 0 16px rgba(138, 43, 226, 0.8);
+}
+
+.buscador-seccion i {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a86cf7;
+  font-size: 1.5em;
+}
+
+/* Botón circular para iconos sociales */
+.icon-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin: 0 10px;
+  font-size: 1.4em;
+  color: #bbb;
+  transition:
+    background-color 0.4s,
+    transform 0.3s cubic-bezier(.4, 1.7, .6, .97),
+    box-shadow 0.3s,
+    color 0.3s;
+  box-shadow: 0 0 0 transparent;
+  cursor: pointer;
+}
+
+/* Animación en hover/focus del círculo completo */
+.icon-btn:hover,
+.icon-btn:focus {
+  color: #a86cf7;
+  background-color: rgba(138, 43, 226, 0.08);
+  transform: scale(1.18) rotate(-6deg);
+  box-shadow: 0 4px 20px #a86cf7, 0 0 10px #fff;
+  outline: none;
+}
+
+
+
+/* ===================================================
+   1. FOOTER PRINCIPAL
+=================================================== */
+
+footer {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2.5em 1em;
+  text-align: center;
+  font-size: 0.9em;
+  color: #bbb;
+  margin-top: 4em;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Contenido interno del footer, centrado y ancho limitado */
+.footer-contenido {
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Enlaces del footer (no subrayados) */
+footer a {
+  text-decoration: none;
+}
+
+/* Párrafos dentro del footer */
+footer p {
+  margin-top: 1em;
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+/* Firma o nombre personal en el footer */
+footer .firma {
+  display: block;
+  margin-top: 0.3em;
+  font-size: 1.2em;
+  opacity: 0.8;
+}
+
+/* ===================================================
+   2. REDES SOCIALES EN FOOTER
+=================================================== */
+
+/* Contenedor de enlaces sociales (espaciado vertical) */
+.social-links {
+  margin-bottom: 1em;
+}
+
+/* Iconos de redes sociales */
+.social-links a {
+  margin: 0 0.5em;
+  color: #bbb;
+  padding-top: 10px;
+  font-size: 1.5em;
+  transition:
+    color 0.3s,
+    transform 0.3s cubic-bezier(.4, 1.7, .6, .97),
+    text-shadow 0.3s;
+  display: inline-block;
+  /* Para que el transform funcione */
+}
+
+/* Hover y focus: color, crecimiento, rotación y brillo */
+.social-links a:hover,
+.social-links a:focus {
+  color: #a86cf7;
+  transform: scale(1.25) rotate(-6deg);
+  text-shadow: 0 4px 20px #a86cf7, 0 0 10px #fff;
+  outline: none;
+  /* Quita el borde feo de focus */
+}
+
+/* ===================================================
+   3. FIN DE FOOTER
+=================================================== */
+
+/* === FORMULARIO DE TESTIMONIOS === */
+#testimonial-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 25px rgba(142, 45, 226, 0.2);
+  animation: fadeInUp 0.6s ease-out;
+  width: 50%;
+ 
+}
+
+/* Inputs & Textareas */
+#testimonial-form input,
+#testimonial-form textarea {
+  padding: 1rem 1.2rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.75rem;
+  color: #f3f3f3;
+  font-size: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  transition: all 0.3s ease;
+  resize: none;
+}
+
+#testimonial-form input::placeholder,
+#testimonial-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+#testimonial-form input:focus,
+#testimonial-form textarea:focus {
+  outline: none;
+  border-color: #9f5ce3;
+  box-shadow: 0 0 10px #8e2de2;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Botón */
+#testimonial-form button {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #8e2de2, #4a00e0);
+  border: none;
+  padding: 0.9rem 2rem;
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(142, 45, 226, 0.4);
+}
+
+#testimonial-form button:hover {
+  background: linear-gradient(135deg, #a445ec, #5d2eff);
+  transform: translateY(-2px);
+  box-shadow: 0 0 18px rgba(142, 45, 226, 0.6);
+}
+
+/* === TARJETAS DE TESTIMONIOS === */
+.testimonial-card {
+  background: radial-gradient(circle at top left, rgba(142, 45, 226, 0.1), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.8rem;
+  border-radius: 1.2rem;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.6s ease-out;
+  transition: all 0.4s ease;
+  color: #eaeaea;
+  box-shadow: 0 0 15px rgba(142, 45, 226, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent 0%, #8e2de2 40%, transparent 100%);
+  animation: rotateGlow 6s linear infinite;
+  opacity: 0.05;
+  display: none;
+}
+
+.testimonial-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 30px rgba(142, 45, 226, 0.5);
+}
+
+/* Botón "Ver todos" */
+.btn-ver-todos {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #8e2de2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn-ver-todos:hover {
+  background: #5f14b8;
+}
+
+/* Avatar testimonio */
+.avatar-testimonio {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: white;
+  padding: 4px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  box-shadow: 0 0 5px #8e2de2;
+  transition: transform 0.3s;
+}
+
+.avatar-testimonio:hover {
+  transform: scale(1.1) rotate(4deg);
+}
+
+/* Contacto */
+
+/* Card Cósmica general */
+.cosmic-contact-card {
+  background: rgba(25, 13, 53, 0.53);
+  border-radius: 2.3rem;
+  box-shadow: 0 0 48px 8px #a259e690, 0 2px 18px 4px #2a005580;
+  border: 2px solid rgba(160,89,230,0.33);
+  max-width: 550px;
+  margin: 3.5rem auto 2rem auto;
+  padding: 2.2rem 2.7rem 2.4rem 2.3rem;
+  position: relative;
+  backdrop-filter: blur(6px);
+}
+
+/* Fila contacto */
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  margin-bottom: 2.1rem;
+}
+.contact-row:last-child { margin-bottom: 0; }
+
+/* Glow icono redondo con animación */
+.icon-bg {
+  width: 78px;
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 60% 30%, #c3a8ff 45%, #7543c7 98%);
+  box-shadow:
+    0 0 28px 6px #b388ff80,
+    0 0 52px 7px #915ee990;
+  font-size: 2.7rem;
+  color: #fff;
+  position: relative;
+  animation: pulseGlow 2.6s infinite;
+}
+
+.contact-info-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+
+/* Etiqueta (Correo, Teléfono) */
+.label {
+  font-weight: 700;
+  font-size: 1.31rem;
+  letter-spacing: 0.01em;
+  color: #fff;
+  margin-bottom: 0;
+  display: block;
+  text-shadow: 0 0 9px #a259e6;
+}
+
+/* Link de contacto */
+.contact-link {
+  font-family: 'Fira Mono', 'Consolas', monospace;
+  font-size: 1.12rem;
+  color: #dfd2ff;
+  text-decoration: none;
+  background: linear-gradient(90deg,#b388ff18 60%,#7441c022 100%);
+  padding: 0.09em 0.22em;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+  transition: color 0.18s, box-shadow 0.2s, text-shadow 0.17s;
+  text-shadow: 0 0 6px #43237399;
+  display: inline-block;
+}
+
+.contact-link:hover, .contact-link:focus {
+  color: #fff;
+  text-shadow: 0 0 14px #a259e6, 0 0 9px #fff9;
+  box-shadow: 0 0 7px 1px #a259e655;
+}
+
+/* Línea divisoria galáctica */
+.cosmic-contact-card hr {
+  border: none;
+  border-top: 1.5px solid #a259e68f;
+  margin: 2.1rem 0 2rem 0;
+  width: 92%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 8px 1.3px #8e2de285;
+}
+
+
+
+
+

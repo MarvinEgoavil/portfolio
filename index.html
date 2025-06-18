@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio de Edinson Marvin Egoavil Samaniego - desarrollador y artista." />
+  <meta name="author" content="Edinson Marvin Egoavil Samaniego" />
+  <meta name="keywords" content="portfolio, desarrollo web, Java, Flutter, artista, Marvin Egoavil" />
+
+  <title>Mi Portfolio</title>
+
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Portfolio de Marvin Egoavil" />
+  <meta property="og:description" content="Desarrollador con alma artística. Mira mis proyectos y contáctame." />
+  <meta property="og:image" content="https://tuweb.com/assets/preview.png" />
+  <meta property="og:url" content="https://tuweb.com" />
+  <meta property="og:type" content="website" />
+
+  <!-- Otros elementos -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="icon" href="assets/favicon.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+
+</head>
+
+<body>
+
+
+  <div id="sidebar" class="sidebar">
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Menú de redes flotante -->
+    <div class="social-menu">
+      <a href="https://megoavils.blogspot.com/" target="_blank"><i class="fab fa-blogger-b"></i></a>
+      <a href="https://www.instagram.com/marvinegoavilz/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/marvinegoavil/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://github.com/MarvinEgoavil" target="_blank"><i class="fab fa-github"></i></a>
+    </div>
+
+    <button id="close-sidebar" aria-label="Cerrar menú lateral">x</button>
+
+
+    <div class="sidebar-header">
+      <span class="sidebar-logo">👨‍💻 Marvin</span>
+      <div class="sidebar-icons">
+        <button id="search-button"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+
+
+    <!-- ✅ AQUÍ VA DENTRO -->
+    <ul class="sidebar-menu">
+      <li><i class="fas fa-house-user"></i><a href="#inicio"><span>Inicio</span></a></li>
+      <li><i class="fas fa-user"></i><a href="#sobre-mi"><span>Sobre mí</span></a></li>
+      <li><i class="fas fa-rocket"></i><a href="#proyectos"><span>Proyectos</span></a></li>
+      <li>
+        <i class="fas fa-certificate"></i>
+        <div class="submenu-toggle">
+          <span> Certificaciones</span>
+          <i class="fas fa-chevron-down submenu-arrow"></i>
+        </div>
+        <ul class="submenu">
+          <li><a href="#cert-oracle">Oracle Certified Professional</a></li>
+          <li><a href="#cert-freecodecamp">FreeCodeCamp Responsive Web Design</a></li>
+          <li><a href="#cert-udemy">Flutter y Dart Completo</a></li>
+          <li><a href="#cert-azure">Microsoft Azure Fundamentals</a></li>
+        </ul>
+      </li>
+
+      <li><i class="fas fa-envelope"></i><a href="#contacto"><span>Contacto</span></a></li>
+    </ul>
+  </div>
+
+  <!-- ✅ Fondo Vanta.js -->
+  <div id="background"></div>
+
+  <!-- 🔽 Empieza tu header real -->
+<header>
+  <div class="navbar-container">
+
+    <!-- IZQUIERDA: Logo y nombre -->
+    <div class="name-with-hacker">
+      <img src="/assets/favicon.png" alt="Hacker Icon" class="hacker-icon" />
+      <div class="marvin-wrap">
+        <div class="spaceship">
+          <div class="particles"></div>
+          <div class="beam"></div>
+        </div>
+        <div class="marvin-name">
+          <span>M</span><span>A</span><span>R</span><span>V</span><span>I</span><span>N</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTRO: Menú de navegación -->
+    <nav id="nav-menu">
+      <ul class="navbar">
+        <li><a href="#inicio" data-i18n="nav_inicio">Inicio</a></li>
+        <li class="has-submenu">
+          <a href="#" class="submenu-toggle" data-i18n="nav_sobre_mi">Sobre mí</a>
+          <ul class="submenu">
+            <li><a href="#" data-i18n="nav_titulo">Titulo oficial</a></li>
+            <li><a href="#" data-i18n="nav_curriculum">Ver Curriculum</a></li>
+            <li><a href="#certificaciones" data-i18n="nav_certificaciones">Certificaciones</a></li>
+          </ul>
+        </li>
+        <li class="has-submenu">
+          <a href="#" class="submenu-toggle" data-i18n="nav_proyectos">Proyectos</a>
+          <ul class="submenu">
+            <li><a href="#proyectos-web">Web interactiva</a></li>
+            <li><a href="#proyectos-moviles">Aplicaciones móviles</a></li>
+            <li><a href="#proyectos-juegos">Juegos</a></li>
+            <li><a href="#proyectos">Proyectos pequeños</a></li>
+          </ul>
+        </li>
+        <li><a href="#contacto" data-i18n="nav_contacto">Contacto</a></li>
+        <li>
+          <a href="https://drive.google.com/uc?export=download&id=1xpUMho826IULWUu2b6SwrdQDe3z_LK3P" download
+            data-i18n="nav_descargar_cv">Descargar CV</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- DERECHA: Acciones solo ESCRITORIO -->
+    <div class="header-actions">
+      <button class="search-btn-desktop" aria-label="Abrir búsqueda" type="button">
+        <i class="fas fa-search"></i>
+      </button>
+      <div class="language-dropdown">
+        <!-- Aquí tu botón y lista de idiomas de escritorio -->
+        <button id="language-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="selected-language" type="button">
+          <span class="fi fi-gb" aria-hidden="true"></span>
+          <span id="selected-language">English</span>
+          <span class="arrow" aria-hidden="true">&#9662;</span>
+        </button>
+        <ul id="language-list" role="listbox" tabindex="-1" aria-label="Selecciona idioma" hidden>
+          <li role="option" data-lang="es" aria-selected="false">
+            <button type="button" class="lang-option"><span class="fi fi-es"></span> Español</button>
+          </li>
+          <li role="option" data-lang="en" aria-selected="true">
+            <button type="button" class="lang-option"><span class="fi fi-gb"></span> English</button>
+          </li>
+          <li role="option" data-lang="fr" aria-selected="false">
+            <button type="button" class="lang-option"><span class="fi fi-fr"></span> Français</button>
+          </li>
+          <li role="option" data-lang="qu" aria-selected="false">
+            <button type="button" class="lang-option"><span class="fi fi-pe"></span> Quechua</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SOLO MÓVIL: Acciones arriba a la derecha -->
+    <div class="top-mobile-actions" role="navigation" aria-label="Menú móvil">
+      <div class="language-dropdown language-dropdown-mobile" aria-label="Selector de idioma móvil">
+        <!-- ... mismo contenido de idioma que arriba, pero con IDs cambiados para móvil ... -->
+      </div>
+      <button id="mobile-search-btn" class="search-btn-mobile" aria-label="Abrir búsqueda" type="button">
+        <i class="fas fa-search" aria-hidden="true"></i>
+      </button>
+      <button id="mobile-hamburger" class="hamburger" aria-label="Abrir menú lateral" aria-expanded="false"
+        aria-controls="sidebar" type="button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+
+
+    <button id="language-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="selected-language"
+      type="button">
+      <span class="fi fi-gb" aria-hidden="true"></span>
+      <span id="selected-language">English</span>
+      <span class="arrow" aria-hidden="true">&#9662;</span>
+    </button>
+    <ul id="language-list" role="listbox" tabindex="-1" aria-label="Selecciona idioma" hidden>
+      <li role="option" data-lang="es" aria-selected="false">
+        <button type="button" class="lang-option">
+          <span class="fi fi-es"></span> Español
+        </button>
+      </li>
+
+      <li role="option" data-lang="en" aria-selected="true">
+        <button type="button" class="lang-option"><span class="fi fi-gb"></span> English</button>
+      </li>
+      <li role="option" data-lang="fr" aria-selected="false">
+        <button type="button" class="lang-option"><span class="fi fi-fr"></span> Français</button>
+      </li>
+      <li role="option" data-lang="qu" aria-selected="false">
+        <button type="button" class="lang-option"><span class="fi fi-pe"></span> Quechua</button>
+      </li>
+    </ul>
+  </div>
+
+
+
+
+
+  <section id="inicio" class="seccion hero">
+    <div class="titulo-animado titulo-principal alineado">
+      <ul class="letras-humo" lang="es" aria-label="Hola, soy Marvin">
+        <li>H</li>
+        <li>o</li>
+        <li>l</li>
+        <li>a</li>
+        <li>,</li>
+        <li>&nbsp;</li>
+        <li>s</li>
+        <li>o</li>
+        <li>y</li>
+        <li>&nbsp;</li>
+        <li>M</li>
+        <li>a</li>
+        <li>r</li>
+        <li>v</li>
+        <li>i</li>
+        <li>n</li>
+      </ul>
+      <img id="emoji-marvin" src="assets/emoji.webp" alt="Emoji Marvin" class="emoji-marvin">
+    </div>
+
+
+    <p data-i18n="hero_desc">Transformo ideas en experiencias digitales con alma artística.</p>
+
+    <a href="#proyectos" class="btn-cta" data-i18n="nav_proyectos">Ver mis proyectos</a>
+  </section>
+
+  <div class="buscador-seccion">
+    <i class="fas fa-search"></i>
+    <input type="text" data-i18n-placeholder="buscador_placeholder"
+      placeholder="¿Qué deseas buscar en mi universo digital?" />
+  </div>
+
+  <section id="sobre-mi" class="seccion">
+    <div class="titulo-animado con-icono">
+      <ul class="letras-humo" lang="es" aria-label="Sobre mí">
+        <li>S</li>
+        <li>o</li>
+        <li>b</li>
+        <li>r</li>
+        <li>e</li>
+        <li>&nbsp;</li>
+        <li>m</li>
+        <li>í</li>
+      </ul>
+      <span class="titulo-emoji">🎭</span>
+    </div>
+
+
+    <!-- Sobre mí -->
+    <p data-i18n="about_desc">
+      Soy un desarrollador apasionado por el arte, la música y la tecnología. Combino la lógica con la emoción para
+      crear experiencias únicas.
+    </p>
+  </section>
+
+  <section id="proyectos" class="seccion">
+    <div class="titulo-animado con-icono">
+      <ul class="letras-humo" lang="es" aria-label="Proyectos">
+        <li>M</li>
+        <li>i</li>
+        <li>s</li>
+        <li>&nbsp;</li>
+        <li>P</li>
+        <li>r</li>
+        <li>o</li>
+        <li>y</li>
+        <li>e</li>
+        <li>c</li>
+        <li>t</li>
+        <li>o</li>
+        <li>s</li>
+      </ul>
+      <span class="titulo-emoji">🚀</span>
+    </div>
+
+
+
+    <div class="proyectos-container">
+      <div class="proyecto">
+        <h3 data-i18n="project_ocr_title"><i class="fas fa-file-code"></i> OCRApp v1.0</h3>
+
+        <p data-i18n="ocrapp_desc">
+          Aplicación de escritorio desarrollada en Java que permite extraer texto desde imágenes y archivos PDF
+          mediante
+          OCR. Versión básica funcional para pruebas iniciales.
+        </p>
+        <a href="https://github.com/MarvinEgoavil/OCRApp" target="_blank" data-i18n="view_github">Ver en GitHub</a>
+      </div>
+
+
+      <div class="proyecto">
+        <h3 data-i18n="calc_title">🧮 Calculadora Python + Historial</h3>
+
+        <p data-i18n="calc_desc">Aplicación de consola que permite realizar operaciones matemáticas y registra cada
+          cálculo en un historial
+          visual con pandas.</p>
+        <a href="https://github.com/MarvinEgoavil/pajaritos_proyecto1" target="_blank" data-i18n="view_github">Ver en
+          GitHub</a>
+      </div>
+
+      <!-- Agrega más tarjetas aquí -->
+    </div>
+  </section>
+
+  <section id="certificaciones" class="seccion">
+    <div class="titulo-animado con-icono">
+      <ul class="letras-humo" lang="es" aria-label="Certificaciones">
+        <li>C</li>
+        <li>e</li>
+        <li>r</li>
+        <li>t</li>
+        <li>i</li>
+        <li>f</li>
+        <li>i</li>
+        <li>c</li>
+        <li>a</li>
+        <li>c</li>
+        <li>i</li>
+        <li>o</li>
+        <li>n</li>
+        <li>e</li>
+        <li>s</li>
+      </ul>
+      <span class="titulo-emoji">📜</span>
+    </div>
+
+    <div class="certificaciones-grid">
+      <div class="certificacion">
+        <img src="https://miro.medium.com/v2/resize:fit:1200/1*VOn3ZQ6P-Cy3eGrtZhUK1Q.png" alt="Oracle Badge"
+          width="80" />
+        <h3>Oracle Certified Professional: Java SE 17</h3>
+        <p>1Z0-829: Oracle Certified Professional: Java SE 17 Developer (en progreso)</p>
+      </div>
+
+
+      <div class="certificacion">
+        <img src="https://static-00.iconduck.com/assets.00/freecodecamp-icon-2048x1381-57apvagh.png" alt="FreeCodeCamp"
+          class="logo-certificacion" />
+        <h3>Responsive Web Design</h3>
+        <p>Certificación obtenida en FreeCodeCamp (2025)</p>
+      </div>
+
+      <div class="certificacion">
+        <img src="https://cdn.worldvectorlogo.com/logos/udemy-3.svg" alt="Udemy" style="height: 60px;" />
+        <h3>Flutter y Dart Completo</h3>
+        <p>Curso realizado en Udemy con más de 50 horas de contenido</p>
+      </div>
+
+      <div class="certificacion">
+        <img
+          src="https://www.pue.es/Areas/Training/Resources/Images/Sections/Courses/Providers/Microsoft/Categories/Azure/badge-azure-fundamentals.png"
+          alt="Microsoft Azure Badge" class="logo-certificacion" />
+        <h3>Microsoft Certified: Azure Fundamentals</h3>
+        <p>Certificación AZ-900 — <strong>En progreso</strong></p>
+      </div>
+
+      <div class="certificacion">
+        <img src="https://github.githubassets.com/assets/arctic-code-vault-contributor-default-df8d74122a06.png"
+          alt="Arctic Code Vault Badge" class="logo-certificacion" style="max-height: 80px;" />
+        <h3>Arctic Code Vault Contributor</h3>
+        <p>GitHub archivó mi código en 2020 como parte de su iniciativa para preservar el software abierto en el
+          Ártico.
+          ¡Mi código es historia!</p>
+      </div>
+
+
+
+
+
+
+      <!-- Puedes seguir agregando más -->
+    </div>
+  </section>
+
+
+
+  <section id="testimonios" class="seccion-testimonios">
+    <div class="titulo-animado con-icono">
+      <ul class="letras-humo" lang="es" aria-label="Testimonios">
+        <li>T</li>
+        <li>e</li>
+        <li>s</li>
+        <li>t</li>
+        <li>i</li>
+        <li>m</li>
+        <li>o</li>
+        <li>n</li>
+        <li>i</li>
+        <li>o</li>
+        <li>s</li>
+      </ul>
+      <span class="titulo-emoji">💬</span>
+    </div>
+    <!-- Contenedor de tarjetas -->
+    <div id="testimonial-cards" class="grid-testimonios"></div>
+
+    <!-- Botón ver más comentarios -->
+    <button id="ver-todos-btn" class="btn-ver-todos">
+      Mostrar todos los comentarios
+    </button>
+
+    <!-- Formulario de nuevo testimonio -->
+    <form id="testimonial-form" aria-label="Formulario de testimonios">
+
+      <label for="nombre" class="sr-only" data-i18n="form_nombre_label">Nombre</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required autocomplete="name"
+        data-i18n="form_nombre_placeholder">
+
+      <label for="cargo" class="sr-only" data-i18n="form_cargo_label">Cargo o Empresa</label>
+      <input type="text" id="cargo" name="cargo" placeholder="Tu cargo o empresa" required
+        autocomplete="organization-title" data-i18n="form_cargo_placeholder">
+
+      <label for="mensaje" class="sr-only" data-i18n="form_mensaje_label">Mensaje</label>
+      <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu testimonio aquí..." required
+        data-i18n="form_mensaje_placeholder"></textarea>
+      <small style="color:#bbb;opacity:0.7; margin-bottom: 1rem; display: block;">
+        Pulsa <b>Ctrl+Enter</b> para enviar tu testimonio más rápido.
+      </small>
+
+      <button type="submit" aria-label="Enviar testimonio" data-i18n="form_boton_enviar">
+        🚀 Enviar Testimonio
+      </button>
+    </form>
+  </section>
+
+
+
+
+  <section id="contacto" class="seccion">
+    <div class="titulo-animado con-icono">
+      <ul class="letras-humo" lang="es" aria-label="Contacto">
+        <li>C</li>
+        <li>o</li>
+        <li>n</li>
+        <li>t</li>
+        <li>a</li>
+        <li>c</li>
+        <li>t</li>
+        <li>o</li>
+      </ul>
+      <span class="titulo-emoji">📞</span>
+    </div>
+
+
+<div class="cosmic-contact-card">
+  <div class="contact-row">
+    <span class="icon-bg pulseGlow"><i class="fas fa-envelope"></i></span>
+  <div class="contact-info-row">
+  <span class="label">Correo:</span>
+  <a href="mailto:marvinegoavilz@gmail.com" class="contact-link">marvinegoavilz@gmail.com</a>
+</div>
+  </div>
+  <hr>
+  <div class="contact-row">
+    <span class="icon-bg pulseGlow"><i class="fas fa-phone-alt"></i></span>
+    <div class="contact-info-row">
+      <span class="label">Teléfono:</span>
+      <a href="tel:+34722516228" class="contact-link">722 516 228</a>
+    </div>
+  </div>
+</div>
+
+  </section>
+
+
+  <footer>
+    <div class="footer-contenido">
+      <div class="social-links">
+        <a href="https://github.com/MarvinEgoavil" target="_blank" aria-label="GitHub" class="icon-btn">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="mailto:marvinegoavilz@gmail.com" target="_blank" aria-label="Correo" class="icon-btn">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/marvinegoavil" target="_blank" aria-label="LinkedIn" class="icon-btn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+      <!-- Footer -->
+      <p data-i18n="footer_text">© 2025 <strong>Marvin Egoavil</strong>. Desarrollador con alma artística.</p>
+
+      <span class="firma">🎨💻🌌</span>
+    </div>
+  </footer>
+
+
+  <!-- Three.js y Vanta.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-database-compat.js"></script>
+
+  <!-- Tu JS principal (debe ir al final si usa imports de arriba) -->
+  <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

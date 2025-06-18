@@ -1,0 +1,358 @@
+/* 📱 MÓVILES PEQUEÑOS - max-width: 479px */
+@media (max-width: 479px) {
+  .search-btn-mobile {
+    display: none;
+  }
+
+  .titulo-principal.alineado {
+    font-size: 0.5rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+
+  .titulo-animado {
+    font-size: 0.6rem;
+    line-height: 1.2;
+    word-break: keep-all;
+    /* evita quiebres innecesarios */
+    white-space: normal;
+  }
+
+  .marvin-name {
+    font-size: 1.1rem;
+    /* o usa un width fijo si es una imagen */
+  }
+
+  .hacker-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .spaceship {
+    width: 30px;
+    height: 30px;
+    left: -30px;
+    /* Ajusta la posición para móviles */
+  }
+
+  .icon-lupa {
+    width: 20px;
+    height: 20px;
+  }
+
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 1rem;
+  }
+
+  .cosmic-contact-card {
+    padding: 1.3rem 0.7rem 1.7rem 0.7rem;
+    border-radius: 1.2rem;
+    max-width: 98vw;
+  }
+
+  .icon-bg {
+    width: 54px;
+    height: 54px;
+    font-size: 1.7rem;
+  }
+
+  .label {
+    font-size: 1.05rem;
+  }
+
+  .contact-link {
+    font-size: 0.97rem;
+  }
+
+  .contact-row {
+    gap: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+}
+
+
+/* Ocultar texto normal por defecto, mostrar animación */
+
+
+
+/* 📱 MÓVILES MEDIANOS - min-width: 480px hasta 522px */
+@media (min-width: 480px) and (max-width: 522px) {
+  .titulo-principal.alineado {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .titulo-animado {
+    font-size: 0.8rem;
+    line-height: 1.2;
+    word-break: keep-all;
+    /* evita quiebres innecesarios */
+    white-space: normal;
+  }
+}
+
+/* 📱 MÓVILES Y TABLETS - max-width: 768px */
+
+@media screen and (max-width: 768px) {
+
+  /* --- Cierre sidebar --- */
+  #close-sidebar {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    z-index: 9999;
+    cursor: pointer;
+  }
+
+  /* --- Navbar principal y buscador se ocultan en móvil --- */
+  nav#nav-menu,
+  header nav,
+  .buscador-seccion {
+    display: none;
+  }
+
+  /* --- Logo --- */
+  header .logo {
+    text-align: left;
+    font-size: 1.5rem;
+    margin-left: 1rem;
+  }
+
+  /* --- Menú hamburguesa y acciones móviles --- */
+  .top-mobile-actions {
+    display: flex;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    gap: 1rem;
+    z-index: 2000;
+  }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    transition: background 0.2s;
+    z-index: 3000;
+  }
+
+  .hamburger:hover {
+    background: rgba(138, 43, 226, 0.15);
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background-color: #fff;
+    margin: 4px 0;
+    border-radius: 2px;
+    transition: 0.35s cubic-bezier(.68, -0.55, .27, 1.55);
+  }
+
+  .search-btn-mobile {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.7rem;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* --- Sidebar y overlay --- */
+  .sidebar,
+  .overlay {
+    display: none;
+  }
+
+  .sidebar.open,
+  .overlay.show {
+    display: block;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 998;
+  }
+
+  .overlay.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* --- Secciones visuales: social, hero, etc. --- */
+  .social-menu {
+    display: none;
+  }
+
+  section.hero .titulo-principal {
+    margin-top: 3rem;
+  }
+
+  section.hero .titulo-principal ul.letras-humo li {
+    font-size: 2.5em;
+  }
+
+  section.hero .titulo-principal .texto-normal {
+    font-size: 2.5rem;
+  }
+
+  /* --- Selector de idioma: solo móvil --- */
+  .language-dropdown {
+    display: none;
+  }
+
+  .language-dropdown-mobile {
+    display: inline-block;
+  }
+
+  .language-dropdown-mobile ul {
+    width: 100vw;
+    left: -1rem;
+    /* Si quieres que sobresalga del botón, ajústalo */
+    border-radius: 0 0 8px 8px;
+  }
+
+  .language-dropdown-mobile button {
+    min-width: 110px;
+  }
+
+  .header-actions {
+    display: none;
+  }
+
+  .search-btn-desktop {
+    display: none;
+  }
+
+}
+
+
+
+
+/* 💻 TABLETS GRANDES - min-width: 769px hasta 1065px */
+@media (min-width: 769px) and (max-width: 1065px) {
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  #nav-menu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  #nav-menu ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .logo {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+
+  .language-dropdown {
+    margin-left: auto;
+    min-width: 130px;
+  }
+
+  nav#nav-menu ul>li:nth-child(3) a.btn-cta.especial {
+    padding: 0.6em 1.5em;
+    border-radius: 30px;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.7);
+  }
+}
+
+
+
+
+/* 💻 ESCRITORIO - min-width: 769px */
+@media (min-width: 769px) {
+  #nav-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+  }
+
+  #nav-menu ul.navbar {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #nav-menu ul.navbar li a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .header-actions {
+    display: flex;
+  }
+
+  .language-dropdown {
+    display: block;
+  }
+
+  .language-dropdown-mobile {
+    display: none;
+  }
+
+  .search-btn-desktop {
+    display: inline-flex;
+  }
+
+  .top-mobile-actions {
+    display: none;
+  }
+
+
+}

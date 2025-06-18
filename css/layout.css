@@ -1,0 +1,16 @@
+/* Nueva estructura del header */
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 2rem;}
+
+footer a {
+  text-decoration: none;}
+
+header nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
