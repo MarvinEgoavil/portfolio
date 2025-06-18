@@ -39,13 +39,15 @@ Un espacio cósmico donde la tecnología, el arte y la creatividad se encuentran
 
 ## 🗂 Estructura del proyecto
 
+```
 /
-├── assets/ # Imágenes, íconos, ovnis, emojis, etc.
-├── css/ # Hojas de estilo (modular)
-├── js/ # Scripts JS (modular)
-├── json/i18n/ # Archivos de traducción
-├── index.html # Archivo principal
+├── assets/        # Imágenes, íconos, ovnis, emojis, etc.
+├── css/           # Hojas de estilo (modular)
+├── js/            # Scripts JS (modular)
+├── json/i18n/     # Archivos de traducción
+├── index.html     # Archivo principal
 └── README.md
+```
 
 ---
 
