@@ -33,7 +33,7 @@ Un espacio cósmico donde la tecnología, el arte y la creatividad se encuentran
 
 ## 📸 Vista previa
 
-![Screenshot](./preview.png) <!-- Puedes subir una captura como preview.png -->
+![Screenshot](assets/preview.jpg) <!-- Puedes subir una captura como preview.png -->
 
 ---
 
