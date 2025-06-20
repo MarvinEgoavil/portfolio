@@ -1,29 +1,29 @@
 export function iniciarIdioma() {
-  const languageBtn = document.getElementById('language-btn');
-  const languageList = document.getElementById('language-list');
-  const selectedLanguage = document.getElementById('selected-language');
-  const selectedLanguageMobile = document.getElementById('selected-language-mobile');
-  const langOptions = document.querySelectorAll('#language-list li button.lang-option');
+  // Referencias móviles y escritorio
+  const menus = [
+    {
+      btn: document.getElementById('language-btn'),
+      list: document.getElementById('language-list'),
+      selected: document.getElementById('selected-language'),
+    },
+    {
+      btn: document.getElementById('language-btn-desktop'),
+      list: document.getElementById('language-list-desktop'),
+      selected: document.getElementById('selected-language-desktop'),
+    }
+  ];
 
   const i18nElements = document.querySelectorAll('[data-i18n]');
   const i18nPlaceholders = document.querySelectorAll('[data-i18n-placeholder]');
 
-  const setAriaExpanded = (el, expanded) => {
-    if (el) el.setAttribute('aria-expanded', String(expanded));
-  };
-
   const actualizarVisualmenteIdioma = (lang, flagClass) => {
-    const texto = lang.toUpperCase();
-    if (selectedLanguage) selectedLanguage.textContent = texto;
-    if (selectedLanguageMobile) selectedLanguageMobile.textContent = texto;
-
-    const flagIcon = selectedLanguage?.previousElementSibling;
-    const mobileFlagIcon = selectedLanguageMobile?.previousElementSibling;
-
-    const claseBandera = flagClass?.split(' ').find(cls => cls.startsWith('fi-')) || '';
-
-    if (flagIcon) flagIcon.className = `fi ${claseBandera}`;
-    if (mobileFlagIcon) mobileFlagIcon.className = `fi ${claseBandera}`;
+    menus.forEach(menu => {
+      if (menu.selected) {
+        menu.selected.textContent = lang.toUpperCase();
+        const flagIcon = menu.selected.previousElementSibling;
+        if (flagIcon) flagIcon.className = `fi ${flagClass}`;
+      }
+    });
   };
 
   const cargarIdioma = async (lang, flagClass) => {
@@ -35,7 +35,6 @@ export function iniciarIdioma() {
         const key = el.getAttribute('data-i18n');
         if (translations[key]) el.innerText = translations[key];
       });
-
       i18nPlaceholders.forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
         if (translations[key]) el.setAttribute('placeholder', translations[key]);
@@ -50,50 +49,57 @@ export function iniciarIdioma() {
 
   // Restaurar idioma guardado
   const langGuardado = localStorage.getItem('language') || 'es';
-  setTimeout(() => {
-    const btnGuardado = document.querySelector(`#language-list li[data-lang="${langGuardado}"] button`);
-    const flagClass = btnGuardado?.querySelector('span')?.className || '';
-    if (btnGuardado) btnGuardado.click();
-    cargarIdioma(langGuardado, flagClass);
-  }, 10);
 
-  // Listeners de interfaz
-  if (languageBtn && languageList && selectedLanguage) {
-    languageBtn.addEventListener('click', (e) => {
+  menus.forEach(menu => {
+    if (!menu.btn || !menu.list) return;
+    // Listener abrir/cerrar menú
+    menu.btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const isHidden = languageList.hasAttribute('hidden');
-      languageBtn.setAttribute('aria-expanded', String(isHidden));
-      isHidden ? languageList.removeAttribute('hidden') : languageList.setAttribute('hidden', '');
+      const isHidden = menu.list.hasAttribute('hidden');
+      menu.btn.setAttribute('aria-expanded', String(isHidden));
+      isHidden ? menu.list.removeAttribute('hidden') : menu.list.setAttribute('hidden', '');
     });
 
     document.addEventListener('click', (e) => {
-      if (!languageBtn.contains(e.target) && !languageList.contains(e.target)) {
-        languageList.setAttribute('hidden', '');
-        setAriaExpanded(languageBtn, false);
+      if (!menu.btn.contains(e.target) && !menu.list.contains(e.target)) {
+        menu.list.setAttribute('hidden', '');
+        menu.btn.setAttribute('aria-expanded', 'false');
       }
     });
 
-    langOptions.forEach(btn => {
+    // Listener idioma
+    menu.list.querySelectorAll('li button.lang-option').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const li = btn.closest('li');
         const lang = li?.getAttribute('data-lang');
         const flagClass = btn.querySelector('span')?.className || '';
-
         if (!lang) return;
 
-        langOptions.forEach(b => b.classList.remove('active-lang'));
-        document.querySelectorAll('#language-list li').forEach(li => li.setAttribute('aria-selected', 'false'));
+        // Marca seleccionado en ambos menús
+        menus.forEach(m => {
+          m.list.querySelectorAll('li button.lang-option').forEach(b => b.classList.remove('active-lang'));
+          m.list.querySelectorAll('li').forEach(li => li.setAttribute('aria-selected', 'false'));
+        });
 
         btn.classList.add('active-lang');
         li?.setAttribute('aria-selected', 'true');
-
-        languageList.setAttribute('hidden', '');
-        setAriaExpanded(languageBtn, false);
+        menu.list.setAttribute('hidden', '');
+        menu.btn.setAttribute('aria-expanded', 'false');
 
         localStorage.setItem('language', lang);
         cargarIdioma(lang, flagClass);
       });
     });
-  }
+  });
+
+  // Inicializa el idioma visualmente
+  setTimeout(() => {
+    menus.forEach(menu => {
+      const btnGuardado = menu.list.querySelector(`li[data-lang="${langGuardado}"] button`);
+      const flagClass = btnGuardado?.querySelector('span')?.className || '';
+      if (btnGuardado) btnGuardado.click();
+      // cargarIdioma(langGuardado, flagClass); // Quita esto si usas click()
+    });
+  }, 10);
 }

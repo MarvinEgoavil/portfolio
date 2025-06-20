@@ -25,6 +25,7 @@ export function configurarSidebarMovil() {
     overlay.classList.add("show");
     setHamburgerOpen(true);
     actualizarAriaExpanded(true);
+    document.body.classList.add("sidebar-abierto");    // 👈 NUEVO
   };
 
   const cerrarSidebar = () => {
@@ -32,6 +33,7 @@ export function configurarSidebarMovil() {
     overlay.classList.remove("show");
     setHamburgerOpen(false);
     actualizarAriaExpanded(false);
+    document.body.classList.remove("sidebar-abierto"); // 👈 NUEVO
   };
 
   const cerrarTodosLosSubmenus = () => {
@@ -55,7 +57,13 @@ export function configurarSidebarMovil() {
   });
 
   closeBtn?.addEventListener("click", cerrarSidebar);
-  overlay?.addEventListener("click", cerrarSidebar);
+
+  // CAMBIO CLAVE: solo cierra si el click fue sobre el overlay (no sobre el sidebar)
+  overlay?.addEventListener("click", function (e) {
+    if (e.target === overlay) {
+      cerrarSidebarYSubmenus();
+    }
+  });
 
   document.querySelectorAll(".sidebar-menu a").forEach((enlace) =>
     enlace.addEventListener("click", cerrarSidebarYSubmenus)
