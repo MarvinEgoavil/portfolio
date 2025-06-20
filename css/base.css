@@ -1,6 +1,6 @@
 /* === BASE.CSS === */
 
-/* Reset básico */
+/* --- RESET Y BASE GLOBAL --- */
 * {
   margin: 0;
   padding: 0;
@@ -9,71 +9,173 @@
 
 html,
 body {
-  height: 100%;
   font-family: 'Arial', sans-serif;
   color: white;
   scroll-behavior: smooth;
-  max-width: 100%;
   overflow-x: hidden;
   user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 
-
-/* Fondo Vanta */
 #background {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   z-index: -1;
 }
 
-/* Sidebar */
+/* --- SIDEBAR Y OVERLAY --- */
 .sidebar {
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
   position: fixed;
   top: 0;
   left: 0;
-  right: auto;
-  width: 100vw;
+  width: 60vw;
+  max-width: 340px;
   height: 100vh;
-  background: #111;
+  background: var(--sidebar-bg, #181824);
   color: white;
-  z-index: 999;
+  z-index: 3100;
+  /* más alto que el overlay */
   padding: 1rem;
-  transition: left 0.3s ease, transform 0.3s ease;
+  transition: transform 0.3s ease;
   transform: translateX(-100%);
-  box-shadow: 4px 0 12px rgba(0,0,0,0.5);
+  box-shadow: 2px 0 32px 0 rgba(0, 0, 0, 0.15);
 }
 
 .sidebar.open {
   transform: translateX(0);
-  
+  display: block;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;            /* Espaciado entre elementos */
+  padding: 0.2rem 1.3rem 0.5rem 2.8rem;  /* Arriba, derecha, abajo, izquierda */
+  background: transparent;
+  z-index: 1;
+  position: relative;
+}
+
+
+.sidebar-glow-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 90px;
+  background: radial-gradient(circle at 50% 60%, #a259ffcc 0%, #6d1b7bcc 100%, transparent 80%);
+  filter: blur(38px);
+  opacity: 0.87;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.sidebar-avatar,
+.sidebar-menu-title {
+  position: relative;
+  z-index: 2;
+}
+.sidebar-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 20px;
+ 
+}
+
+.sidebar-menu-title {
+  font-family: 'Orbitron', Arial, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Estilo para la raya separadora */
+#sidebar hr {
+  margin: 0.7rem 0 1rem 0;
+  border: none;
+  border-top: 1.5px solid #42366d;
+  opacity: 0.7;
 }
 
 .sidebar-logo {
   font-size: 1.4rem;
   font-weight: bold;
-
 }
 
-/* Sidebar Menu */
+/* --- Overlay para oscurecer el fondo al abrir sidebar --- */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  /* opacidad ajustable */
+  z-index: 3000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.overlay.show {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.sidebar-abierto {
+  overflow: hidden;
+  /* bloquea scroll en fondo */
+}
+
+body.sidebar-abierto .social-menu {
+  display: none !important;
+  /* oculta menú social cuando sidebar abierto */
+}
+
+/* --- SIDEBAR MENÚ --- */
+.sidebar-menu {
+  flex: 1 1 auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .sidebar-menu li {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
 }
 
-/* Sidebar link hover animación */
-.sidebar-menu a:hover {
-  color: #a86cf7;
-  
+.sidebar-menu li i.fas {
+  margin-right: 10px;
+  font-size: 1.2em;
+  vertical-align: middle;
 }
 
-/* Redes Sociales sidebar */
+.sidebar-menu a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-size: 1rem;
+  display: inline-block;
+  width: 100%;
+}
+
+/* --- SOCIAL MENU (vertical de redes sociales) --- */
 .social-menu {
   position: fixed;
   top: 40%;
@@ -82,30 +184,86 @@ body {
   flex-direction: column;
   gap: 12px;
   z-index: 1000;
-  
+  animation: slideInUp 1s ease-out forwards;
 }
+
 .social-menu a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: var(--icon-size, 40px);
+  height: var(--icon-size, 40px);
   border: 2px solid white;
   border-radius: 50%;
   color: white;
-  text-decoration: none;
   font-size: 16px;
-  transition: transform 0.3s, background 0.3s;
-  background-color: transparent;
+  background: transparent;
+  text-decoration: none;
+  transition: transform 0.3s, background 0.3s, border-color 0.3s, color 0.3s;
 }
 
+.social-menu a:hover .fa-instagram {
+  color: #E4405F;
+}
+
+.social-menu a:hover .fa-linkedin-in {
+  color: #0077B5;
+}
+
+.social-menu a:hover .fa-github {
+  color: #6e5494;
+}
+
+.social-menu a:hover .fa-blogger-b {
+  color: #ff8000;
+}
 
 .social-menu a:hover {
+  border-color: currentColor;
   transform: scale(1.2);
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Nombre "MARVIN" animado */
+.social-menu a:focus {
+  outline: 2px solid var(--accent, #a86cf7);
+  outline-offset: 2px;
+}
+
+/* --- HEADER Y NAVBAR --- */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* --- NOMBRE ANIMADO Y HACKER ICON --- */
+.name-with-hacker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.marvin-wrap {
+  position: relative;
+  display: inline-block;
+  width: max-content;
+  font-family: 'Orbitron', sans-serif;
+  margin: auto;
+  overflow: visible;
+}
+
 .marvin-name {
   display: flex;
   font-size: 2rem;
@@ -121,10 +279,8 @@ body {
   text-align: center;
   position: relative;
   z-index: 1;
-  
 }
 
-/* Ícono hacker que sube y teclea */
 .hacker-icon {
   width: 40px;
   height: 40px;
@@ -133,7 +289,6 @@ body {
   animation: appearAndType 2s ease-out forwards, typeEffect 1.2s 2.1s infinite;
 }
 
-/* OVNI animación */
 .spaceship {
   position: absolute;
   top: 0;
@@ -146,7 +301,6 @@ body {
   animation: flyWave 6s ease-in-out infinite alternate;
 }
 
-/* Rayo OVNI */
 .beam {
   position: absolute;
   top: 80%;
@@ -154,7 +308,7 @@ body {
   transform: translateX(-50%);
   width: 8px;
   height: 50px;
-  background: linear-gradient(to bottom, rgba(255,255,0,0.6), transparent);
+  background: linear-gradient(to bottom, rgba(255, 255, 0, 0.6), transparent);
   opacity: 0;
   animation: beamFlash 6s infinite;
   z-index: -1;
@@ -162,7 +316,6 @@ body {
   pointer-events: none;
 }
 
-/* Partículas de luz */
 .particles {
   position: absolute;
   top: 50%;
@@ -175,27 +328,25 @@ body {
   box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;
   animation: tailParticles 0.3s linear infinite;
   pointer-events: none;
-   z-index: 0;
-  
+  z-index: 0;
 }
 
-
-
-
-/* Navbar estructura principal */
+/* --- NAVBAR MENU PRINCIPAL --- */
 .navbar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
   gap: 2rem;
-  
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
 }
+
 #nav-menu {
   flex: 1;
   display: flex;
   justify-content: center;
 }
+
 #nav-menu ul {
   display: flex;
   gap: 2.5rem;
@@ -203,9 +354,11 @@ body {
   padding: 0;
   margin: 0;
 }
+
 #nav-menu li {
   position: relative;
 }
+
 #nav-menu li a {
   color: white;
   font-weight: bold;
@@ -213,54 +366,92 @@ body {
   font-size: 1rem;
   transition: color 0.3s ease;
 }
+
 #nav-menu li a:hover {
   color: #a86cf7;
 }
-#nav-menu li:hover > .submenu {
+
+/* Submenús */
+#nav-menu li .submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 180px;
+  max-width: 90vw;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.4s, transform 0.3s, visibility 0.3s;
+  max-height: 280px;
+  overflow-y: auto;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+#nav-menu li:hover>.submenu,
+#nav-menu li .submenu.open {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-}
-#nav-menu .submenu li a:hover {
-  background-color: #a86cf7;
-  color: white;
-  border-radius: 4px;
-}
-
-/* Submenús animación (no helpers, solo para abrir/cerrar) */
-.submenu.open {
   display: block;
   max-height: 500px;
-  
 }
+
+#nav-menu .submenu li a {
+  display: block;
+  padding: 0.5rem 1.2rem;
+  color: white;
+  font-size: 0.95rem;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+#nav-menu li.has-submenu>a::after {
+  content: ' ▼';
+  font-size: 0.65em;
+  margin-left: 0.3em;
+}
+
+.submenu-arrow {
+  transition: transform 0.3s;
+  margin-left: 0.3em;
+}
+
 .submenu-toggle.open .submenu-arrow {
   transform: rotate(180deg);
 }
-.submenu-toggle {
-  cursor: pointer;
-  
-}
 
-/* Overlay al abrir sidebar */
-.overlay.show {
-  visibility: visible;
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* Logo animación */
-.logo {
-  font-size: 2em;
-  font-weight: 700;
+/* --- HERO, SOBRE MI, SECCIONES --- */
+.hero h1 {
+  font-size: clamp(1.5rem, 5vw, 3em);
+  margin-bottom: 0.5em;
   color: white;
-  letter-spacing: 2px;
-  text-shadow: 0 0 10px rgba(138,43,226,0.5);
-  font-family: 'Segoe UI', sans-serif;
-  animation: appearAndType 1s ease forwards;
+  padding: 0 1rem;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
 }
 
+.hero p {
+  font-size: clamp(1rem, 3vw, 1.3em);
+  margin-bottom: 1em;
+  max-width: 90vw;
+  padding: 0 1rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
 
-/* Sobre-mi */
+h1,
+h2 {
+  margin-bottom: 1em;
+}
 
 #sobre-mi {
   display: flex;
@@ -278,46 +469,7 @@ body {
   margin-bottom: 0.6em;
 }
 
-/* Fin de Sobre-mi */
-
-
-
-.hero h1 {
-  font-size: clamp(1.5rem, 5vw, 3em);
-  /* tamaño responsivo */
-  margin-bottom: 0.5em;
-  color: white;
-  padding: 0 1rem;
-  /* evita que toque bordes */
-
-  white-space: normal;
-  /* permite salto de línea */
-  overflow-wrap: break-word;
-  word-break: break-word;
-  max-width: 100%;
-}
-
-.hero p {
-  font-size: clamp(1rem, 3vw, 1.3em);
-  margin-bottom: 1em;
-  max-width: 90vw;
-  /* ancho máximo para que no se salga */
-  padding: 0 1rem;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-
-/*  fin de Zona Hero */
-
-
-h1,
-h2 {
-  margin-bottom: 1em;
-}
-
-/* Proyectos */
-
+/* --- PROYECTOS, CERTIFICACIONES, TESTIMONIOS --- */
 #proyectos {
   margin-top: 4em;
 }
@@ -336,7 +488,7 @@ h2 {
   padding: 1.5rem;
   max-width: 300px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s, box-shadow 0.3s;
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -354,13 +506,10 @@ h2 {
   color: #fff;
   border-radius: 8px;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s;
 }
 
-/* Fin de Proyectos */
-
-/* certificados */
-
+/* --- CERTIFICACIONES --- */
 .certificaciones-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -373,7 +522,7 @@ h2 {
   border-radius: 16px;
   padding: 1.5rem;
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -383,16 +532,20 @@ h2 {
   margin-bottom: 1rem;
 }
 
-/* fin de certificados */
-
-/* Testimonios */
-
-.testimonios-grid {
+/* --- TESTIMONIOS --- */
+.seccion-testimonios {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2em;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 2em;
+  align-items: center;
+}
+
+.grid-testimonios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 1rem;
+  justify-content: center;
 }
 
 .testimonial {
@@ -404,7 +557,7 @@ h2 {
   text-align: center;
   backdrop-filter: blur(8px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s;
 }
 
 .testimonial img {
@@ -419,9 +572,90 @@ h2 {
   margin-bottom: 1em;
 }
 
-/* Fin de Testimonio */
+/* --- FORMULARIO TESTIMONIO --- */
+.testimonio-form {
+  width: 100%;
+  max-width: 480px;
+  margin: 2rem auto 0 auto;
+  background: transparent;
+}
 
-/* Contacto */
+.testimonio-form fieldset {
+  border: 2px solid #fff6;
+  border-radius: 1.2em;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: rgba(24, 0, 40, 0.3);
+  box-sizing: border-box;
+}
+
+.testimonio-form input,
+.testimonio-form textarea {
+  width: 100%;
+  border: none;
+  border-radius: 0.9em;
+  padding: 1em 1.1em;
+  font-size: 1.08em;
+  background: rgba(180, 90, 254, 0.09);
+  color: #fff;
+  outline: none;
+  box-sizing: border-box;
+  transition: box-shadow 0.18s;
+}
+
+.testimonio-form input:focus,
+.testimonio-form textarea:focus {
+  box-shadow: 0 0 0 2px #a560fe80;
+}
+
+.testimonio-form .form-hint {
+  font-size: 0.99em;
+  color: #ddd;
+  margin-top: 0.4em;
+  margin-bottom: 0.2em;
+  text-align: left;
+  line-height: 1.35;
+  display: block;
+}
+
+.testimonio-form button[type="submit"] {
+  display: block;
+  margin: 1.1em auto 0 auto;
+  padding: 0.7em 2.2em;
+  background: linear-gradient(90deg, #ae52fe 60%, #6c0fe0 100%);
+  color: #fff;
+  font-size: 1.19em;
+  font-weight: bold;
+  border: none;
+  border-radius: 1em;
+  box-shadow: 0 3px 16px #7700d522;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.14s;
+}
+
+.testimonio-form button[type="submit"]:hover,
+.testimonio-form button[type="submit"]:focus {
+  background: linear-gradient(90deg, #c98fff 40%, #a560fe 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* --- CONTACTO --- */
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.contact-info-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
 
 .contacto-info {
   margin-top: 2em;
@@ -446,231 +680,7 @@ h2 {
   margin-right: 0.3em;
 }
 
-/* fin de Contacto */
-
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease;
-  z-index: 998;
-  pointer-events: none;
-}
-
-/* Logo */
-header .logo {
-  text-align: left;
-  font-size: 1.5rem;
-  margin-left: 1rem;
-}
-
-
-
-
-nav#nav-menu ul>li:nth-child(3) a.btn-cta.especial {
-  padding: 0.6em 1.5em;
-  border-radius: 30px;
-  box-shadow: 0 0 15px rgba(138, 43, 226, 0.7);
-}
-
-
-/* NUEVO: Ajustes hamburguesa */
-
-
-
-
-
-/* icono de logo */
-/* Contenedor general del ícono + nombre */
-.name-with-hacker {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  overflow: hidden;
-  position: relative;
-}
-
-/* Contenedor del nombre Marvin */
-.marvin-wrap {
-  position: relative;
-  display: inline-block;
-  width: max-content;
-  font-family: 'Orbitron', sans-serif;
-  margin: auto;
-  overflow: visible;
-}
-
-.submenu {
-  display: none;
-  list-style: none;
-  padding-left: 1.5em;
-  margin-top: 0.5em;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-
-.submenu-arrow {
-  transition: transform 0.3s ease;
-  margin-left: 0.3em;
-}
-
-.submenu-toggle>span {
-  margin-left: 8px;
-}
-
-.sidebar-menu li i.fas.fa-certificate {
-  margin-right: 10px;
-  /* separa el icono del texto */
-  font-size: 1.2em;
-  /* opcional: agranda un poco el icono para que se vea mejor */
-  vertical-align: middle;
-}
-
-.sidebar-menu li i.fas {
-  margin-right: 10px;
-  vertical-align: middle;
-}
-
-/* Removed duplicate .overlay definition to prevent conflicts */
-
-.sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.sidebar-icons button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.2rem;
-  margin-left: 1rem;
-  cursor: pointer;
-}
-
-.sidebar-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar-menu li {
-  display: flex;
-  align-items: center;
-  padding: 1rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.sidebar-menu i {
-  width: 24px;
-  font-size: 1.1rem;
-  text-align: center;
-}
-
-
-.sidebar-menu a {
-  color: white;
-  text-decoration: none;
-  margin-left: 1rem;
-  font-size: 1rem;
-  display: inline-block;
-  width: 100%;
-}
-
-/* fin de Redes sociales menu vertical */
-
-/* INICIO DE HEADER NAVBAR */
-
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(12px);
-  z-index: 999;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-}
-
+/* --- UTILS --- */
 .hidden {
   display: none;
-}
-
-
-
-#nav-menu li .submenu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 180px;
-  max-width: 90vw;
-  overflow-x: auto;
-  /* 👈 ya no es necesario si usas scroll vertical */
-  white-space: nowrap;
-  z-index: 1000;
-  background: rgba(0, 0, 0, 0.85);
-  border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: opacity 0.4s ease, transform 0.3s ease, visibility 0.3s;
-  /* ✅ Estos son los cambios que solucionan todo */
-  max-height: 280px;
-  /* límite visual elegante */
-  overflow-y: auto;
-  white-space: nowrap;
-}
-
-#nav-menu li .submenu li a {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-}
-
-#nav-menu .submenu li a {
-  display: block;
-  padding: 0.5rem 1.2rem;
-  color: white;
-  font-size: 0.95rem;
-  text-decoration: none;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%;
-}
-
-#nav-menu li.has-submenu>a::after {
-  content: ' ▼';
-  font-size: 0.65em;
-  margin-left: 0.3em;
-}
-
-.seccion-testimonios {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.grid-testimonios {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  padding: 2rem 1rem;
-  justify-content: center;
 }

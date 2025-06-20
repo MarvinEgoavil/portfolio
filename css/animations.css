@@ -242,15 +242,13 @@ ul.letras-humo li:nth-child(17) {
 
 
 .hamburger.open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(10px, 10px); /* Dezplaza 8 pixeles a la derecha y 8 hacia abajo*/
 }
-
 .hamburger.open span:nth-child(2) {
   opacity: 0;
 }
-
 .hamburger.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
+  transform: rotate(-45deg) translate(8px, -8px);
 }
 
 /* fin menu hamburguesa animación */
@@ -271,4 +269,9 @@ ul.letras-humo li:nth-child(17) {
   100% {
     box-shadow: 0 0 28px 6px #b388ff80, 0 0 52px 7px #915ee990;
   }
+}
+
+@keyframes dropOpen {
+  from { transform: translateY(-10px); opacity: 0.2; }
+  to   { transform: translateY(0);     opacity: 1; }
 }

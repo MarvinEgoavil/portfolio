@@ -1,14 +1,33 @@
+// submenus.js
+
 export function configurarSubmenus() {
-  const toggles = document.querySelectorAll('.submenu-toggle');
+  // Encuentra todos los botones/enlaces que abren submenús
+  document.querySelectorAll('.submenu-toggle').forEach(toggle => {
+    const submenuId = toggle.getAttribute('aria-controls');
+    const submenu = document.getElementById(submenuId);
 
-  toggles.forEach(toggle => {
-    toggle.addEventListener('click', () => {
-      const submenu = toggle.nextElementSibling;
-      submenu.classList.toggle('open');
-      toggle.classList.toggle('open');
+    if (!submenu) return; // Por si acaso
 
-      const expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!expanded));
+    toggle.addEventListener('click', e => {
+      e.preventDefault();
+
+      // Alternar visibilidad y accesibilidad
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', !isOpen);
+      submenu.hidden = isOpen; // hidden = true lo oculta, false lo muestra
+
+      // Si quieres cerrar otros submenús al abrir uno (opcional)
+      // document.querySelectorAll('.submenu-toggle').forEach(otherToggle => {
+      //   if (otherToggle !== toggle) {
+      //     otherToggle.setAttribute('aria-expanded', 'false');
+      //     const otherSubmenu = document.getElementById(otherToggle.getAttribute('aria-controls'));
+      //     if (otherSubmenu) otherSubmenu.hidden = true;
+      //   }
+      // });
     });
+
+    // Por accesibilidad, que empiecen ocultos
+    submenu.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
   });
 }
