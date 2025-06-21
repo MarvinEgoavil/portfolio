@@ -930,7 +930,7 @@ footer .firma:hover {
 .direccion-titulo {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #e200f6;
+  color: #ffffff;
   margin-bottom: 0.4rem;
   display: flex;
   align-items: center;
@@ -963,7 +963,7 @@ footer .firma:hover {
 }
 
 .contact-form h3 {
-  color: #e200f6;
+  color: #ffffff;
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 8px;
@@ -994,8 +994,8 @@ footer .firma:hover {
 }
 
 .contact-form button[type="submit"] {
-  background: #e200f6;
-  color: #232323;
+  background: linear-gradient(90deg, #ae52fe 60%, #6c0fe0 100%);
+  color: #ffffff;
   border: none;
   padding: 13px 0;
   font-weight: 700;
@@ -1008,7 +1008,7 @@ footer .firma:hover {
   letter-spacing: 0.04em;
 }
 .contact-form button[type="submit"]:hover {
-  background: #cc00ff;
+  background:linear-gradient(90deg, #560e95 60%, #6c0fe0 100%);
   color: #ffffff;
 }
 

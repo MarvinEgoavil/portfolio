@@ -15,6 +15,7 @@ app.get('/mensajes', (req, res) => {
   res.json(mensajes);
 });
 
+
 app.post('/contacto', (req, res) => {
   const { nombre, email, mensaje } = req.body;
   if (!nombre || !email || !mensaje) {
