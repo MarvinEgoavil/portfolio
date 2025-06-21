@@ -45,5 +45,5 @@ app.get('/mensajes', (req, res) => {
   res.json(mensajes);
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`API corriendo en el puerto ${PORT}`));
