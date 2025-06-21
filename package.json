@@ -1,0 +1,26 @@
+{
+  "name": "marvinegoavil",
+  "version": "1.0.0",
+  "description": "[![Status](https://img.shields.io/badge/status-en%20desarrollo-purple)](https://www.marvinegoavil.com)\r [![Website](https://img.shields.io/badge/web-marvinegoavil.com-black?logo=vercel)](https://www.marvinegoavil.com)\r [![GitHub](https://img.shields.io/badge/GitHub-MarvinEgoavil-181717?logo=github)](https://github.com/MarvinEgoavil)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarvinEgoavil/portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MarvinEgoavil/portfolio/issues"
+  },
+  "homepage": "https://github.com/MarvinEgoavil/portfolio#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "nodemailer": "^7.0.3"
+  }
+}

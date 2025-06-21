@@ -1,6 +1,7 @@
-
 export function iniciarVantaFondo() {
-  if (window.innerWidth > 768) { // solo en pantallas grandes
+
+    let vantaLoaded = false;
+
     VANTA.NET({
       el: "#background",
       mouseControls: true,
@@ -13,12 +14,20 @@ export function iniciarVantaFondo() {
       backgroundColor: 0x000000,
       points: 12.0,
       maxDistance: 20.0,
-      spacing: 16.0
+      spacing: 16.0,
+      onLoad: function () {
+        vantaLoaded = true;
+        document.getElementById('background').classList.add('vanta-loaded');
+      }
     });
 
-    // Aseguramos el render con un pequeño resize
-    setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
-  }
-}
+    // Fallback: si en 2 segundos Vanta no carga, oculta igual el fondo artístico
+    setTimeout(() => {
+      if (!vantaLoaded) {
+        document.getElementById('background').classList.add('vanta-loaded');
+      }
+    }, 2000);
 
+    setTimeout(() => window.dispatchEvent(new Event('resize')), 150);
+  }
 
