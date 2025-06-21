@@ -4,6 +4,9 @@ import { configurarSubmenus } from './submenus.js';
 import { iniciarIdioma } from './idiomas.js';
 import { iniciarVantaFondo } from './vanta-config.js';
 import { iniciarFirebase } from './firebase.js';
+import { inicializarMapaContacto } from './mapa.js';  
+import { inicializarFormularioContacto} from './formulario.js';
+
 
 // 🚀 INICIALIZACIÓN AL CARGAR DOM
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
   iniciarIdioma();
   iniciarVantaFondo();
   iniciarFirebase();
+  inicializarMapaContacto();
+  inicializarFormularioContacto();
 
   // --- Limpiar buscador al hacer focus y restaurar comportamiento UX ---
   const buscador = document.querySelector('.buscador-seccion input');

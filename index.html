@@ -25,9 +25,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
-
-
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script type="application/ld+json">
+
+
+
   {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -60,14 +63,16 @@
 </head>
 
 <body>
+  <!-- ✅ Fondo Vanta.js -->
+  <div id="background"></div>
+
   <div id="overlay" class="overlay"></div>
   <a href="#inicio" class="skip-link sr-only" data-i18n="skip_to_content">Saltar al contenido principal</a>
 
 
 
 
-  <!-- ✅ Fondo Vanta.js -->
-  <div id="background"></div>
+
 
   <!-- 🔽 Empieza tu header real -->
   <header>
@@ -76,7 +81,7 @@
     <div id="sidebar" class="sidebar">
 
       <div class="sidebar-header">
-    
+
         <img src="/assets/favicon.png" alt="Logo Marvin" class="sidebar-avatar" />
         <span class="sidebar-menu-title">Menu</span>
       </div>
@@ -146,7 +151,7 @@
 
 
     <div class="navbar-container">
-     <div class="sidebar-glow-bg"></div>
+      <div class="sidebar-glow-bg"></div>
       <!-- IZQUIERDA: Logo y nombre -->
       <div class="name-with-hacker">
         <img src="/assets/favicon.png" alt="Icono de Marvin, desarrollador y artista" class="hacker-icon" loading="lazy"
@@ -504,29 +509,50 @@
         <li>t</li>
         <li>o</li>
       </ul>
-      <div class="cosmic-contact-card" role="region" aria-label="Información de contacto">
 
+      <div class="cosmic-contact-card" role="region" aria-label="Información de contacto">
         <div class="contact-row">
           <span class="icon-bg pulseGlow"><i class="fas fa-envelope"></i></span>
           <div class="contact-info-row">
-            <span class="label">Correo:</span>
+            <span class="label" data-i18n="contacto_correo_label">Correo:</span>
             <a href="mailto:marvinegoavilz@gmail.com" class="contact-link correo">marvinegoavilz@gmail.com</a>
           </div>
         </div>
-
         <hr class="contact-separator">
-
         <div class="contact-row">
           <span class="icon-bg pulseGlow"><i class="fas fa-phone-alt"></i></span>
           <div class="contact-info-row">
-            <span class="label">Teléfono:</span>
+            <span class="label" data-i18n="contacto_telefono_label">Teléfono:</span>
             <a href="tel:+34722516228" class="contact-link">722 516 228</a>
           </div>
         </div>
-
       </div>
 
+      <div class="cosmic-contact-extra">
+        <div class="contact-location">
+          <h3 class="direccion-titulo">
+            <i class="fas fa-map-marker-alt"></i> <span data-i18n="contacto_ubicacion_label">Ubicación</span>
+          </h3>
+          <p data-i18n="contacto_direccion">P.º de Alberto Palacios, 2, 28021 Madrid</p>
+          <div class="map-container">
+            <div id="mi-mapa"></div>
+          </div>
+        </div>
+        <form id="contact-form" class="contact-form">
+          <h3 data-i18n="contacto_form_titulo">Envíame un mensaje</h3>
+          <input type="text" name="nombre" placeholder="Tu nombre" required
+            data-i18n-placeholder="contacto_form_nombre_placeholder">
+          <input type="email" name="email" placeholder="Tu correo electrónico" required
+            data-i18n-placeholder="contacto_form_email_placeholder">
+          <textarea name="mensaje" placeholder="Tu mensaje" required
+            data-i18n-placeholder="contacto_form_mensaje_placeholder"></textarea>
+          <button type="submit" data-i18n="contacto_form_boton">Enviar</button>
+          <div id="form-contacto-respuesta" class="form-respuesta"></div>
+        </form>
+      </div>
     </section>
+
+
   </main>
 
   <footer>
