@@ -2,10 +2,10 @@
   "name": "marvinegoavil",
   "version": "1.0.0",
   "description": "[![Status](https://img.shields.io/badge/status-en%20desarrollo-purple)](https://www.marvinegoavil.com)\r [![Website](https://img.shields.io/badge/web-marvinegoavil.com-black?logo=vercel)](https://www.marvinegoavil.com)\r [![GitHub](https://img.shields.io/badge/GitHub-MarvinEgoavil-181717?logo=github)](https://github.com/MarvinEgoavil)",
-  "main": "api/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node api/index.js"
+    "start": "index.js"
   },
   "repository": {
     "type": "git",
