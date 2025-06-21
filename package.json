@@ -4,7 +4,8 @@
   "description": "[![Status](https://img.shields.io/badge/status-en%20desarrollo-purple)](https://www.marvinegoavil.com)\r [![Website](https://img.shields.io/badge/web-marvinegoavil.com-black?logo=vercel)](https://www.marvinegoavil.com)\r [![GitHub](https://img.shields.io/badge/GitHub-MarvinEgoavil-181717?logo=github)](https://github.com/MarvinEgoavil)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
