@@ -25,7 +25,7 @@ app.post('/contacto', async (req, res) => {
 
   mensajes.push({ nombre, email, mensaje, fecha: new Date() });
 
-  const mailOptions = {
+  /* const mailOptions = {
     from: `"Portfolio Marvin" <marvinegoavilz@gmail.com>`, // <--- tu correo
     to: 'marvinegoavilz@gmail.com',                        // <--- tu correo
     subject: 'Nuevo mensaje de tu portfolio',
@@ -39,10 +39,9 @@ app.post('/contacto', async (req, res) => {
     console.error('Error al enviar email:', err);
     res.status(500).json({ error: 'No se pudo enviar el mensaje.' });
   }
-});
+}); */
 
-app.get('/mensajes', (req, res) => {
-  res.json(mensajes);
+  res.json({ mensaje: '¡Mensaje recibido (sin email)!' }); // <--- RESPUESTA AQUÍ
 });
 
 const PORT = process.env.PORT || 8080;
