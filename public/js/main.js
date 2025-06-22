@@ -46,3 +46,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+/* Capturando el token */ 
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('contact-form');
+  const recaptchaInput = document.getElementById('recaptcha-token');
+
+  if (!form) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevenir envío normal
+
+    grecaptcha.ready(() => {
+      grecaptcha.execute('6Ld9TWkrAAAAAC_JVShrurJmr29KzKJ7pDSLajkH', {action: 'submit'})
+        .then(token => {
+          recaptchaInput.value = token; // Poner token en el input hidden
+          form.submit(); // Ahora sí envía el formulario con el token incluido
+        });
+    });
+  });
+});

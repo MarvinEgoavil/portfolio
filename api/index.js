@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
@@ -10,15 +11,20 @@ app.use(cors({
   origin: [
     'https://www.marvinegoavil.com',
     'https://marvinegoavil.com',
-    'http://127.0.0.1:5501'
+    'http://127.0.0.1:5501',
+    'https://portfolio-production-72ed.up.railway.app'
   ],
   methods: ['GET', 'POST']
 }));
 
 app.use(express.json());
 
+// Sirve los archivos estáticos de la carpeta public
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
+// Ruta raíz que envía index.html
 app.get('/', (req, res) => {
-  res.send('Backend de Marvin listo 🚀');
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 app.post('/contacto', async (req, res) => {
@@ -26,7 +32,6 @@ app.post('/contacto', async (req, res) => {
   const { nombre, email, mensaje, 'g-recaptcha-response': token } = req.body;
   const remoteip = req.ip;
 
-  // ROBUSTEZ: valida campos
   if (!nombre || !email || !mensaje) {
     return res.status(400).json({ error: 'Faltan campos obligatorios.' });
   }
@@ -43,7 +48,6 @@ app.post('/contacto', async (req, res) => {
     const data = await response.json();
     console.log("Respuesta de Google reCAPTCHA:", data);
 
-    // ROBUSTEZ: verifica score y éxito
     if (!data.success) {
       return res.status(400).json({ error: 'No se superó la verificación reCAPTCHA', detalle: data });
     }
@@ -51,7 +55,7 @@ app.post('/contacto', async (req, res) => {
       return res.status(400).json({ error: 'El score de reCAPTCHA es bajo. Intenta de nuevo.', detalle: data });
     }
 
-    // Aquí podrías guardar el mensaje en tu base de datos o enviar un email, si lo deseas
+    // Aquí guardar o enviar el mensaje
 
     res.json({ mensaje: 'Mensaje recibido correctamente. ¡Gracias!' });
   } catch (err) {
