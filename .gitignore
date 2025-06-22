@@ -1,1 +1,28 @@
+# Ignorar archivos de configuración y dependencias
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignorar archivos de entorno
+.env
+api/.env
+
+# Ignorar archivos específicos y sistemas
 firebase.js
+.DS_Store
+
+# Ignorar carpetas de logs
+logs/
+*.log
+
+# Ignorar archivos de sistema (Windows)
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Ignorar carpetas de caché de editores (opcional)
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace

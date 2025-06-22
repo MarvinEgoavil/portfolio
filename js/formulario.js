@@ -2,10 +2,10 @@ export function inicializarFormularioContacto() {
   const form = document.getElementById('contact-form');
   if (!form) return;
   const respuestaDiv = document.getElementById('form-contacto-respuesta');
-  const recaptchaInput = document.getElementById('recaptcha-token');
+  const recaptchaInput = document.getElementById('recaptcha-token'); // opcional, debug
 
-  // Cambia esta URL cuando tengas la de Railway:
-  const URL_API = "https://tu-backend-production.up.railway.app/contacto";
+  // Cambia esta URL cuando despliegues en Railway
+  const URL_API = "https://portfolio-production-72ed.up.railway.app/contacto"; // <- cambia esto en producción
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -25,7 +25,7 @@ export function inicializarFormularioContacto() {
 
     // reCAPTCHA v3 con tu clave pública:
     grecaptcha.ready(function() {
-      grecaptcha.execute('6LcyqWgrAAAAAI3WTHzk0DBOAeGbjXZbM8qohuXN', {action: 'submit'})
+      grecaptcha.execute('6Ld9TWkrAAAAAC_JVShrurJmr29KzKJ7pDSLajkH', {action: 'submit'})
         .then(async function(token) {
           datos['g-recaptcha-response'] = token;
           if (recaptchaInput) recaptchaInput.value = token; // opcional, debug
