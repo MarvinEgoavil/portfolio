@@ -1,10 +1,11 @@
+require('dotenv').config();
+
 const express = require('express');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const cors = require('cors');
 
 const app = express();
 
-// CORS: permite tu web y local
 app.use(cors({
   origin: [
     'https://www.marvinegoavil.com',
@@ -21,12 +22,14 @@ app.get('/', (req, res) => {
 });
 
 app.post('/contacto', async (req, res) => {
-  // Usa variable de entorno en Railway, o la clave aquí en local
-  const secret = process.env.RECAPTCHA_SECRET || '6LcyqWgrAAAAAIDaYbSpBDG-pDLht1gBE0UqV2nl';
-
+  const secret = process.env.RECAPTCHA_SECRET;
   const { nombre, email, mensaje, 'g-recaptcha-response': token } = req.body;
   const remoteip = req.ip;
 
+  // ROBUSTEZ: valida campos
+  if (!nombre || !email || !mensaje) {
+    return res.status(400).json({ error: 'Faltan campos obligatorios.' });
+  }
   if (!token) {
     return res.status(400).json({ error: 'Falta el token de reCAPTCHA.' });
   }
@@ -40,12 +43,19 @@ app.post('/contacto', async (req, res) => {
     const data = await response.json();
     console.log("Respuesta de Google reCAPTCHA:", data);
 
-    if (!data.success || (data.score !== undefined && data.score < 0.5)) {
+    // ROBUSTEZ: verifica score y éxito
+    if (!data.success) {
       return res.status(400).json({ error: 'No se superó la verificación reCAPTCHA', detalle: data });
     }
+    if (typeof data.score === 'number' && data.score < 0.5) {
+      return res.status(400).json({ error: 'El score de reCAPTCHA es bajo. Intenta de nuevo.', detalle: data });
+    }
+
+    // Aquí podrías guardar el mensaje en tu base de datos o enviar un email, si lo deseas
 
     res.json({ mensaje: 'Mensaje recibido correctamente. ¡Gracias!' });
   } catch (err) {
+    console.error('Error al verificar reCAPTCHA:', err);
     res.status(500).json({ error: 'Error interno al verificar reCAPTCHA.' });
   }
 });
