@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
@@ -18,10 +19,15 @@ app.use(cors({
 
 app.use(express.json());
 
+// Sirve archivos estáticos desde /public
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Sirve index.html en la raíz
 app.get('/', (req, res) => {
-  res.send('Backend de Marvin listo 🚀');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Endpoint POST para contacto con reCAPTCHA
 app.post('/contacto', async (req, res) => {
   const secret = process.env.RECAPTCHA_SECRET;
   const { nombre, email, mensaje, 'g-recaptcha-response': token } = req.body;
