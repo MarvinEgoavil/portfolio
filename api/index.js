@@ -3,7 +3,6 @@ require('dotenv').config();
 const express = require('express');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const cors = require('cors');
-const path = require('path');
 
 const app = express();
 
@@ -19,12 +18,8 @@ app.use(cors({
 
 app.use(express.json());
 
-// Sirve los archivos estáticos de la carpeta public
-app.use(express.static(path.join(__dirname, '..', 'public')));
-
-// Ruta raíz que envía index.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+  res.send('Backend de Marvin listo 🚀');
 });
 
 app.post('/contacto', async (req, res) => {
@@ -55,7 +50,7 @@ app.post('/contacto', async (req, res) => {
       return res.status(400).json({ error: 'El score de reCAPTCHA es bajo. Intenta de nuevo.', detalle: data });
     }
 
-    // Aquí guardar o enviar el mensaje
+    // Aquí puedes guardar el mensaje en base de datos o enviar email
 
     res.json({ mensaje: 'Mensaje recibido correctamente. ¡Gracias!' });
   } catch (err) {
