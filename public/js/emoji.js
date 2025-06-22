@@ -3,8 +3,8 @@ export function configurarEmojiGuiñador() {
   if (!emoji) return;
 
   const guiñar = () => {
-    emoji.src = "assets/emojigui.webp";
-    setTimeout(() => emoji.src = "assets/emoji.webp", 600);
+    emoji.src = "/public/assets/emojigui.webp";
+    setTimeout(() => emoji.src = "/public/assets/emoji.webp", 600);
   };
 
   setInterval(() => {
