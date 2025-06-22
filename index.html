@@ -25,9 +25,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Captcha -->
+<script src="https://www.google.com/recaptcha/api.js?render=6LcyqWgrAAAAAI3WTHzk0DBOAeGbjXZbM8qohuXN"></script>
+
+
+
   <script type="application/ld+json">
+
 
 
 
@@ -546,6 +554,8 @@
             data-i18n-placeholder="contacto_form_email_placeholder">
           <textarea name="mensaje" placeholder="Tu mensaje" required
             data-i18n-placeholder="contacto_form_mensaje_placeholder"></textarea>
+
+         <input type="hidden" id="recaptcha-token" name="g-recaptcha-response">
           <button type="submit" data-i18n="contacto_form_boton">Enviar</button>
           <div id="form-contacto-respuesta" class="form-respuesta"></div>
         </form>
