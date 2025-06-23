@@ -53,13 +53,14 @@ body {
 
 /* --- HEADER Y NAVBAR --- */
 header {
+
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   padding: 1rem 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(12px);
@@ -401,12 +402,15 @@ html.sidebar-abierto {
 
 /* --- NAVBAR MENU PRINCIPAL --- */
 .navbar-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  padding-top: 0.6em;
-  padding-bottom: 0.6em;
+  padding: 0 2rem;
+  height: 72px; /* O el alto que prefieras */
+  width: 100%;
+  gap: 1rem;
+  background: rgba(0,0,0,0.3);
+  /* Si tu header es sticky/fixed, agrégalo aquí */
 }
 
 .navbar {
@@ -417,6 +421,7 @@ html.sidebar-abierto {
   position: relative;
   background: transparent;
   z-index: 100;
+  justify-content: center;
 }
 
 /* Oculta por defecto el dropdown */
@@ -441,7 +446,7 @@ html.sidebar-abierto {
 #nav-menu {
   flex: 1;
   display: flex;
-  justify-content: center;
+  justify-self: center;
 }
 
 #nav-menu ul {
@@ -781,3 +786,17 @@ h2 {
 .hidden {
   display: none;
 }
+
+/* Estrella fugaz */ 
+#estrellas-fugaces {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 7000; /* O el que necesites, pero debajo del contenido principal */
+  pointer-events: none;
+  display: block;
+}
+
+

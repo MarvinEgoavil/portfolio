@@ -423,9 +423,11 @@
     display: block;
   }
 
-  .navbar-container {
+  .navbar-container { /* Propiedad importante, no modificar*/
+    display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 20px;
   }
 
   .name-with-hacker {
@@ -507,13 +509,6 @@
     display: inline-flex;
   }
 
-  .navbar-container {
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 0.6em;
-    /* Ajusta según tu header */
-    padding-bottom: 0.6em;
-  }
 
   .top-mobile-actions {
     position: static;
@@ -570,7 +565,7 @@
   .navbar-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
   }
