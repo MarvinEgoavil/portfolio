@@ -188,9 +188,10 @@
 
 /* ===== HEADER actions/mejoras ===== */
 .header-actions {
+    justify-self: end;
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1.2em;
 }
 .search-btn-desktop {
   background: none;

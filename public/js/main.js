@@ -7,6 +7,7 @@ import { iniciarFirebase } from './firebase.js';
 import { inicializarMapaContacto } from './mapa.js';  
 import { inicializarFormularioContacto } from './formulario.js';
 import { configurarHeaderStickyAnimado } from './headerScroll.js';
+import { iniciarCanvas2d } from './canvas2d.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   configurarSidebarMovil();
@@ -18,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarMapaContacto();
   inicializarFormularioContacto();
   configurarHeaderStickyAnimado();
+  iniciarCanvas2d();
+
 
   // --- Limpiar buscador al hacer focus y restaurar comportamiento UX ---
   const buscador = document.querySelector('.buscador-seccion input');
@@ -42,4 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+});
+
+// Bloquea el menú contextual (clic derecho) en toda la página
+window.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
 });
