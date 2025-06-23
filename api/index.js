@@ -7,15 +7,22 @@ const path = require('path');
 
 const app = express();
 
-app.use(cors({
+const corsOptions = {
   origin: [
     'https://www.marvinegoavil.com',
     'https://marvinegoavil.com',
     'http://127.0.0.1:5501',
     'https://portfolio-production-72ed.up.railway.app'
   ],
-  methods: ['GET', 'POST']
-}));
+  methods: ['GET', 'POST', 'OPTIONS'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+
+// Responder a preflight requests
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 

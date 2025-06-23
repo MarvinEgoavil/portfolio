@@ -6,6 +6,7 @@ import { iniciarVantaFondo } from './vanta-config.js';
 import { iniciarFirebase } from './firebase.js';
 import { inicializarMapaContacto } from './mapa.js';  
 import { inicializarFormularioContacto } from './formulario.js';
+import { configurarHeaderStickyAnimado } from './headerScroll.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   configurarSidebarMovil();
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   iniciarFirebase();
   inicializarMapaContacto();
   inicializarFormularioContacto();
+  configurarHeaderStickyAnimado();
 
   // --- Limpiar buscador al hacer focus y restaurar comportamiento UX ---
   const buscador = document.querySelector('.buscador-seccion input');
