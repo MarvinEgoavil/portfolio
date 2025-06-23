@@ -1,3 +1,4 @@
+/* ===== Accesibilidad: Skip link ===== */
 .skip-link.sr-only {
   position: absolute;
   left: -999px;
@@ -7,9 +8,7 @@
   overflow: hidden;
   z-index: 2000;
 }
-
 .skip-link.sr-only:focus {
-  position: absolute;
   left: 10px;
   top: 10px;
   width: auto;
@@ -25,7 +24,6 @@
   z-index: 2000;
   opacity: 1;
 }
-
 .skip-link {
   position: absolute;
   left: -999px;
@@ -39,56 +37,23 @@
   text-decoration: none;
   transition: left 0.2s;
 }
-
 .skip-link:focus,
 .skip-link:active {
   left: 16px;
 }
 
-
-/*   :::: Lenguaje ::::::   */
+/* ===== MENÚ DE IDIOMA (Superpuesto) ===== */
 .language-dropdown {
   position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
+  z-index: 5000; /* Suficientemente alto para que nunca quede tapado */
   font-family: Arial, sans-serif;
   user-select: none;
   margin-left: auto;
   font-size: 0.95em;
 }
-
-/* Ajuste de z-index para menús de idioma */
-/* El menú de idiomas debe estar por encima del header y el overlay, pero por debajo del sidebar */
-.language-dropdown,
-.language-dropdown ul {
-  position: relative;
-  z-index: 2001;
-  /* Sobre overlay (1000) y header (999), debajo de sidebar (1100) */
-}
-
-/* Si el menú de idioma está DENTRO del sidebar, dale más z-index aún */
-.sidebar-language {
-  z-index: 1200;
-  /* Sidebar abierto: idioma aún más arriba */
-}
-
-#language-list {
-  position: absolute;
-  top: 100%;
-  /* <-- Justo debajo del botón, bien alineado */
-  right: -5px;
-  min-width: 160px;
-  z-index: 10000;
-  box-shadow: 0 6px 24px #0005;
-  background: #111;
-  border-radius: 8px;
-  border: 1.5px solid #fff2;
-  overflow: hidden;
-}
-
-
-
 .language-dropdown button {
   background: transparent;
   border: 1px solid white;
@@ -107,18 +72,15 @@
   justify-content: flex-start;
   transition: border 0.2s;
 }
-
 .language-dropdown button:focus-visible,
 .language-dropdown li button.lang-option:focus-visible {
   outline: 2.5px solid #8e2de2;
   outline-offset: 2px;
 }
-
 .language-dropdown button:focus:not(:focus-visible),
 .language-dropdown li button.lang-option:focus:not(:focus-visible) {
   outline: none;
 }
-
 .language-dropdown .flag-icon,
 .language-dropdown img.flag-icon {
   width: 20px;
@@ -128,45 +90,49 @@
   vertical-align: middle;
   flex-shrink: 0;
 }
-
 .language-dropdown .arrow {
   margin-left: auto;
   font-size: 1em;
   vertical-align: middle;
 }
 
-.language-dropdown ul {
+/* Menú desplegable */
+.language-dropdown ul,
+#language-list {
   position: absolute;
+  top: 100%;
+  right: -5px;
+  min-width: 160px;
+  z-index: 3200; /* Más alto que todo, solo debajo de modals/sidebar */
+  box-shadow: 0 6px 24px #0005;
+  background: #111;
+  border-radius: 8px;
+  border: 1.5px solid #fff2;
+  overflow: hidden;
   background: #17181a;
   list-style: none;
   padding: 0.3em 0;
   margin: 0.3em 0 0 0;
-  border: 1px solid white;
-  border-radius: 4px;
   width: 150px;
   max-height: 200px;
   overflow-y: auto;
-  z-index: 1000;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   scrollbar-width: thin;
   scrollbar-color: #8e2de2 #17181a;
   animation: dropOpen 0.18s cubic-bezier(.22, 1, .36, 1) both;
 }
-
 .language-dropdown ul::-webkit-scrollbar {
   width: 6px;
   background: #17181a;
 }
-
 .language-dropdown ul::-webkit-scrollbar-thumb {
   background: #8e2de2;
   border-radius: 8px;
 }
-
-.language-dropdown ul[hidden] {
+.language-dropdown ul[hidden],
+#language-list[hidden] {
   display: none;
 }
-
 .language-dropdown li {
   padding: 0.3em 1em;
   cursor: pointer;
@@ -176,20 +142,17 @@
   color: white;
   transition: background 0.16s, color 0.18s;
 }
-
 .language-dropdown li:hover,
 .language-dropdown li:focus-within {
   background: #23235b;
   color: #fff;
 }
-
 .language-dropdown li[aria-selected="true"] button.lang-option {
   background: #512da8;
   color: #fff;
   font-weight: 700;
   letter-spacing: 0.01em;
 }
-
 .language-dropdown li button.lang-option {
   width: 100%;
   text-align: left;
@@ -204,35 +167,31 @@
   border-radius: 4px;
   transition: background 0.2s;
 }
-
 .language-dropdown li button.lang-option:focus,
 .language-dropdown li button.lang-option:hover {
   background: #23235b;
   color: #fff;
 }
-
+/* Sidebar idioma si lo usas */
+.sidebar-language {
+  z-index: 12000;
+  display: none;
+}
 .language-dropdown.desktop-language {
   display: block;
 }
-
-.sidebar-language {
-  display: none;
-}
-
-
 .fi {
   margin-right: 0.5em;
   font-size: 1.3em;
   vertical-align: middle;
 }
 
-/* Header actions mejoras */
+/* ===== HEADER actions/mejoras ===== */
 .header-actions {
   display: flex;
   align-items: center;
   gap: 1.2rem;
 }
-
 .search-btn-desktop {
   background: none;
   border: none;
@@ -244,21 +203,24 @@
   align-items: center;
   transition: background 0.2s;
 }
-
 .top-mobile-actions {
+  position: fixed;
+  top: 1.2rem;
+  left: 1.2rem;
+  z-index: 3200;
   display: flex;
-  align-items: center;
-  gap: 12px;
+  gap: 1rem;
 }
-
-.search-btn-mobile,
+#mobile-hamburger {
+  z-index: 3202;
+}
 
 .search-btn-desktop:hover {
   background: rgba(138, 43, 226, 0.13);
   border-radius: 50%;
 }
 
-/* ================== Secciones generales ===================== */
+/* ===== Secciones generales & hero ===== */
 .seccion {
   padding: 4em 2em;
   max-width: 900px;
@@ -267,8 +229,6 @@
   border-radius: 10px;
   margin-top: 2em;
 }
-
-/* =========== Hero Section =========== */
 .hero {
   display: flex;
   flex-direction: column;
@@ -284,6 +244,9 @@
   overflow-wrap: break-word;
   word-break: break-word;
 }
+/* ...el resto de secciones/hero y componentes los he dejado tal cual ya que no afectan al menú de idioma... */
+
+/* ¡FIN! */
 
 /* Titulos animados */
 #contacto .titulo-animado {

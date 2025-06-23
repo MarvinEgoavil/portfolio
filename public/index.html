@@ -26,11 +26,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <!-- Captcha -->
-<script src="https://www.google.com/recaptcha/api.js?render=6Ld9TWkrAAAAAC_JVShrurJmr29KzKJ7pDSLajkH"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6Ld9TWkrAAAAAC_JVShrurJmr29KzKJ7pDSLajkH"></script>
 
 
 
@@ -71,93 +71,90 @@
 </head>
 
 <body>
+  <!-- ✅ Fondo Provisional -->
+  <div id="background-placeholder"></div>
+
   <!-- ✅ Fondo Vanta.js -->
   <div id="background"></div>
 
   <div id="overlay" class="overlay"></div>
-  <a href="#inicio" class="skip-link sr-only" data-i18n="skip_to_content">Saltar al contenido principal</a>
+  <div id="sidebar" class="sidebar">
 
-
-
-
-
-
-  <!-- 🔽 Empieza tu header real -->
-  <header>
-    <!-- ...sidebar y otros bloques... -->
-
-    <div id="sidebar" class="sidebar">
-
-      <div class="sidebar-header">
-
-        <img src="assets/favicon.png" alt="Logo Marvin" class="sidebar-avatar" />
+    <div class="sidebar-header">
+      <div class="menu-left">
+        <img src="assets/favicon.png" alt="Logo Marvin" class="sidebar-avatar">
         <span class="sidebar-menu-title">Menu</span>
       </div>
-      <hr>
+      <button id="close-sidebar" class="close-sidebar" aria-label="Cerrar menú">&times;</button>
+    </div>
+    
 
-      <ul class="sidebar-menu">
-        <li>
-          <a href="#inicio">
-            <i class="fas fa-house-user"></i>
-            <span>Inicio</span>
-          </a>
-        </li>
-        <li>
-          <a href="#sobre-mi">
-            <i class="fas fa-user"></i>
-            <span>Sobre mí</span>
-          </a>
-        </li>
-        <li>
-          <a href="#proyectos">
-            <i class="fas fa-rocket"></i>
-            <span>Proyectos</span>
-          </a>
-        </li>
-        <li>
-          <button class="submenu-toggle" aria-expanded="false" aria-controls="submenu-certificaciones">
-            <i class="fas fa-certificate"></i>
-            <span>Certificaciones</span>
-            <i class="fas fa-chevron-down submenu-arrow"></i>
-          </button>
-          <ul class="submenu" id="submenu-certificaciones"> ... </ul>
-        </li>
-        <li>
-          <a href="#contacto">
-            <i class="fas fa-envelope"></i>
-            <span>Contacto</span>
-          </a>
-        </li>
-      </ul>
-      <div class="sidebar-language">
-        <div class="language-dropdown">
-          <button id="language-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="selected-language"
-            type="button">
-            <span class="fi fi-gb" aria-hidden="true"></span>
-            <span id="selected-language">English</span>
-            <span class="arrow" aria-hidden="true">&#9662;</span>
-          </button>
-          <ul id="language-list" role="listbox" tabindex="-1" aria-label="Selecciona idioma" hidden>
-            <li role="option" data-lang="es" aria-selected="false">
-              <button type="button" class="lang-option"><span class="fi fi-es"></span> Español</button>
-            </li>
-            <li role="option" data-lang="en" aria-selected="true">
-              <button type="button" class="lang-option"><span class="fi fi-gb"></span> English</button>
-            </li>
-            <li role="option" data-lang="fr" aria-selected="false">
-              <button type="button" class="lang-option"><span class="fi fi-fr"></span> Français</button>
-            </li>
-            <li role="option" data-lang="qu" aria-selected="false">
-              <button type="button" class="lang-option"><span class="fi fi-pe"></span> Quechua</button>
-            </li>
-          </ul>
-        </div>
+    <ul class="sidebar-menu">
+      <li>
+        <a href="#inicio">
+          <i class="fas fa-house-user"></i>
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li>
+        <a href="#sobre-mi">
+          <i class="fas fa-user"></i>
+          <span>Sobre mí</span>
+        </a>
+      </li>
+      <li>
+        <a href="#proyectos">
+          <i class="fas fa-rocket"></i>
+          <span>Proyectos</span>
+        </a>
+      </li>
+      <li>
+        <button class="submenu-toggle" aria-expanded="false" aria-controls="submenu-certificaciones">
+          <i class="fas fa-certificate"></i>
+          <span>Certificaciones</span>
+          <i class="fas fa-chevron-down submenu-arrow"></i>
+        </button>
+        <ul class="submenu" id="submenu-certificaciones"> ... </ul>
+      </li>
+      <li>
+        <a href="#contacto">
+          <i class="fas fa-envelope"></i>
+          <span>Contacto</span>
+        </a>
+      </li>
+    </ul>
+    <div class="sidebar-language">
+      <div class="language-dropdown">
+        <button id="language-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="selected-language"
+          type="button">
+          <span class="fi fi-gb" aria-hidden="true"></span>
+          <span id="selected-language">English</span>
+          <span class="arrow" aria-hidden="true">&#9662;</span>
+        </button>
+        <ul id="language-list" role="listbox" tabindex="-1" aria-label="Selecciona idioma" hidden>
+          <li role="option" data-lang="es" aria-selected="false">
+            <button type="button" class="lang-option"><span class="fi fi-es"></span> Español</button>
+          </li>
+          <li role="option" data-lang="en" aria-selected="true">
+            <button type="button" class="lang-option"><span class="fi fi-gb"></span> English</button>
+          </li>
+          <li role="option" data-lang="fr" aria-selected="false">
+            <button type="button" class="lang-option"><span class="fi fi-fr"></span> Français</button>
+          </li>
+          <li role="option" data-lang="qu" aria-selected="false">
+            <button type="button" class="lang-option"><span class="fi fi-pe"></span> Quechua</button>
+          </li>
+        </ul>
       </div>
-
-
     </div>
 
 
+  </div>
+  <a href="#inicio" class="skip-link sr-only" data-i18n="skip_to_content">Saltar al contenido principal</a>
+
+
+  <!-- HEADER  -->
+  <header>
     <div class="navbar-container">
       <div class="sidebar-glow-bg"></div>
       <!-- IZQUIERDA: Logo y nombre -->
@@ -252,7 +249,7 @@
       </div>
     </div>
 
-    </div>
+
   </header>
 
   <!-- Menú de redes flotante -->
@@ -555,7 +552,7 @@
           <textarea name="mensaje" placeholder="Tu mensaje" required
             data-i18n-placeholder="contacto_form_mensaje_placeholder"></textarea>
 
-         <input type="hidden" id="recaptcha-token" name="g-recaptcha-response">
+          <input type="hidden" id="recaptcha-token" name="g-recaptcha-response">
           <button type="submit" data-i18n="contacto_form_boton">Enviar</button>
           <div id="form-contacto-respuesta" class="form-respuesta"></div>
         </form>
@@ -587,7 +584,6 @@
       <span class="firma">🎨💻🌌</span>
     </div>
   </footer>
-
 
   <!-- Three.js y Vanta.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
