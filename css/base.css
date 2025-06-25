@@ -67,7 +67,7 @@ header {
   z-index: 1000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-  transition: transform 0.26s cubic-bezier(.41,.8,.31,1.09);
+  transition: transform 0.26s cubic-bezier(.41, .8, .31, 1.09);
 }
 
 
@@ -81,7 +81,10 @@ footer {
 /* --- Overlay para oscurecer el fondo al abrir sidebar --- */
 .overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.6);
   opacity: 0;
   visibility: hidden;
@@ -107,7 +110,7 @@ footer {
   background: #1a114a;
   z-index: 6000;
   transition: left 0.3s cubic-bezier(.68, -0.55, .27, 1.55);
-  
+
 }
 
 .sidebar.open {
@@ -117,9 +120,10 @@ footer {
 .sidebar-header {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Deja el X a la derecha */
+  justify-content: space-between;
+  /* Deja el X a la derecha */
   padding: 1.1rem 1.5rem;
- /* background: #1b1454;*/
+  /* background: #1b1454;*/
   width: 100%;
   box-sizing: border-box;
   border-bottom: none;
@@ -129,21 +133,25 @@ footer {
 .sidebar-header::after {
   content: "";
   position: absolute;
-  bottom: 0; left: 0;
+  bottom: 0;
+  left: 0;
   width: 100%;
   height: 2px;
-  background: #3b306b; /* mismo color que las divisiones del menú */
+  background: #3b306b;
+  /* mismo color que las divisiones del menú */
 }
 
 .menu-left {
   display: flex;
   align-items: center;
   gap: 0.7em;
-  margin: 0 auto; /* Centra {img} MENU en el flex */
+  margin: 0 auto;
+  /* Centra {img} MENU en el flex */
 }
 
 .menu-logo {
-  width: 38px; /* Ajusta tamaño si quieres */
+  width: 38px;
+  /* Ajusta tamaño si quieres */
   height: auto;
   vertical-align: middle;
 }
@@ -165,6 +173,7 @@ footer {
   transition: color 0.15s;
   line-height: 1;
 }
+
 .menu-close:hover {
   color: #a86cf7;
 }
@@ -262,59 +271,160 @@ html.sidebar-abierto {
 }
 
 /* --- SOCIAL MENU (vertical de redes sociales) --- */
+
+
+/* 1. Contenedor vertical fijo de los iconos sociales */
 .social-menu {
-  position: fixed;
+  margin-top: 8rem;
+  position: absolute;
   top: 320px;
   left: 24px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  /* Espacio regular entre iconos */
   z-index: 1200;
-  animation: slideInUp 1s ease-out forwards;
+   transition: top 0.33s cubic-bezier(.21,.7,.48,1.1);
+  
 }
 
-.social-menu a {
+/* 2. Contenedor individual de cada icono (y su SVG) */
+.social-icon {
+  position: relative;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--icon-size, 40px);
-  height: var(--icon-size, 40px);
-  border: 2px solid white;
-  border-radius: 50%;
-  color: white;
-  font-size: 16px;
-  background: transparent;
-  text-decoration: none;
-  transition: transform 0.3s, background 0.3s, border-color 0.3s, color 0.3s;
 }
 
-.social-menu a:hover .fa-instagram {
+.social-icon.sacudida {
+  animation: shake 0.22s cubic-bezier(.5,2,.7,1.4);
+}
+
+@keyframes sacudida {
+  0% { transform: translateY(0);}
+  35% { transform: translateY(-14px);}
+  55% { transform: translateY(8px);}
+  70% { transform: translateY(-5px);}
+  90% { transform: translateY(2px);}
+  100% { transform: translateY(0);}
+}
+
+.social-icon.sacudida {
+  animation: sacudida 0.38s cubic-bezier(.45,2,.67,1.4);
+}
+@keyframes rebote {
+  0% { transform: scale(1) translateY(0);}
+  22% { transform: scale(1.18, 0.9) translateY(-9px);}
+  45% { transform: scale(0.94, 1.15) translateY(7px);}
+  100% { transform: scale(1) translateY(0);}
+}
+.social-icon.rebote {
+  animation: rebote 0.45s cubic-bezier(.47,1.64,.41,.8);
+}
+
+.social-icon .blur {
+  filter: blur(3.5px) brightness(1.3) saturate(1.8);
+  transition: filter 0.6s cubic-bezier(.77,0,.18,1);
+}
+
+.social-icon .fake-hover {
+  /* Simula hover real */
+  transform: scale(1.14);
+  box-shadow: 0 0 22px 0 var(--glow-color, #0077B5);
+  background: rgba(255,255,255,0.16);
+  color: var(--glow-color, #fff);
+  transition: all 0.4s;
+}
+
+/* 3. SVG del círculo animado alrededor del icono */
+.circle-anim {
+  position: absolute;
+  top: 0; left: 0;
+  width: 44px; height: 44px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+
+
+/* Borde blanco inicial */
+.social-icon a {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2.6px solid white;
+  border-radius: 50%;
+  color: white;
+  font-size: 22px;
+  background: transparent;
+  text-decoration: none;
+  z-index: 3;
+  position: relative;
+  transition:
+    transform 0.7s cubic-bezier(.23, 1.1, .32, 1),
+    background 0.5s,
+    color 0.6s,
+    border-color 0.5s;
+}
+
+
+/* 5. Hover y estado animado */
+.social-icon a:hover {
+  border-color: transparent;
+  /* Desaparece el borde para que se vea el SVG */
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--hover-color, #fff);
+  transform: scale(1.12);
+}
+
+
+
+/* 6. Colores de iconos según red social al hacer hover */
+.social-icon a:hover .fa-instagram {
   color: #E4405F;
 }
 
-.social-menu a:hover .fa-linkedin-in {
+.social-icon a:hover .fa-linkedin-in {
   color: #0077B5;
 }
 
-.social-menu a:hover .fa-github {
+.social-icon a:hover .fa-github {
   color: #6e5494;
 }
 
-.social-menu a:hover .fa-blogger-b {
+.social-icon a:hover .fa-blogger-b {
   color: #ff8000;
 }
 
-.social-menu a:hover {
-  border-color: currentColor;
-  transform: scale(1.2);
-  background: rgba(255, 255, 255, 0.2);
+/* 7. Accesibilidad: foco visible */
+
+
+
+
+
+@keyframes bounce {
+  0%   { transform: scale(1) translateY(0);}
+  20%  { transform: scale(1.18, 0.9) translateY(-2px);}
+  40%  { transform: scale(0.94, 1.15) translateY(-15px);}
+  55%  { transform: scale(1.08, 0.93) translateY(4px);}
+  70%  { transform: scale(0.98, 1.02) translateY(-7px);}
+  85%  { transform: scale(1.04, 0.96) translateY(2px);}
+  100% { transform: scale(1) translateY(0);}
 }
 
-.social-menu a:focus {
-  outline: 2px solid var(--accent, #a86cf7);
-  outline-offset: 2px;
+.social-icon.bounce {
+  animation: bounce 0.7s cubic-bezier(.59,2.09,.34,.87);
 }
 
+
+/* --- FIN SOCIAL MENU --- */
+
+/* FIN ICONOS ANIMADOS SOCIAL MENU LINKS */
 /* --- NOMBRE ANIMADO Y HACKER ICON --- */
 .name-with-hacker {
   display: flex;
@@ -406,10 +516,11 @@ html.sidebar-abierto {
   grid-template-columns: auto 1fr auto;
   align-items: center;
   padding: 0 2rem;
-  height: 72px; /* O el alto que prefieras */
+  height: 72px;
+  /* O el alto que prefieras */
   width: 100%;
   gap: 1rem;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   /* Si tu header es sticky/fixed, agrégalo aquí */
 }
 
@@ -431,7 +542,8 @@ html.sidebar-abierto {
   left: 0;
   top: 100%;
   min-width: 220px;
-  background: #180e39; /* Fondo elegante */
+  background: #180e39;
+  /* Fondo elegante */
   box-shadow: 0 8px 32px #0009;
   border-radius: 12px;
   padding: 0.4em 0;
@@ -787,16 +899,360 @@ h2 {
   display: none;
 }
 
-/* Estrella fugaz */ 
+/* Estrella fugaz */
 #estrellas-fugaces {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 7000; /* O el que necesites, pero debajo del contenido principal */
+  z-index: 7000;
+  /* O el que necesites, pero debajo del contenido principal */
   pointer-events: none;
   display: block;
 }
 
+/* ==== BUSCADOR CÓSMICO ==== */
+.hidden-by-js {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+/* Contenedor del buscador, centra y limita ancho */
+.buscador-seccion {
+  position: relative;             /* Para posicionar la lupa y el panel resultados */
+  max-width: 700px;
+  width: 90%;
+  margin: 2em auto 0 auto;        /* Centrado y margen superior */
+}
 
+/* LUPA: Ícono de búsqueda, alineado a la izquierda del input */
+.buscador-seccion i.fas.fa-search {
+  position: absolute;
+  left: 28px;                     /* Espacio desde el borde izquierdo */
+  top: 50%;                       /* Centrado vertical respecto al input */
+  transform: translateY(-50%);
+  color: #a86cf7;
+  font-size: 1.5em;
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(0 0 8px #a86cf7cc);
+}
+
+/* INPUT DEL BUSCADOR: Caja de texto */
+.buscador-seccion input {
+  width: 100%;
+  padding: 0.8em 1em 0.8em 2.5em;   /* Espacio para la lupa */
+  text-align: center;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 1em;
+  font-weight: 600;
+  box-shadow: 0 0 16px rgba(138, 43, 226, 0.6);
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+.buscador-seccion input::placeholder {
+  color: #e0d0ff;
+  font-size: 1em;
+  font-weight: lighter;
+}
+.buscador-seccion input:focus {
+  box-shadow: 0 0 16px rgba(138, 43, 226, 0.8);
+}
+
+/* ==== PANEL DE RESULTADOS ==== */
+
+/* Panel de resultados, inicialmente oculto, centrado bajo el input */
+.buscador-seccion .resultados-buscador {
+  position: absolute;
+  left: 50%;
+  top: 110%;                        /* Justo debajo del input */
+  transform: translateY(25px) translateX(-50%);
+  max-width: 540px;
+  width: 96vw;
+  min-width: 320px;
+  padding: 1.5em 2em 1em;
+  background: rgba(24, 8, 48, 0.93);
+  color: #fff;
+  border-radius: 2em;
+  box-shadow: 0 0 48px 0 #a86cf766, 0 0 0 2px #a86cf722;
+  border: 1.5px solid #8147ff33;
+  z-index: 2000;
+  font-size: 1em;
+  animation: fadeIn 0.35s;
+  opacity: 0;
+  pointer-events: none;
+  transition: 
+    opacity 0.28s cubic-bezier(.57,1.64,.41,.88),
+    transform 0.35s cubic-bezier(.57,1.64,.41,.88);
+  backdrop-filter: blur(12px);
+
+  /* Fondo cósmico: mini planetas/estrellas */
+  background-image:
+    radial-gradient(circle at 20% 40%, #a86cf744 1.5px, transparent 1.5px),
+    radial-gradient(circle at 80% 70%, #e0d0ff44 1.2px, transparent 1.2px),
+    radial-gradient(circle at 55% 10%, #fff5 1px, transparent 1px);
+  background-blend-mode: lighten;
+}
+
+/* Cuando está visible (clase .visible añadida por JS) */
+.buscador-seccion .resultados-buscador.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) translateX(-50%);
+}
+
+
+/* Animación suave al aparecer */
+@keyframes fadeIn {
+  0%   { opacity: 0; transform: translateY(25px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ==== RESULTADO INDIVIDUAL ==== */
+
+.resultado-item {
+  margin-bottom: 1.1em;
+  border-bottom: 1px solid #3b236b44;
+  padding-bottom: 0.7em;
+}
+.resultado-item:last-child {
+  border-bottom: none;
+}
+
+
+/* Enlace resultado: resaltado y efectos */
+.resultados-buscador .resultado-item a {
+  font-weight: bold;
+  color: #a86cf7;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 0.3em;
+  border-radius: 10px;
+  padding: 0.1em 0.3em;
+  transition: background 0.18s, text-shadow 0.18s;
+  position: relative;
+}
+.resultados-buscador .resultado-item a:hover {
+  text-shadow: 0 0 8px #a86cf7cc, 0 0 4px #fff3;
+  background: #a86cf720;
+}
+
+/* Mini planeta antes de cada resultado */
+.resultados-buscador .resultado-item a:before {
+  content: "🪐";
+  margin-right: 0.75em;
+  font-size: 1.02em;
+  opacity: 0.78;
+  vertical-align: middle;
+}
+
+/* Tipo de resultado, texto auxiliar */
+.resultado-tipo {
+  font-size: 0.82em;
+  color: #bfaefc;
+  margin-left: 0.7em;
+  vertical-align: middle;
+  letter-spacing: 0.03em;
+}
+
+/* ==== NO RESULTADOS ==== */
+.resultados-buscador .no-results {
+  color: #e0d0ff;
+  font-size: 1.11rem;
+  text-align: center;
+  padding: 1.2em 0 1.2em;
+  text-shadow: 0 0 10px #a86cf7cc;
+}
+.resultados-buscador .no-results span {
+  font-size: 2em;
+  display: block;
+}
+
+/* ==== RESALTADO DE PALABRAS ==== */
+.resultados-buscador mark {
+  background: #a86cf7c7;
+  color: #fff;
+  border-radius: 0.3em;
+  padding: 0 2px;
+  box-shadow: 0 0 5px #a86cf780;
+}
+
+/* titulo */
+
+/* Modal título (puedes usar el mismo que tu CV) */
+#titulo-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  background: rgba(10,10,30,0.88);
+  align-items: center;
+  justify-content: center;
+  animation: appearAndType 0.5s;
+}
+#titulo-modal.active {
+  display: flex;
+}
+#titulo-modal .cv-modal-content {
+  position: relative;
+  padding: 2rem;
+  border-radius: 1.3rem;
+  background: #181828;
+  box-shadow: 0 8px 44px rgba(30,0,70,0.32);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: slideInUp 0.5s;
+}
+#titulo-modal .cv-modal-img {
+  max-width: 85vw;
+  max-height: 80vh;
+  border-radius: 1rem;
+  box-shadow: 0 0 24px rgba(20,20,60,0.22);
+}
+#titulo-modal .cv-modal-close {
+  position: absolute;
+  top: 0.7rem;
+  right: 1.2rem;
+  font-size: 2.2rem;
+  background: none;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+#titulo-modal .cv-modal-close:hover {
+  color: #ea1d6f;
+}
+.titulo-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.2rem;
+  margin-top: 2.4rem;
+  margin-bottom: 3rem;
+}
+
+.titulo-img {
+  width: 330px;
+  max-width: 94vw;
+  border-radius: 1.1rem;
+  box-shadow: 0 0 24px rgba(100, 0, 200, 0.13);
+  margin-bottom: 1.3rem;
+}
+
+.titulo-info {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.titulo-nombre {
+  font-size: 1.18rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+
+.titulo-centro,
+.titulo-lugar,
+.titulo-fecha,
+.titulo-nota {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+.btn-cta.titulo-modal-trigger {
+  margin: 1.2rem auto 0 auto;
+  width: fit-content;
+  padding: 0.7rem 2.4rem;
+  font-size: 1.09rem;
+}
+
+.titulo-img.titulo-modal-trigger {
+  cursor: zoom-in;
+  transition: box-shadow 0.22s, transform 0.22s;
+}
+.titulo-img.titulo-modal-trigger:hover {
+  box-shadow: 0 0 36px 0 #a400ff88, 0 0 0 6px #fff2;
+  transform: scale(1.03) rotate(-0.6deg);
+}
+
+/* MODALS */
+
+.cv-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  justify-content: center;
+  align-items: center;
+  background: rgba(25, 0, 40, 0.82);
+  backdrop-filter: blur(2px);
+  transition: opacity 0.3s;
+}
+
+.cv-modal.active {
+  display: flex;
+}
+
+.cv-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  z-index: 1;
+}
+
+.cv-modal-content {
+  position: relative;
+  z-index: 2;
+  background: #181128;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 40px 0 #10031d99;
+  padding: 2.5rem 2.2rem 2.1rem 2.2rem;
+  max-width: 94vw;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+}
+
+.cv-modal-img {
+  width: 100%;
+  max-width: 650px;
+  max-height: 75vh;
+  border-radius: 0.8rem;
+  box-shadow: 0 0 16px #a200ff35;
+  object-fit: contain;
+  background: #fff;
+  margin-bottom: 0;
+}
+
+.cv-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2.5rem;
+  color: #fff;
+  background: transparent;
+  border: none;
+  z-index: 3;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 0.7rem;
+  transition: color 0.19s;
+}
+.cv-modal-close:hover {
+  color: #b26cff;
+}

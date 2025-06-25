@@ -32,6 +32,10 @@
   "nav_curriculum": "View Resume",
   "nav_descargar_cv": "Download CV",
   "nav_titulo": "Official Degree",
-  "skip_to_content": "Skip to main content"
+  "skip_to_content": "Skip to main content",
+  "cert_udemy_web_title": "Complete Web Development with HTML5, CSS3, JS, AJAX, PHP, MySQL",
+  "cert_udemy_web_author": "Instructor: Juan Pablo De la Torre Valdez",
+  "cert_udemy_web_duration": "Duration: 82 hours",
+  "ver_titulo_btn": "View degree"
 
 }
