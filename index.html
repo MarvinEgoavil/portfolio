@@ -71,8 +71,8 @@
 </head>
 
 <body>
-<!-- Canvas 2d -->
- <canvas id="estrellas-fugaces"></canvas>
+  <!-- Canvas 2d -->
+  <canvas id="estrellas-fugaces"></canvas>
 
 
   <!-- ✅ Fondo Provisional -->
@@ -91,7 +91,7 @@
       </div>
       <button id="close-sidebar" class="close-sidebar" aria-label="Cerrar menú">&times;</button>
     </div>
-    
+
 
     <ul class="sidebar-menu">
       <li>
@@ -188,7 +188,7 @@
             <a href="#" class="submenu-toggle" aria-haspopup="true" aria-controls="submenu-sobre-mi"
               aria-expanded="false" data-i18n="nav_sobre_mi">Sobre mí</a>
             <ul class="submenu" id="submenu-sobre-mi">
-              <li><a href="#" data-i18n="nav_titulo">Titulo oficial</a></li>
+              <li><a href="#titulo" data-i18n="nav_titulo">Titulo oficial</a></li>
               <li><a href="#" data-i18n="nav_curriculum">Ver Curriculum</a></li>
               <li><a href="#certificaciones" data-i18n="nav_certificaciones">Certificaciones</a></li>
             </ul>
@@ -256,13 +256,38 @@
 
   </header>
 
-  <!-- Menú de redes flotante -->
   <div class="social-menu">
-    <a href="https://megoavils.blogspot.com/" target="_blank"><i class="fab fa-blogger-b"></i></a>
-    <a href="https://www.instagram.com/marvinegoavilz/" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.linkedin.com/in/marvinegoavil/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-    <a href="https://github.com/MarvinEgoavil" target="_blank"><i class="fab fa-github"></i></a>
+    <div class="social-icon" data-color="#ff8000">
+      <svg class="circle-anim" width="44" height="44">
+        <circle cx="22" cy="22" r="20" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="125.6"
+          stroke-dashoffset="125.6" />
+      </svg>
+      <a href="https://megoavils.blogspot.com/" target="_blank"><i class="fab fa-blogger-b"></i></a>
+    </div>
+    <div class="social-icon" data-color="#E4405F">
+      <svg class="circle-anim" width="44" height="44">
+        <circle cx="22" cy="22" r="20" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="125.6"
+          stroke-dashoffset="125.6" />
+      </svg>
+      <a href="https://www.instagram.com/marvinegoavilz/" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="social-icon" data-color="#0077B5">
+      <svg class="circle-anim" width="44" height="44">
+        <circle cx="22" cy="22" r="20" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="125.6"
+          stroke-dashoffset="125.6" />
+      </svg>
+      <a href="https://www.linkedin.com/in/marvinegoavil/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <div class="social-icon" data-color="#6e5494">
+      <svg class="circle-anim" width="44" height="44">
+        <circle cx="22" cy="22" r="20" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="125.6"
+          stroke-dashoffset="125.6" />
+      </svg>
+      <a href="https://github.com/MarvinEgoavil" target="_blank"><i class="fab fa-github"></i></a>
+    </div>
   </div>
+
+
 
   <main>
 
@@ -298,8 +323,9 @@
 
     <div class="buscador-seccion">
       <i class="fas fa-search"></i>
-      <input type="text" data-i18n-placeholder="buscador_placeholder"
-        placeholder="¿Qué deseas buscar en mi universo digital?">
+      <input id="buscador" data-i18n-placeholder="buscador_placeholder"
+        placeholder="¿Qué deseas buscar en mi universo digital?" autocomplete="off">
+      <div id="resultados-buscador" class="resultados-buscador hidden-by-js"></div>
     </div>
 
     <section id="sobre-mi" class="seccion" aria-labelledby="titulo-sobre-mi">
@@ -376,6 +402,47 @@
       </div>
     </section>
 
+    <section id="titulo" class="seccion">
+  <h2 class="titulo-seccion titulo-modal-trigger" tabindex="0" role="button" aria-label="Ver título en pantalla">
+    <ul class="letras-humo" data-i18n="titulo_academico_titulo_humo">
+      <li>T</li><li>í</li><li>t</li><li>u</li><li>l</li><li>o</li>
+    </ul>
+  </h2>
+  <div class="titulo-block">
+    <img src="/assets/titulo.jpg" alt="Título Técnico Superior en DAM" class="titulo-img titulo-modal-trigger" loading="lazy">
+    <div class="titulo-info">
+      <h3 class="titulo-nombre" data-i18n="titulo_academico_nombre">
+        TÉCNICO SUPERIOR EN DESARROLLO DE APLICACIONES MULTIPLATAFORMA
+      </h3>
+      <p class="titulo-centro" data-i18n="titulo_academico_centro">
+        CENTRO PRIVADO DE FORMACIÓN PROFESIONAL ESPECÍFICA CEV CENTRO DE ESTUDIOS DEL VIDEO
+      </p>
+      <p class="titulo-lugar" data-i18n="titulo_academico_lugar">
+        Madrid, España
+      </p>
+      <p class="titulo-fecha" data-i18n="titulo_academico_fecha">
+        Expedición: 13 de abril de 2022
+      </p>
+      <p class="titulo-nota" data-i18n="titulo_academico_nota">
+        Calificación final: 8
+      </p>
+      <button class="btn-cta especial titulo-modal-trigger" type="button" data-i18n="ver_titulo_btn">
+        Ver título
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL DE IMAGEN DE TÍTULO -->
+  <div id="titulo-modal" class="cv-modal" aria-modal="true" role="dialog" tabindex="-1">
+    <div class="cv-modal-overlay"></div>
+    <div class="cv-modal-content">
+      <button id="close-titulo-modal" class="cv-modal-close" aria-label="Cerrar modal">&times;</button>
+      <img src="/assets/Titulo_grande.png" alt="Título Técnico Superior en DAM" class="cv-modal-img">
+    </div>
+  </div>
+</section>
+
+
     <section id="certificaciones" class="seccion" aria-labelledby="titulo-certificaciones">
       <h2 class="titulo-animado con-icono">
         <span class="titulo-emoji" aria-hidden="true">📜</span>
@@ -399,46 +466,110 @@
         <li>s</li>
       </ul>
 
-      <div class="certificaciones-grid">
-        <div class="certificacion">
-          <img src="https://miro.medium.com/v2/resize:fit:1200/1*VOn3ZQ6P-Cy3eGrtZhUK1Q.png" alt="Oracle Badge"
-            width="80" loading="lazy" aria-hidden="true">
-          <h3>Oracle Certified Professional: Java SE 17</h3>
-          <p>1Z0-829: Oracle Certified Professional: Java SE 17 Developer (en progreso)</p>
-        </div>
+<div class="certificaciones-grid">
+  <div class="certificacion">
+    <img 
+      src="https://miro.medium.com/v2/resize:fit:1200/1*VOn3ZQ6P-Cy3eGrtZhUK1Q.png"
+      alt="Oracle Badge"
+      width="80"
+      class="cert-img cert-modal-trigger"
+      loading="lazy"
+      data-img="https://miro.medium.com/v2/resize:fit:1200/1*VOn3ZQ6P-Cy3eGrtZhUK1Q.png"
+      data-alt="Oracle Certified Professional: Java SE 17"
+    >
+    <div class="cert-info">
+      <h3>Oracle Certified Professional: Java SE 17</h3>
+      <p>1Z0-829: Oracle Certified Professional: Java SE 17 Developer (en progreso)</p>
+    </div>
+  </div>
 
+  <div class="certificacion">
+    <img
+      src="https://yt3.googleusercontent.com/ytc/AIdro_lGRc-05M2OoE1ejQdxeFhyP7OkJg9h4Y-7CK_5je3QqFI=s900-c-k-c0x00ffffff-no-rj"
+      alt="Certificado FreeCodeCamp Responsive Web Design"
+      class="cert-img cert-modal-trigger"
+      loading="lazy"
+      data-img="https://yt3.googleusercontent.com/ytc/AIdro_lGRc-05M2OoE1ejQdxeFhyP7OkJg9h4Y-7CK_5je3QqFI=s900-c-k-c0x00ffffff-no-rj"
+      data-alt="Certificado FreeCodeCamp Responsive Web Design"
+    >
+    <div class="cert-info">
+      <h3>Responsive Web Design</h3>
+      <p>Certificación obtenida en FreeCodeCamp (2025)</p>
+    </div>
+  </div>
 
-        <div class="certificacion">
-          <img src="https://static-00.iconduck.com/assets.00/freecodecamp-icon-2048x1381-57apvagh.png"
-            alt="FreeCodeCamp" class="logo-certificacion" loading="lazy" aria-hidden="true">
-          <h3>Responsive Web Design</h3>
-          <p>Certificación obtenida en FreeCodeCamp (2025)</p>
-        </div>
+  <div class="certificacion">
+    <img 
+      src="https://cdn.worldvectorlogo.com/logos/udemy-3.svg"
+      alt="Certificado Udemy Flutter y Dart Completo"
+      style="height: 60px;"
+      class="cert-img cert-modal-trigger"
+      loading="lazy"
+      data-img="https://cdn.worldvectorlogo.com/logos/udemy-3.svg"
+      data-alt="Certificado Udemy Flutter y Dart Completo"
+    >
+    <div class="cert-info">
+      <h3>Flutter y Dart Completo</h3>
+      <p>Curso realizado en Udemy con más de 50 horas de contenido</p>
+    </div>
+  </div>
 
-        <div class="certificacion">
-          <img src="https://cdn.worldvectorlogo.com/logos/udemy-3.svg" alt="Udemy" style="height: 60px;" loading="lazy"
-            aria-hidden="true">
-          <h3>Flutter y Dart Completo</h3>
-          <p>Curso realizado en Udemy con más de 50 horas de contenido</p>
-        </div>
+  <div class="certificacion">
+    <img 
+      src="https://www.pue.es/Areas/Training/Resources/Images/Sections/Courses/Providers/Microsoft/Categories/Azure/badge-azure-fundamentals.png"
+      alt="Microsoft Certified: Azure Fundamentals"
+      class="cert-img cert-modal-trigger"
+      loading="lazy"
+      data-img="https://www.pue.es/Areas/Training/Resources/Images/Sections/Courses/Providers/Microsoft/Categories/Azure/badge-azure-fundamentals.png"
+      data-alt="Microsoft Certified: Azure Fundamentals"
+    >
+    <div class="cert-info">
+      <h3>Microsoft Certified: Azure Fundamentals</h3>
+      <p>Certificación AZ-900 — <strong>En progreso</strong></p>
+    </div>
+  </div>
 
-        <div class="certificacion">
-          <img
-            src="https://www.pue.es/Areas/Training/Resources/Images/Sections/Courses/Providers/Microsoft/Categories/Azure/badge-azure-fundamentals.png"
-            alt="Microsoft Azure Badge" class="logo-certificacion" loading="lazy" aria-hidden="true">
-          <h3>Microsoft Certified: Azure Fundamentals</h3>
-          <p>Certificación AZ-900 — <strong>En progreso</strong></p>
-        </div>
+  <div class="certificacion">
+    <img 
+      src="https://github.githubassets.com/assets/arctic-code-vault-contributor-default-df8d74122a06.png"
+      alt="Arctic Code Vault Contributor"
+      class="cert-img cert-modal-trigger"
+      style="max-height: 80px;"
+      loading="lazy"
+      data-img="https://github.githubassets.com/assets/arctic-code-vault-contributor-default-df8d74122a06.png"
+      data-alt="Arctic Code Vault Contributor"
+    >
+    <div class="cert-info">
+      <h3>Arctic Code Vault Contributor</h3>
+      <p>GitHub archivó mi código en 2020 como parte de su iniciativa para preservar el software abierto en el Ártico.
+        ¡Mi código es historia!</p>
+    </div>
+  </div>
 
-        <div class="certificacion">
-          <img src="https://github.githubassets.com/assets/arctic-code-vault-contributor-default-df8d74122a06.png"
-            alt="Arctic Code Vault Badge" class="logo-certificacion" style="max-height: 80px;" loading="lazy"
-            aria-hidden="true">
-          <h3>Arctic Code Vault Contributor</h3>
-          <p>GitHub archivó mi código en 2020 como parte de su iniciativa para preservar el software abierto en el
-            Ártico.
-            ¡Mi código es historia!</p>
-        </div>
+  <div class="certificacion">
+    <img 
+      src="/assets/udemy-cert-web.jpg"
+      alt="Certificado Udemy Desarrollo Web Completo"
+      class="cert-img cert-modal-trigger"
+      loading="lazy"
+      data-img="/assets/udemy-cert-web.jpg"
+      data-alt="Certificado Udemy Desarrollo Web Completo"
+    >
+    <div class="cert-info">
+      <h3 class="cert-title" data-i18n="cert_udemy_web_title">
+        Desarrollo Web Completo con HTML5, CSS3, JS, AJAX, PHP, MySQL
+      </h3>
+      <p class="cert-provider">Udemy</p>
+      <p class="cert-author" data-i18n="cert_udemy_web_author">
+        Instructor: Juan Pablo De la Torre Valdez
+      </p>
+      <p class="cert-duration" data-i18n="cert_udemy_web_duration">
+        Duración: 82 horas
+      </p>
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -448,6 +579,16 @@
         <!-- Puedes seguir agregando más -->
       </div>
     </section>
+
+<div id="cert-modal" class="cv-modal" aria-modal="true" role="dialog" tabindex="-1">
+  <div class="cv-modal-overlay"></div>
+  <div class="cv-modal-content">
+    <button id="close-cert-modal" class="cv-modal-close" aria-label="Cerrar modal">&times;</button>
+    <img src="" alt="Certificación" class="cv-modal-img" id="cert-modal-img">
+  </div>
+</div>
+
+
 
     <section id="testimonios" class="seccion-testimonios" aria-labelledby="titulo-testimonios">
       <h2 class="titulo-animado con-icono">
