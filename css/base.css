@@ -72,11 +72,7 @@ header {
 
 
 
-main,
-footer {
-  position: relative;
-  z-index: 1;
-}
+
 
 /* --- Overlay para oscurecer el fondo al abrir sidebar --- */
 .overlay {
@@ -275,17 +271,24 @@ html.sidebar-abierto {
 
 /* 1. Contenedor vertical fijo de los iconos sociales */
 .social-menu {
-  margin-top: 8rem;
-  position: absolute;
-  top: 320px;
+  position: fixed;         /* ¡Clave! Siempre fijo a la ventana */
+  top: 50%;              /* Ajusta según la altura inicial deseada */
   left: 24px;
   display: flex;
   flex-direction: column;
+   transform: translateY(-50%);
   gap: 10px;
-  /* Espacio regular entre iconos */
   z-index: 1200;
-   transition: top 0.33s cubic-bezier(.21,.7,.48,1.1);
-  
+  transition:
+    transform 0.5s cubic-bezier(.21,.7,.48,1.1),
+    opacity 0.3s,
+    top 0.33s cubic-bezier(.21,.7,.48,1.1);
+}
+
+.social-menu.oculto-por-footer {
+  transform: translateY(160px);  /* O el valor que necesites para que desaparezca */
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* 2. Contenedor individual de cada icono (y su SVG) */
@@ -721,6 +724,11 @@ h2 {
   border-radius: 8px;
   text-decoration: none;
   transition: background 0.3s;
+}
+
+a.juego-goblin {
+  background-color:transparent;
+
 }
 
 /* --- CERTIFICACIONES --- */

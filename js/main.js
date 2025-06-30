@@ -34,23 +34,15 @@ document.addEventListener("DOMContentLoaded", () => {
 // === SOCIAL-MENU: Animación SVG profesional === //
 
 
+// Si quieres mantener el efecto de sacudida cuando el scroll es rápido,
+// pero SIN mover la posición:
 document.addEventListener("DOMContentLoaded", () => {
-  const menu = document.querySelector('.social-menu');
   const icons = document.querySelectorAll('.social-icon');
-  const header = document.querySelector('header');
-  const headerRect = header.getBoundingClientRect();
-  const headerHeight = headerRect.height;
-
+  const menu = document.querySelector('.social-menu');
+  const footer = document.getElementById('footer');
   let lastScrollY = window.scrollY;
   let lastTime = performance.now();
   let velocity = 0;
-
-  function updateMenuPosition() {
-    const margin = 36; // Espacio desde abajo del header
-    let targetTop = window.scrollY + headerHeight + margin;
-    // Limita el top para no subir sobre el header
-    menu.style.top = `${targetTop}px`;
-  }
 
   function triggerStormIfFast() {
     const now = performance.now();
@@ -58,13 +50,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const deltaTime = now - lastTime;
     velocity = deltaY / Math.max(deltaTime, 1); // px/ms
 
-    // Detecta scroll fuerte
-    if (velocity > 0.4) { // Puedes ajustar este valor
+    if (velocity > 0.4) {
       icons.forEach((icon, i) => {
         icon.classList.remove('sacudida', 'rebote');
         setTimeout(() => icon.classList.add('sacudida'), i * 44);
         setTimeout(() => icon.classList.remove('sacudida'), 400 + i * 44);
-        // Rebote después de la sacudida
         setTimeout(() => icon.classList.add('rebote'), 410 + i * 44);
         setTimeout(() => icon.classList.remove('rebote'), 870 + i * 44);
       });
@@ -73,13 +63,34 @@ document.addEventListener("DOMContentLoaded", () => {
     lastTime = now;
   }
 
-  // Llama ambas funciones en scroll
-  window.addEventListener('scroll', () => {
-    updateMenuPosition();
-    triggerStormIfFast();
-  });
+  function ajustarMenuSocial() {
+    if (!menu || !footer) return;
+    // Normalmente lo tienes fijo:
+    menu.style.top = "50%";
+    menu.style.transform = "translateY(-50%)";
+    // Ahora evitamos que pise el footer:
+    const menuRect = menu.getBoundingClientRect();
+    const footerRect = footer.getBoundingClientRect();
+    const padding = 32; // separación del footer
+    if (menuRect.bottom > footerRect.top - padding) {
+      // Lo subimos lo necesario para que no tape el footer
+      const overlap = menuRect.bottom - (footerRect.top - padding);
+      menu.style.top = `calc(50% - ${overlap}px)`;
+      menu.style.transform = "translateY(-50%)";
+    }
+  }
 
-  // Inicial al cargar
-  updateMenuPosition();
+  window.addEventListener('scroll', () => {
+    triggerStormIfFast();
+    ajustarMenuSocial();
+  });
+  window.addEventListener('resize', ajustarMenuSocial);
+
+  // Inicial
+  ajustarMenuSocial();
 });
 
+
+/* FOOTER */
+
+// ⬇️ Pega esto al final de tu main.js o en un script aparte

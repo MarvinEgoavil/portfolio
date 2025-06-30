@@ -456,85 +456,150 @@ ul.letras-humo:hover li { animation: humo 2s linear forwards; }
 /* ===================================================
    1. FOOTER PRINCIPAL
 =================================================== */
-
+/* ---- MAIN Y FOOTER: posición base y superposición ---- */
+main,
 footer {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 2.5em 1em;
-  text-align: center;
-  font-size: 0.9em;
-  color: #bbb;
-  margin-top: 4em;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1;
 }
 
-.footer-contenido {
-  max-width: 95vw;
+/* ---- FOOTER: fondo, color y espaciado general ---- */
+footer {
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(5, 4, 74, 1) 16%, rgba(54, 9, 87, 1) 51%, rgba(0, 0, 0, 1) 100%);
+  color: #f3f0ff;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  padding-top: 32px;
+}
+
+/* ---- GRID PRINCIPAL DEL FOOTER (2 columnas) ---- */
+.footer-main {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 38px 28px 16px 28px;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 64px; /* Separación entre columnas */
 }
 
-footer a {
-  text-decoration: none;
+/* ---- COLUMNA IZQUIERDA Y DERECHA ---- */
+.footer-col {
+  flex: 1 1 0;
+  min-width: 260px;
+  max-width: 490px;
+  
 }
 
-footer strong {
+ .footer-col.move-right {
+  margin-left: 0vw; /* puedes ajustar este valor a tu gusto */
+}
+
+
+.footer-main.clase:nth-child(2)  {
+background-color: #000;
+
+}
+
+/* ---- Título y subtítulo ---- */
+.footer-title {
+  font-size: 2.2em;
+  font-weight: bold;
+  margin-bottom: 18px;
+}
+.footer-subtitle {
+  font-size: 2.2em;
   font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.01em;
+  margin-bottom: 18px;
+}
+
+.footer_bio {
+  color: #a259ec;
+  word-spacing: 5px;
+  line-height: 1.5;
 }
 
 
-footer p[data-i18n] {
-  margin: 1.1em 0 0.15em 0;
-  font-size: 1.27em;
-  letter-spacing: 0.01em;
-  font-weight: 500;
-  color: #e3e3e3;
-  text-shadow: 0 2px 8px #22003244;
-  line-height: 1.28;
+/* ---- ENLACES LISTA ("Más sobre mí") ---- */
+.footer-links {
+  list-style: none;      /* Quita el punto */
+  margin: 0;
+  padding: 0;
+}
+.footer-links li {
+  margin-bottom: 10px;
+}
+.footer-links a {
+  color: #a259ec;
+  text-decoration: none;
+  font-size: 1.15em;
+  transition: color 0.2s;
+}
+.footer-links a:hover {
+  color: #ffcd60;
+  text-decoration: underline;
 }
 
-footer .firma {
-  display: block;
-  margin-top: 0.18em;
-  font-size: 1.85em;
-  opacity: 0.96;
-  font-family: 'Orbitron', Arial, sans-serif;
-  letter-spacing: 0.14em;
-  filter: drop-shadow(0 2px 8px #b26dfe77);
-  transition: transform 0.13s;
+/* ---- LÍNEA DIVISORIA ---- */
+.footer-divider {
+  border: none;
+  border-top: 1px solid #3b3450;
+  margin: 10px 0 10px 0;
+  width: 98%;
 }
 
-footer .firma:hover {
-  transform: scale(1.09) rotate(-2deg);
+/* ---- FILA REDES SOCIALES (alineación) ---- */
+.footer-social-row {
+  display: flex;
+  justify-content: center;
+  margin: 0; /* elimina márgenes extra */
+  padding: 0;
+  
 }
 
-
-/* Redes sociales en footer */
-.social-links {
-  margin-bottom: 1em;
+/* ---- ICONOS SOCIALES DEL FOOTER ---- */
+.footer-social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 44px;   /* Separación grande para visual pro */
+  padding:0;
+  margin: 0 auto;
+}
+.footer-social-links a {
+  color: #a259ec;
+  font-size: 2.3em;
+   line-height: 1;
+  transition: color .2s;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-social-links a:hover {
+  color: #ffcd60;
 }
 
-.social-links a {
-  margin: 0 0.5em;
-  color: #bbb;
-  padding-top: 10px;
-  font-size: 1.5em;
-  transition:
-    color 0.3s,
-    transform 0.3s cubic-bezier(.4, 1.7, .6, .97),
-    text-shadow 0.3s;
-  display: inline-block;
+/* ---- COPYRIGHT ---- */
+.footer-copyright {
+  color: #a394d6;
+  text-align: center;
+  padding: 14px 0 8px 0;
+  font-size: 1.11em;
 }
 
-.social-links a:hover,
-.social-links a:focus {
-  color: #a86cf7;
-  transform: scale(1.25) rotate(-6deg);
-  text-shadow: 0 4px 20px #a86cf7, 0 0 10px #fff;
-  outline: none;
+/* ---- Nombre resaltado en copyright ---- */
+.footer-name {
+  color: #ffcd60;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
+
+/* ---- [OPCIONAL] OTROS ESTILOS DE REDES QUE YA NO USAS ---- */
+/* Si usas solo .footer-social-links, puedes eliminar esto: */
+
 
 /* Botón "Ver todos" */
 .btn-ver-todos {
@@ -593,9 +658,10 @@ footer .firma:hover {
   width: 100%;
 
   margin: 0 auto;
-  padding: 1em 0;  /* Puedes reducirlo si ves mucho espacio arriba/abajo */
+  padding: 1em 0;
+  /* Puedes reducirlo si ves mucho espacio arriba/abajo */
   /* NO height: 600px ni nada fijo */
-  
+
 }
 
 .contact-form {
@@ -618,11 +684,13 @@ footer .firma:hover {
 }
 
 .map-container {
-  flex: 1 1 0;       /* ¡Clave!: hace que la caja del mapa crezca */
+  flex: 1 1 0;
+  /* ¡Clave!: hace que la caja del mapa crezca */
   display: flex;
   flex-direction: column;
   margin-top: 0.5em;
-  min-height: 180px;  /* o el mínimo que prefieras */
+  min-height: 180px;
+  /* o el mínimo que prefieras */
   background: #181029;
   border-radius: 1em;
   overflow: hidden;
