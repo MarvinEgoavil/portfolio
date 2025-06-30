@@ -26,7 +26,6 @@
   "autor_2": "— Andrés Vilca, CEO de NovaAI",
   "correo": "Correo:",
   "telefono": "Teléfono:",
-  "footer": "Desarrollador con alma artística.",
   "view_github": "Ver en GitHub",
   "nav_curriculum": "Ver curriculum",
   "nav_descargar_cv": "Descargar CV",
@@ -35,5 +34,16 @@
   "cert_udemy_web_title": "Desarrollo Web Completo con HTML5, CSS3, JS, AJAX, PHP, MySQL",
   "cert_udemy_web_author": "Instructor: Juan Pablo De la Torre Valdez",
   "cert_udemy_web_duration": "Duración: 82 horas",
-  "ver_titulo_btn": "Ver título"
+  "ver_titulo_btn": "Ver título",
+  "footer_bio1": "Desarrollador con alma artística, fusionando tecnología, arte y creatividad.",
+  "footer_bio2": "Portfolio, proyectos, juegos, poesía y mucho más.",
+  "footer_bio3": "Manejo varios lenguajes de programación y tecnologías web modernas.",
+  "footer_vanilla": "Esta página fue realizada con puro Vanilla JavaScript 🥛, sin frameworks.",
+  "footer_more": "Más sobre mí",
+  "footer_social": "Redes",
+  "footer_text": "© 2025  MarvinEgoavil.com Todos los derechos reservados.",
+  "nav_about": "Sobre mí",
+  "nav_projects": "Proyectos",
+  "nav_certificates": "Certificados",
+  "nav_contact": "Contacto"
 }

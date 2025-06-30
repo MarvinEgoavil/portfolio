@@ -36,6 +36,16 @@
   "cert_udemy_web_title": "Desarrollo Web Completo HTML5, CSS3, JS, AJAX, PHP, MySQL",
   "cert_udemy_web_author": "Yachachiq: Juan Pablo De la Torre Valdez",
   "cert_udemy_web_duration": "Sapa kutiy: 82 horas",
-  "ver_titulo_btn": "Qillqata rikuy"
-
+  "ver_titulo_btn": "Qillqata rikuy",
+  "footer_bio1": "Qhapaq llamkayuq, llaqtaq kawsayniyuq, teknologíata, arte-ta, imaqqa kawsayta tinkuykachkan.",
+  "footer_bio2": "Portfolio, llamk'anakuy, pukllay, willakuy, aswan.",
+  "footer_bio3": "Aswan rimaykuna programanakuyta, web teknologíakunata ruwasqani.",
+  "footer_vanilla": "Kay p'anqa <strong class='vanilla-accent'>Vanilla JavaScript 🥛</strong> sapa sapa ruwasqa, mana frameworkswan.",
+  "footer_more": "Aswan ñuqanchikmanta",
+  "footer_social": "Kuyllurqay",
+  "footer_text": "© 2025 <span class='footer-name'>Marvin Egoavil</span>. Llapan yachaykunata waqaychasqa.",
+  "nav_about": "Ñuqanchikmanta",
+  "nav_projects": "Llamk'anakuy",
+  "nav_certificates": "Qillqakuna",
+  "nav_contact": "Rimanakuy"
 }
