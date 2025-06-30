@@ -208,6 +208,31 @@
     font-size: 1.15em;
   }
 
+  .footer-social-row {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.footer-social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-social-links a {
+  color: #c088ff;
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+.footer-social-links a:hover {
+  transform: scale(1.2);
+}
+
+
 }
 
 /* 📱 MÓVILES MEDIANOS - min-width: 480px hasta 522px */
