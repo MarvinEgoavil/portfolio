@@ -9,7 +9,6 @@ yarn-error.log*
 api/.env
 
 # Ignorar archivos específicos y sistemas
-firebase.js
 .DS_Store
 
 # Ignorar carpetas de logs
