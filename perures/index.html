@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PeruRes - Restaurantes peruanos cerca de ti</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:,">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <h1>🇵🇪 PeruRes</h1>
+        <span>Restaurantes peruanos cerca de ti</span>
+    </header>
+
+    <main>
+        <!-- Buscador de restaurantes -->
+<section class="buscador-restaurantes">
+
+    <div class="buscador-caja">
+
+        <span class="buscador-icono">🔎</span>
+
+        <input
+            type="text"
+            id="buscador-restaurante"
+            placeholder="Buscar restaurante peruano..."
+            autocomplete="off"
+        >
+
+        <button id="btn-buscar-restaurante">
+            Buscar
+        </button>
+
+    </div>
+
+    <!-- Aquí aparecerán las coincidencias -->
+    <div
+        id="resultados-buscador"
+        class="resultados-buscador"
+    ></div>
+
+</section>
+        <div id="map"></div>
+    </main>
+
+    <!-- Cargamos Leaflet para poder usar el mapa. -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+    <!-- Cargamos primero nuestra configuración. -->
+    <script src="config.js"></script>
+
+    <!-- Después cargamos nuestro código principal. -->
+    <script src="app.js"></script>
+
+</body>
+
+</html>

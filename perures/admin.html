@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PeruRes - Actualizador de restaurantes</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+    <link rel="icon" href="data:,">
+</head>
+
+<body>
+
+    <div class="panel-admin-sticky">
+
+        <header class="admin-header">
+
+            <span class="admin-kicker">
+                🇵🇪 PERURES ADMIN
+            </span>
+
+            <div class="titulo-admin">
+
+                <h1>
+                    Gestión del catálogo
+                </h1>
+
+                <img src="../assets/escudo.jpg" alt="Escudo del Perú" class="escudo-peru">
+
+            </div>
+
+            <p>
+                Descubre, valida y administra restaurantes
+                peruanos de toda la Comunidad de Madrid.
+            </p>
+
+        </header>
+
+
+        <div class="acciones-admin">
+
+            <button id="btn-actualizar-catalogo">
+                Actualizar catálogo
+            </button>
+
+            <button id="btn-validar-catalogo">
+                Validar catálogo
+            </button>
+
+        </div>
+
+
+        <!-- ==================================================
+         FILA INFERIOR:
+         ESTADO + BUSCADOR
+    ================================================== -->
+
+        <div class="barra-admin">
+
+            <p id="estado-actualizacion">
+                Esperando...
+            </p>
+
+
+            <div class="buscador-admin">
+
+                <input type="text" id="buscar-revision" placeholder="Buscar por nombre o dirección...">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+
+    <section id="revision-catalogo">
+
+        <div class="catalogo-cabecera">
+
+            <h2>
+                Catálogo de restaurantes
+            </h2>
+
+            <div class="catalogo-tabs">
+
+                <button class="tab-catalogo activo" data-vista="todos">
+                    Todos
+                    <span id="contador-todos">0</span>
+                </button>
+
+                <button class="tab-catalogo" data-vista="validados">
+                    ✅ Validados
+                    <span id="contador-validados">0</span>
+                </button>
+
+                <button class="tab-catalogo" data-vista="revisar">
+                    🟡 Pendientes
+                    <span id="contador-pendientes">0</span>
+                </button>
+
+                <button class="tab-catalogo" data-vista="descartados">
+                    ❌ Descartados
+                    <span id="contador-descartados">0</span>
+                </button>
+
+            </div>
+
+        </div>
+
+        <p id="contador-revision">
+            Todavía no se ha realizado ninguna validación.
+        </p>
+
+        <div id="lista-revision"></div>
+
+    </section>
+
+
+    <!-- ==================================================
+         FIREBASE SDK
+    ================================================== -->
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+
+    <!-- ==================================================
+         GOOGLE PLACES
+    ================================================== -->
+
+    <script src="config.js"></script>
+
+
+    <!-- ==================================================
+         ACTUALIZADOR DE RESTAURANTES
+    ================================================== -->
+
+    <script src="actualizar-restaurantes.js"></script>
+
+    <!-- ==================================================
+     HTML2CANVAS
+     Utilizado únicamente para el efecto de desintegración
+================================================== -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+    </script>
+    <!-- ==================================================
+         ADMINISTRACIÓN DE PERURES
+    ================================================== -->
+
+    <script type="module">
+
+
+        // ==================================================
+        // FIREBASE
+        // ==================================================
+
+        import {
+            obtenerFirebaseDB
+        } from "../js/firebase-config.js";
+
+
+        // Inicializamos Firebase.
+        obtenerFirebaseDB();
+
+
+        // ==================================================
+        // VALIDADOR
+        // ==================================================
+
+        // Cargamos el validador
+        // después de inicializar Firebase.
+        await import(
+            "./validar-restaurantes.js"
+        );
+
+
+        // ==================================================
+        // ELEMENTOS DEL DOM
+        // ==================================================
+
+        const botonActualizar =
+            document.getElementById(
+                "btn-actualizar-catalogo"
+            );
+
+
+        const botonValidar =
+            document.getElementById(
+                "btn-validar-catalogo"
+            );
+
+
+        const estadoActualizacion =
+            document.getElementById(
+                "estado-actualizacion"
+            );
+
+
+        // ==================================================
+        // BOTÓN ACTUALIZAR CATÁLOGO
+        // ==================================================
+
+        botonActualizar.addEventListener(
+            "click",
+            async function () {
+
+                botonActualizar.disabled = true;
+
+                botonActualizar.textContent =
+                    "Actualizando...";
+
+                estadoActualizacion.textContent =
+                    "Rastreando restaurantes...";
+
+
+                try {
+
+                    const catalogo =
+                        await actualizarCatalogo();
+
+
+                    estadoActualizacion.textContent =
+                        "Catálogo terminado: " +
+                        catalogo.length +
+                        " restaurantes únicos.";
+
+                } catch (error) {
+
+                    console.error(
+                        "Error actualizando el catálogo:",
+                        error
+                    );
+
+
+                    estadoActualizacion.textContent =
+                        "Ha ocurrido un error durante la actualización.";
+                }
+
+
+                botonActualizar.disabled = false;
+
+                botonActualizar.textContent =
+                    "Actualizar catálogo";
+            }
+        );
+
+
+        // ==================================================
+        // BOTÓN VALIDAR CATÁLOGO
+        // ==================================================
+
+        botonValidar.addEventListener(
+            "click",
+            async function () {
+
+                botonValidar.disabled = true;
+
+                botonValidar.textContent =
+                    "Validando...";
+
+                estadoActualizacion.textContent =
+                    "Validando catálogo...";
+
+
+                try {
+
+                    const resultado =
+                        await window.validarCatalogo();
+
+
+                    estadoActualizacion.textContent =
+                        "Validación terminada | " +
+                        "Validados: " +
+                        resultado.validados.length +
+                        " | Revisar: " +
+                        resultado.revisar.length +
+                        " | Descartados: " +
+                        resultado.descartados.length;
+
+                } catch (error) {
+
+                    console.error(
+                        "Error validando catálogo:",
+                        error
+                    );
+
+
+                    estadoActualizacion.textContent =
+                        "Ha ocurrido un error durante la validación.";
+                }
+
+
+                botonValidar.disabled = false;
+
+                botonValidar.textContent =
+                    "Validar catálogo";
+            }
+        );
+
+        // ==========================================================
+        // PANEL SUPERIOR
+        // OCULTAR MIENTRAS HAY SCROLL
+        // MOSTRAR CUANDO EL USUARIO SE DETIENE
+        // ==========================================================
+
+        const panelAdmin =
+            document.querySelector(
+                ".panel-admin-sticky"
+            );
+
+
+        let temporizadorScroll =
+            null;
+
+
+        if (panelAdmin) {
+
+            window.addEventListener(
+                "scroll",
+                function () {
+
+                    // Mientras el usuario está haciendo scroll,
+                    // ocultamos el panel completo.
+                    panelAdmin.classList.add(
+                        "panel-oculto"
+                    );
+
+
+                    // Cancelamos el temporizador anterior.
+                    clearTimeout(
+                        temporizadorScroll
+                    );
+
+
+                    // Si pasan 300 ms sin nuevos eventos
+                    // de scroll, consideramos que se detuvo.
+                    temporizadorScroll =
+                        setTimeout(
+                            function () {
+
+                                panelAdmin.classList.remove(
+                                    "panel-oculto"
+                                );
+
+                            },
+                            300
+                        );
+
+                },
+                {
+                    passive: true
+                }
+            );
+
+        } else {
+
+            console.error(
+                "No se encontró .panel-admin-sticky"
+            );
+        }
+
+    </script>
+
+</body>
+
+</html>

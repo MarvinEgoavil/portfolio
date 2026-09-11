@@ -1,30 +1,38 @@
 // firebase.js
 
+import {
+    obtenerFirebaseDB
+} from "./firebase-config.js";
+
+
 export function iniciarFirebase() {
 
-    // === 🔧 CONFIGURACIÓN DE FIREBASE ===
-    const firebaseConfig = {
-        apiKey: "AIzaSyCiwjGqeQ3yzrT_Y7A_VTdr5Qu4pjVfmRY",
-        authDomain: "portofolio-marvin.firebaseapp.com",
-        databaseURL: "https://portofolio-marvin-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "portofolio-marvin",
-        storageBucket: "portofolio-marvin.firebasestorage.app",
-        messagingSenderId: "618532477183",
-        appId: "1:618532477183:web:f8faef9863378fc81dd4ca",
-        measurementId: "G-KLHYSTGDGS"
-    };
+    // ======================================================
+    // FIREBASE
+    // ======================================================
 
-    // === 🔥 INICIALIZAR FIREBASE ===
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-    }
+    // Obtenemos la conexión general
+    // a Firebase Realtime Database.
+    const db =
+        obtenerFirebaseDB();
 
-    const db = firebase.database();
 
     // === 🔗 ELEMENTOS DEL DOM ===
-    const form = document.getElementById("testimonial-form");
-    const cardsContainer = document.getElementById("testimonial-cards");
-    const textarea = document.getElementById("mensaje");
+    const form =
+        document.getElementById(
+            "testimonial-form"
+        );
+
+    const cardsContainer =
+        document.getElementById(
+            "testimonial-cards"
+        );
+
+    const textarea =
+        document.getElementById(
+            "mensaje"
+        );
+
 
     // === 🚫 LISTA DE PALABRAS INAPROPIADAS ===
     const malasPalabras = [

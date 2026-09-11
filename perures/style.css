@@ -1,0 +1,420 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    overflow: hidden;
+}
+
+.topbar {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 25px;
+    background: #111;
+    color: white;
+}
+
+.topbar h1 {
+    font-size: 24px;
+}
+
+.topbar span {
+    opacity: 0.8;
+}
+
+main {
+    height: calc(100vh - 70px);
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+.marcador-restaurante {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-family: Arial, sans-serif;
+
+    white-space: nowrap;
+}
+
+
+.marcador-rating {
+    padding: 4px 8px;
+
+    border-radius: 12px;
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 13px;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+
+.marcador-distancia {
+    margin-top: 2px;
+
+    padding: 2px 6px;
+
+    background: white;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    color: #222;
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+.marcador-punto {
+    width: 10px;
+
+    height: 10px;
+
+    margin-top: 3px;
+
+    border-radius: 50%;
+
+    border: 2px solid white;
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* ========================================
+   BUSCADOR DE RESTAURANTES
+   ======================================== */
+
+.buscador-restaurantes {
+    position: relative;
+
+    padding: 12px;
+
+    background: #ffffff;
+
+    z-index: 1000;
+}
+
+
+.buscador-caja {
+    display: flex;
+
+    align-items: center;
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    background: white;
+
+    border: 1px solid #d7d7d7;
+
+    border-radius: 12px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+
+    overflow: hidden;
+}
+
+
+.buscador-icono {
+    padding-left: 15px;
+
+    font-size: 18px;
+}
+
+
+#buscador-restaurante {
+    flex: 1;
+
+    padding: 14px;
+
+    border: none;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+
+#btn-buscar-restaurante {
+    padding: 14px 20px;
+
+    border: none;
+
+    background: #111;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+#btn-buscar-restaurante:hover {
+    background: #333;
+}
+
+
+.resultados-buscador {
+    display: none;
+
+    position: absolute;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: calc(100% - 24px);
+
+    max-width: 700px;
+
+    background: white;
+
+    border-radius: 0 0 12px 12px;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+    z-index: 2000;
+}
+
+/* ======================================================
+   DISEÑO RESPONSIVE - MÓVILES
+   ====================================================== */
+
+/*
+    Estas reglas se aplican cuando la pantalla
+    mide 768 píxeles o menos.
+
+    Es decir:
+    principalmente móviles y tablets pequeñas.
+*/
+@media (max-width: 768px) {
+
+    /*
+        Quitamos cualquier desplazamiento horizontal.
+
+        Así evitamos que algún marcador o elemento
+        ensanche accidentalmente la página.
+    */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+
+    /*
+        Hacemos la cabecera más pequeña
+        para no desperdiciar espacio del mapa.
+    */
+    .topbar {
+        height: 56px;
+
+        padding: 0 14px;
+
+        gap: 8px;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        align-items: flex-start;
+    }
+
+
+    /*
+        Reducimos el tamaño del nombre PeruRes.
+    */
+    .topbar h1 {
+        font-size: 19px;
+
+        line-height: 20px;
+    }
+
+
+    /*
+        Reducimos el subtítulo.
+    */
+    .topbar span {
+        font-size: 11px;
+    }
+
+
+    /*
+        El contenido principal ocupa
+        todo el espacio restante.
+    */
+    main {
+        position: relative;
+
+        height: calc(100dvh - 56px);
+    }
+
+
+    /*
+        El mapa ocupa absolutamente
+        todo el espacio disponible.
+    */
+    #map {
+        width: 100%;
+
+        height: 100%;
+    }
+
+
+    /*
+        Ponemos el buscador flotando
+        encima del mapa.
+
+        Esto aprovecha mucho mejor
+        la pantalla del móvil.
+    */
+    .buscador-restaurantes {
+        position: absolute;
+
+        top: 10px;
+
+        left: 10px;
+
+        right: 10px;
+
+        padding: 0;
+
+        background: transparent;
+
+        z-index: 1000;
+    }
+
+
+    /*
+        La caja del buscador ocupa
+        prácticamente todo el ancho.
+    */
+    .buscador-caja {
+        width: 100%;
+
+        border-radius: 14px;
+
+        background: white;
+
+        box-shadow:
+            0 3px 12px rgba(0, 0, 0, 0.20);
+    }
+
+
+    /*
+        Ajustamos el campo donde
+        escribimos el restaurante.
+    */
+    #buscador-restaurante {
+        min-width: 0;
+
+        padding: 13px 8px;
+
+        font-size: 16px;
+    }
+
+
+    /*
+        Hacemos el botón Buscar más compacto.
+    */
+    #btn-buscar-restaurante {
+        padding: 13px 12px;
+
+        font-size: 13px;
+    }
+
+
+    /*
+        En móvil ocultamos inicialmente
+        el nombre completo del restaurante.
+
+        Si mostramos 20 nombres a la vez,
+        el mapa sería prácticamente ilegible.
+    */
+    .marcador-nombre {
+        display: none;
+    }
+
+
+    /*
+        Hacemos la puntuación algo más compacta.
+    */
+    .marcador-rating {
+        padding: 4px 7px;
+
+        font-size: 12px;
+    }
+
+
+    /*
+        Reducimos también la distancia.
+    */
+    .marcador-distancia {
+        padding: 2px 5px;
+
+        font-size: 10px;
+    }
+
+
+    /*
+        Hacemos ligeramente más pequeño
+        el punto que indica la ubicación exacta.
+    */
+    .marcador-punto {
+        width: 8px;
+
+        height: 8px;
+    }
+
+
+    /*
+        Ajustamos los controles + y -
+        de Leaflet para que no choquen
+        con nuestro buscador.
+    */
+    .leaflet-top.leaflet-left {
+        top: 65px;
+    }
+
+
+    /*
+        Adaptamos las ventanas emergentes
+        para pantallas pequeñas.
+    */
+    .leaflet-popup-content {
+        margin: 12px;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+    /* Ocultamos el botón "Buscar" únicamente en móviles. */
+    #btn-buscar-restaurante {
+        display: none;
+    }
+}
