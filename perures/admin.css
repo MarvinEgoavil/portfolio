@@ -1,0 +1,1771 @@
+/* ==========================================================
+   PERURES ADMIN
+   Panel de administración del catálogo
+
+   Estructura:
+   1. Variables
+   2. Base
+   3. Contenedor principal
+   4. Panel superior
+   5. Cabecera
+   6. Botones principales
+   7. Estado + buscador
+   8. Sección de revisión
+   9. Tarjetas
+   10. Botones de las tarjetas
+   11. Modal de actualización
+   12. Responsive
+   ========================================================== */
+
+
+/* ==========================================================
+   1. VARIABLES
+   ========================================================== */
+
+:root {
+    --peru-red: #d91023;
+    --peru-red-dark: #8f0715;
+    --peru-red-hover: #b90d1e;
+
+    --green: #159447;
+    --green-dark: #0e7938;
+
+    --orange: #f39200;
+    --orange-dark: #d97e00;
+
+    --white: #ffffff;
+
+    --background: #f7f7f7;
+    --background-red: #fff8f8;
+
+    --text-main: #252525;
+    --text-secondary: #6f6f6f;
+
+    --border-soft: #f2d8db;
+    --border-neutral: #dddddd;
+
+    --shadow-small:
+        0 5px 16px rgba(80, 0, 10, 0.08);
+
+    --shadow-medium:
+        0 12px 30px rgba(80, 0, 10, 0.11);
+
+    --shadow-button:
+        0 8px 18px rgba(217, 16, 35, 0.18);
+
+    --radius-small: 10px;
+    --radius-medium: 14px;
+    --radius-large: 20px;
+
+    --content-width: 1500px;
+}
+
+
+/* ==========================================================
+   2. BASE
+   ========================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    margin: 0;
+
+    color: var(--text-main);
+
+    background:
+        linear-gradient(135deg,
+            #f8f8f8 0%,
+            #fffafa 50%,
+            #f7f7f7 100%);
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    line-height: 1.5;
+}
+
+
+button,
+input {
+    font: inherit;
+}
+
+
+button {
+    border: 0;
+}
+
+
+/* ==========================================================
+   3. CONTENEDOR PRINCIPAL
+   ========================================================== */
+
+body {
+    width: min(calc(100% - 32px),
+            var(--content-width));
+
+    margin-inline: auto;
+}
+
+
+/* ==========================================================
+   4. PANEL SUPERIOR ÚNICO
+   ========================================================== */
+
+/*
+   Único panel sticky de la aplicación.
+
+   Queda completamente pegado al borde superior
+   del viewport cuando hacemos scroll.
+
+   Contiene:
+   - título
+   - escudo
+   - descripción
+   - botones
+   - estado
+   - buscador
+*/
+
+.panel-admin-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    margin-top: 0;
+    margin-bottom: 34px;
+
+    padding:
+        28px 32px 24px;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.995) 0%,
+            rgba(255, 248, 249, 0.99) 65%,
+            rgba(255, 252, 252, 0.99) 100%);
+
+    border:
+        1px solid rgba(217, 16, 35, 0.08);
+
+    border-top:
+        5px solid var(--peru-red);
+
+    border-radius:
+        0 0 var(--radius-large) var(--radius-large);
+
+    box-shadow:
+        var(--shadow-medium);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    transform:
+        translateY(0);
+
+    opacity:
+        1;
+
+    transition:
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.45s ease;
+
+    will-change:
+        transform,
+        opacity;
+}
+
+
+/* ==========================================================
+   PANEL OCULTO DURANTE EL SCROLL
+   ========================================================== */
+
+/*
+   JavaScript añade esta clase mientras
+   el usuario está desplazándose.
+
+   Lo movemos completamente fuera del viewport.
+*/
+
+.panel-admin-sticky.panel-oculto {
+    transform:
+        translateY(-101%);
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+}
+
+/*
+   JavaScript añade esta clase mientras
+   el usuario está desplazándose.
+*/
+
+.panel-admin-sticky.panel-oculto {
+    transform:
+        translateY(calc(-100% - 20px));
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* ==========================================================
+   5. CABECERA
+   ========================================================== */
+
+.admin-header {
+    margin: 0;
+}
+
+
+.admin-kicker {
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-bottom: 10px;
+
+    padding:
+        6px 12px;
+
+    border-radius:
+        999px;
+
+    color:
+        var(--peru-red);
+
+    background:
+        rgba(217, 16, 35, 0.08);
+
+    font-size:
+        0.76rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.09em;
+}
+
+
+.titulo-admin {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    min-width: 0;
+}
+
+
+.titulo-admin h1 {
+    margin: 0;
+
+    color:
+        var(--peru-red-dark);
+
+    font-size:
+        clamp(2rem,
+            4vw,
+            3.5rem);
+
+    font-weight:
+        850;
+
+    letter-spacing:
+        -0.04em;
+
+    line-height:
+        1.05;
+}
+
+
+.escudo-peru {
+    width: 64px;
+
+    height: 64px;
+
+    flex: 0 0 auto;
+
+    object-fit: contain;
+}
+
+
+.admin-header>p {
+    max-width: 850px;
+
+    margin:
+        16px 0 0;
+
+    color:
+        var(--text-secondary);
+
+    font-size:
+        1.05rem;
+}
+
+
+/* ==========================================================
+   6. BOTONES PRINCIPALES
+   ========================================================== */
+
+.acciones-admin {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+
+#btn-actualizar-catalogo,
+#btn-validar-catalogo {
+    min-height: 52px;
+
+    padding:
+        12px 26px;
+
+    border-radius:
+        12px;
+
+    cursor: pointer;
+
+    font-weight:
+        800;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease,
+        border-color 0.18s ease;
+}
+
+
+#btn-actualizar-catalogo {
+    color:
+        var(--white);
+
+    background:
+        linear-gradient(135deg,
+            #e11127,
+            #bd071a);
+
+    box-shadow:
+        var(--shadow-button);
+}
+
+
+#btn-validar-catalogo {
+    border:
+        1px solid rgba(217, 16, 35, 0.24);
+
+    color:
+        var(--peru-red);
+
+    background:
+        rgba(255, 255, 255, 0.76);
+}
+
+
+#btn-actualizar-catalogo:hover,
+#btn-validar-catalogo:hover {
+    transform:
+        translateY(-2px);
+}
+
+
+#btn-actualizar-catalogo:hover {
+    background:
+        linear-gradient(135deg,
+            #c90d20,
+            #a80717);
+
+    box-shadow:
+        0 10px 22px rgba(217, 16, 35, 0.24);
+}
+
+
+#btn-validar-catalogo:hover {
+    border-color:
+        var(--peru-red);
+
+    background:
+        #fff4f5;
+
+    box-shadow:
+        var(--shadow-small);
+}
+
+
+#btn-actualizar-catalogo:active,
+#btn-validar-catalogo:active {
+    transform:
+        translateY(0) scale(0.98);
+}
+
+
+#btn-actualizar-catalogo:disabled,
+#btn-validar-catalogo:disabled {
+    cursor: wait;
+
+    opacity: 0.65;
+
+    transform: none;
+}
+
+
+/* ==========================================================
+   7. FILA INFERIOR DEL PANEL
+   ESTADO + BUSCADOR
+   ========================================================== */
+
+/*
+   Escritorio:
+
+   ┌────────────────────┬─────────────────────────────┐
+   │ Validación...      │ Buscar...                   │
+   └────────────────────┴─────────────────────────────┘
+
+   Ambos pertenecen al mismo panel sticky.
+*/
+
+.barra-admin {
+    display: grid;
+
+    grid-template-columns:
+        minmax(430px, max-content) minmax(300px, 1fr);
+
+    align-items: center;
+
+    gap: 24px;
+
+    margin-top: 20px;
+}
+
+
+/* ==========================================================
+   ESTADO
+   ========================================================== */
+
+#estado-actualizacion {
+    display: flex;
+
+    align-items: center;
+
+    min-height: 54px;
+
+    margin: 0;
+
+    padding:
+        13px 18px;
+
+    border:
+        1px solid var(--border-soft);
+
+    border-left:
+        5px solid var(--peru-red);
+
+    border-radius:
+        12px;
+
+    color:
+        #414141;
+
+    background:
+        rgba(255, 255, 255, 0.94);
+
+    box-shadow:
+        var(--shadow-small);
+
+    font-weight:
+        600;
+
+    line-height:
+        1.35;
+
+    white-space:
+        nowrap;
+}
+
+
+/* ==========================================================
+   BUSCADOR
+   ========================================================== */
+
+.buscador-admin {
+    display: flex;
+
+    justify-content: flex-end;
+
+    min-width: 0;
+}
+
+
+#buscar-revision {
+    width: 100%;
+
+    max-width: 680px;
+
+    min-width: 0;
+
+    min-height: 54px;
+
+    padding:
+        13px 17px;
+
+    border:
+        1px solid var(--border-neutral);
+
+    border-radius:
+        12px;
+
+    outline: none;
+
+    color:
+        var(--text-main);
+
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.04);
+
+    font-size:
+        1rem;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+
+#buscar-revision::placeholder {
+    color:
+        #9a9a9a;
+}
+
+
+#buscar-revision:hover {
+    border-color:
+        #c7c7c7;
+}
+
+
+#buscar-revision:focus {
+    border-color:
+        var(--peru-red);
+
+    box-shadow:
+        0 0 0 4px rgba(217, 16, 35, 0.10);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* ==========================================================
+   8. SECCIÓN DE REVISIÓN
+   ========================================================== */
+
+#revision-catalogo {
+    position: relative;
+
+    padding:
+        30px;
+
+    border:
+        1px solid rgba(217, 16, 35, 0.10);
+
+    border-radius:
+        var(--radius-large);
+
+    background:
+        rgba(255, 255, 255, 0.88);
+
+    box-shadow:
+        0 10px 30px rgba(50, 0, 5, 0.06);
+}
+
+
+/*
+   Línea roja decorativa superior.
+*/
+
+#revision-catalogo::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 5px;
+
+    border-radius:
+        var(--radius-large) var(--radius-large) 0 0;
+
+    background:
+        linear-gradient(90deg,
+            var(--peru-red),
+            #ef6b78,
+            #f8c7cc,
+            var(--peru-red));
+}
+
+
+#revision-catalogo h2 {
+    margin:
+        0 0 12px;
+
+    color:
+        var(--text-main);
+
+    font-size:
+        clamp(1.5rem,
+            2.5vw,
+            2rem);
+
+    font-weight:
+        850;
+
+    letter-spacing:
+        -0.025em;
+}
+
+
+#contador-revision {
+    margin:
+        0 0 20px;
+
+    color:
+        var(--text-secondary);
+
+    font-weight:
+        600;
+}
+
+
+/* ==========================================================
+   9. LISTA / GRID DE RESTAURANTES
+   ========================================================== */
+
+#lista-revision {
+    display: grid;
+
+    /*
+       El número de columnas se adapta al espacio real disponible.
+
+       - Cada tarjeta necesita al menos 410px.
+       - Si caben 3, se muestran 3.
+       - Si solo caben 2, se muestran 2.
+       - Si no caben 2, se muestra 1.
+
+       Esto evita que las tarjetas VALIDADO compriman
+       sus tres botones en anchos intermedios.
+    */
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                min(410px, 100%),
+                1fr
+            )
+        );
+
+    gap: 20px;
+}
+
+
+/* ==========================================================
+   TARJETAS GENERADAS POR JAVASCRIPT
+   ========================================================== */
+
+/*
+   Estas reglas admiten varios nombres de clase
+   por si tu JS actual utiliza .restaurante-revision,
+   .tarjeta-restaurante o .restaurante-card.
+*/
+
+#lista-revision>div,
+.restaurante-revision,
+.tarjeta-restaurante,
+.restaurante-card {
+    position: relative;
+
+    min-width: 0;
+
+    padding:
+        22px;
+
+    overflow: hidden;
+
+    border:
+        1px solid rgba(217, 16, 35, 0.13);
+
+    border-radius:
+        16px;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #fff9f9);
+
+    box-shadow:
+        0 6px 18px rgba(70, 0, 8, 0.05);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+/*
+   Línea roja lateral de cada restaurante.
+*/
+
+#lista-revision>div::before,
+.restaurante-revision::before,
+.tarjeta-restaurante::before,
+.restaurante-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 6px;
+
+    background:
+        linear-gradient(180deg,
+            #ef233c,
+            #c8102e);
+}
+
+
+#lista-revision>div:hover,
+.restaurante-revision:hover,
+.tarjeta-restaurante:hover,
+.restaurante-card:hover {
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(217, 16, 35, 0.22);
+
+    box-shadow:
+        0 13px 28px rgba(70, 0, 8, 0.09);
+}
+
+
+/* ==========================================================
+   TEXTO DE LAS TARJETAS
+   ========================================================== */
+
+#lista-revision h3,
+#lista-revision h4 {
+    margin:
+        0 0 10px;
+
+    color:
+        var(--text-main);
+
+    font-weight:
+        850;
+
+    line-height:
+        1.25;
+}
+
+
+#lista-revision p {
+    margin:
+        7px 0;
+
+    color:
+        var(--text-secondary);
+
+    overflow-wrap:
+        anywhere;
+}
+
+/* ==========================================================
+   ESTADO DEL RESTAURANTE
+   ========================================================== */
+
+.estado-restaurante {
+    display: inline-flex;
+
+    align-items: center;
+
+    width: fit-content;
+
+    margin:
+        12px
+        0
+        6px;
+
+    padding:
+        6px
+        10px;
+
+    border-radius:
+        999px;
+
+    font-size:
+        0.88rem;
+
+    font-weight:
+        700;
+
+    line-height:
+        1;
+}
+
+
+.estado-pendiente {
+    color:
+        #735600;
+
+    background:
+        #fff4c7;
+}
+
+
+.estado-validado {
+    color:
+        #0e6b34;
+
+    background:
+        #dff7e8;
+}
+
+
+.estado-descartado {
+    color:
+        #a51b2b;
+
+    background:
+        #fde3e6;
+}
+
+/* ==========================================================
+   10. BOTONES DE LAS TARJETAS
+   MOBILE FIRST
+   ========================================================== */
+
+/*
+   Base para móvil:
+   - botones apilados
+   - ancho completo
+   - separación clara del estado
+*/
+
+#lista-revision button {
+    display: block;
+
+    width: 100%;
+
+    min-height: 46px;
+
+    margin:
+        10px 0 0;
+
+    padding:
+        10px 16px;
+
+    border-radius:
+        10px;
+
+    cursor: pointer;
+
+    color:
+        var(--white);
+
+    font-weight:
+        800;
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.10);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+
+#lista-revision button:hover {
+    transform:
+        translateY(-2px);
+
+    filter:
+        brightness(1.04);
+
+    box-shadow:
+        0 9px 18px rgba(0, 0, 0, 0.14);
+}
+
+
+#lista-revision button:active {
+    transform:
+        translateY(0) scale(0.98);
+}
+
+
+/* ==========================================================
+   APROBAR
+   ========================================================== */
+
+#lista-revision .btn-aprobar {
+    background:
+        linear-gradient(135deg,
+            var(--green),
+            var(--green-dark));
+}
+
+
+/* ==========================================================
+   ACTUALIZAR
+   ========================================================== */
+
+#lista-revision .btn-actualizar {
+    background:
+        linear-gradient(135deg,
+            #ff9d00,
+            var(--orange-dark));
+}
+
+
+/* ==========================================================
+   DESCARTAR
+   ========================================================== */
+
+#lista-revision .btn-descartar {
+    background:
+        linear-gradient(135deg,
+            #ec3345,
+            #c9182b);
+}
+
+
+/* ==========================================================
+   PASAR A PENDIENTE
+   ========================================================== */
+
+#lista-revision .btn-pendiente {
+    color:
+        #6d5200;
+
+    background:
+        linear-gradient(135deg,
+            #ffe08a,
+            #f2c94c);
+
+    box-shadow:
+        0 6px 14px rgba(176, 127, 0, 0.16);
+}
+
+/* ==========================================================
+   11. MODAL PARA ACTUALIZAR RESTAURANTE
+   ========================================================== */
+
+/*
+   Estas clases están preparadas para el modal
+   que estamos utilizando para modificar un restaurante.
+*/
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 3000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(20, 0, 3, 0.55);
+
+    backdrop-filter:
+        blur(5px);
+
+    -webkit-backdrop-filter:
+        blur(5px);
+}
+
+
+.modal-contenido {
+    width:
+        min(100%, 620px);
+
+    max-height:
+        min(850px, 90vh);
+
+    overflow-y:
+        auto;
+
+    padding:
+        28px;
+
+    border:
+        1px solid rgba(217, 16, 35, 0.14);
+
+    border-radius:
+        18px;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+        0 30px 80px rgba(30, 0, 5, 0.25);
+}
+
+
+.modal-contenido h2 {
+    margin:
+        0 0 20px;
+
+    color:
+        var(--peru-red-dark);
+
+    font-size:
+        1.65rem;
+}
+
+
+.modal-contenido label {
+    display: block;
+
+    margin:
+        14px 0 6px;
+
+    color:
+        var(--text-main);
+
+    font-weight:
+        700;
+}
+
+
+.modal-contenido input {
+    width: 100%;
+
+    min-height: 46px;
+
+    padding:
+        11px 13px;
+
+    border:
+        1px solid var(--border-neutral);
+
+    border-radius:
+        10px;
+
+    outline: none;
+
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.modal-contenido input:focus {
+    border-color:
+        var(--peru-red);
+
+    box-shadow:
+        0 0 0 4px rgba(217, 16, 35, 0.09);
+}
+
+
+.modal-acciones {
+    display: flex;
+
+    justify-content: flex-end;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 24px;
+}
+
+
+.modal-acciones button {
+    min-height: 44px;
+
+    padding:
+        10px 18px;
+
+    border-radius:
+        10px;
+
+    cursor: pointer;
+
+    font-weight:
+        800;
+}
+
+
+/* ==========================================================
+   12. RESPONSIVE — PANTALLAS MEDIANAS
+   ========================================================== */
+
+@media (max-width: 1100px) {
+
+    /*
+       Estado y buscador dejan de compartir
+       horizontalmente la misma fila.
+
+       Esto evita comprimir el contenido.
+    */
+
+    .barra-admin {
+        grid-template-columns:
+            1fr;
+
+        gap: 12px;
+    }
+
+
+    #estado-actualizacion {
+        white-space:
+            normal;
+    }
+
+
+    .buscador-admin {
+        justify-content:
+            stretch;
+    }
+
+
+    #buscar-revision {
+        max-width:
+            none;
+    }
+
+
+    /*
+       El grid de restaurantes no necesita un número fijo
+       de columnas en este breakpoint.
+
+       La regla base con auto-fit decide automáticamente
+       si deben mostrarse 1, 2 o 3 columnas según el
+       espacio real disponible para cada tarjeta.
+    */
+}
+
+/* ==========================================================
+   ESCRITORIO
+   ESTADO + ACCIONES
+   ========================================================== */
+
+@media (min-width: 900px) {
+
+    /*
+       El estado siempre queda en su propia línea.
+    */
+
+    #lista-revision .estado-restaurante {
+        display: block;
+
+        width: fit-content;
+
+        margin:
+            14px
+            0
+            16px;
+    }
+
+
+  
+/*
+   VALIDADO:
+   Actualizar + Pendiente + Descartar
+   siempre en una sola fila.
+*/
+
+#lista-revision
+.tarjeta-revision[data-estado="VALIDADO"] {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    column-gap: 10px;
+}
+
+
+/*
+   El contenido de la tarjeta ocupa
+   las tres columnas.
+*/
+
+#lista-revision
+.tarjeta-revision[data-estado="VALIDADO"] h3,
+
+#lista-revision
+.tarjeta-revision[data-estado="VALIDADO"] p,
+
+#lista-revision
+.tarjeta-revision[data-estado="VALIDADO"]
+.estado-restaurante {
+    grid-column:
+        1 / -1;
+}
+
+
+/*
+   Los tres botones ocupan una columna cada uno.
+*/
+
+#lista-revision
+.tarjeta-revision[data-estado="VALIDADO"]
+.btn-actualizar,
+
+#lista-revision
+.tarjeta-revision[data-estado="VALIDADO"]
+.btn-pendiente,
+
+#lista-revision
+.tarjeta-revision[data-estado="VALIDADO"]
+.btn-descartar {
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+    margin: 0;
+
+    padding:
+        10px
+        8px;
+
+    white-space: nowrap;
+}
+
+
+
+    /*
+       PENDIENTE:
+       Aprobar queda separado.
+       Actualizar + Descartar debajo.
+    */
+
+    #lista-revision
+    .tarjeta-revision[data-estado="REVISAR"]
+    .btn-aprobar {
+        display: block;
+
+        width: fit-content;
+
+        margin:
+            0
+            0
+            12px;
+    }
+
+
+    #lista-revision
+    .tarjeta-revision[data-estado="REVISAR"]
+    .btn-actualizar,
+
+    #lista-revision
+    .tarjeta-revision[data-estado="REVISAR"]
+    .btn-descartar {
+        display: inline-block;
+
+        width: auto;
+
+        margin:
+            0
+            8px
+            0
+            0;
+    }
+
+
+    /*
+       DESCARTADO:
+       Pendiente + Validar
+       en una sola fila.
+    */
+
+    #lista-revision
+    .tarjeta-revision[data-estado="DESCARTADO"]
+    .btn-pendiente,
+
+    #lista-revision
+    .tarjeta-revision[data-estado="DESCARTADO"]
+    .btn-aprobar {
+        display: inline-block;
+
+        width: auto;
+
+        margin:
+            0
+            8px
+            0
+            0;
+    }
+}
+/* ==========================================================
+   13. RESPONSIVE — TABLET
+   ========================================================== */
+
+@media (max-width: 780px) {
+
+    body {
+        width:
+            min(calc(100% - 20px),
+                var(--content-width));
+    }
+
+
+    .panel-admin-sticky {
+        top: 0px;
+
+        margin-bottom:
+            22px;
+
+        padding:
+            20px;
+    }
+
+
+    .titulo-admin {
+        gap:
+            12px;
+    }
+
+
+    .escudo-peru {
+        width:
+            50px;
+
+        height:
+            50px;
+    }
+
+
+    .admin-header>p {
+        margin-top:
+            12px;
+
+        font-size:
+            0.95rem;
+    }
+
+
+    .acciones-admin {
+        margin-top:
+            16px;
+    }
+
+
+    #revision-catalogo {
+        padding:
+            22px;
+    }
+
+
+    /*
+       Tarjetas:
+       2 columnas -> 1 columna.
+    */
+
+    #lista-revision {
+        grid-template-columns:
+            1fr;
+    }
+}
+
+
+/* ==========================================================
+   14. RESPONSIVE — MÓVIL
+   ========================================================== */
+
+@media (max-width: 600px) {
+
+    body {
+        width:
+            calc(100% - 12px);
+    }
+
+
+    .panel-admin-sticky {
+        padding:
+            14px;
+
+        border-radius:
+            0 0 16px 16px;
+    }
+
+
+    .admin-kicker {
+        margin-bottom:
+            8px;
+
+        padding:
+            5px 9px;
+
+        font-size:
+            0.65rem;
+    }
+
+
+    .titulo-admin h1 {
+        font-size:
+            clamp(1.55rem,
+                8vw,
+                2rem);
+    }
+
+
+    .escudo-peru {
+        width:
+            42px;
+
+        height:
+            42px;
+    }
+
+
+    .admin-header>p {
+        font-size:
+            0.84rem;
+
+        line-height:
+            1.4;
+    }
+
+
+    /*
+       Los dos botones principales permanecen
+       juntos siempre que haya espacio.
+    */
+
+    .acciones-admin {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+
+        gap:
+            8px;
+    }
+
+
+    #btn-actualizar-catalogo,
+    #btn-validar-catalogo {
+        width: 100%;
+
+        min-width: 0;
+
+        min-height:
+            44px;
+
+        padding:
+            9px 8px;
+
+        font-size:
+            0.82rem;
+    }
+
+
+    .barra-admin {
+        gap:
+            8px;
+
+        margin-top:
+            12px;
+    }
+
+
+    #estado-actualizacion {
+        min-height:
+            44px;
+
+        padding:
+            10px 12px;
+
+        font-size:
+            0.78rem;
+
+        white-space:
+            normal;
+    }
+
+
+    #buscar-revision {
+        min-height:
+            44px;
+
+        padding:
+            10px 12px;
+
+        font-size:
+            0.85rem;
+    }
+
+
+    #revision-catalogo {
+        padding:
+            18px 14px;
+    }
+
+
+    #revision-catalogo h2 {
+        font-size:
+            1.35rem;
+    }
+
+
+    #contador-revision {
+        font-size:
+            0.86rem;
+    }
+
+
+    #lista-revision {
+        gap:
+            14px;
+    }
+
+
+    #lista-revision>div,
+    .restaurante-revision,
+    .tarjeta-restaurante,
+    .restaurante-card {
+        padding:
+            18px;
+    }
+
+
+    /*
+       En móvil los botones de cada restaurante
+       ocupan todo el ancho.
+    */
+
+    #lista-revision button {
+        width: 100%;
+
+        margin:
+            9px 0 0;
+    }
+
+
+    .modal-overlay {
+        padding:
+            10px;
+    }
+
+
+    .modal-contenido {
+        padding:
+            20px 16px;
+
+        border-radius:
+            14px;
+    }
+
+
+    .modal-acciones {
+        display: grid;
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .modal-acciones button {
+        width:
+            100%;
+    }
+}
+
+
+/* ==========================================================
+   15. MÓVILES MUY PEQUEÑOS
+   ========================================================== */
+
+@media (max-width: 400px) {
+
+    /*
+       En pantallas extremadamente estrechas
+       también apilamos los botones principales.
+    */
+
+    .acciones-admin {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .titulo-admin {
+        align-items:
+            flex-start;
+    }
+
+
+    .escudo-peru {
+        width:
+            36px;
+
+        height:
+            36px;
+    }
+}
+
+
+/* ==========================================================
+   16. ACCESIBILIDAD
+   ========================================================== */
+
+button:focus-visible,
+input:focus-visible {
+    outline:
+        3px solid rgba(217, 16, 35, 0.28);
+
+    outline-offset:
+        3px;
+}
+
+
+/*
+   Si el usuario ha configurado su sistema
+   para reducir animaciones, las respetamos.
+*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto;
+
+        transition-duration:
+            0.01ms;
+
+        animation-duration:
+            0.01ms;
+
+        animation-iteration-count:
+            1;
+    }
+}
+
+/* ==========================================================
+   EFECTO DE DESINTEGRACIÓN
+   ========================================================== */
+
+/*
+   Contenedor temporal que se coloca exactamente
+   encima de la tarjeta que está desapareciendo.
+*/
+
+.capa-desintegracion {
+    position: fixed;
+
+    z-index: 4000;
+
+    overflow: visible;
+
+    pointer-events: none;
+
+    contain: layout paint;
+}
+
+
+/*
+   Cada fragmento de la tarjeta se convierte
+   temporalmente en una pequeña partícula.
+*/
+
+.particula-desintegracion {
+    position: absolute;
+
+    display: block;
+
+    pointer-events: none;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+
+    backface-visibility:
+        hidden;
+}
+
+/* ==========================================================
+   DESINTEGRACIÓN TIPO THANOS
+   ========================================================== */
+
+.contenedor-desintegracion {
+    position: fixed;
+
+    pointer-events: none;
+
+    overflow: visible;
+}
+
+
+.contenedor-desintegracion>canvas,
+.frame-desintegracion {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    opacity: 1;
+
+    transform:
+        rotate(0deg) translate(0, 0) rotate(0deg);
+
+    transition:
+        transform 1s ease-out,
+        opacity 1s ease-out;
+
+    pointer-events: none;
+
+    will-change:
+        transform,
+        opacity;
+}
