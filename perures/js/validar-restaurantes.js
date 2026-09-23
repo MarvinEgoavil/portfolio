@@ -222,6 +222,36 @@ async function obtenerDecisionesGuardadas() {
 
 
 // ======================================================
+// 5.1 OBTENER CATÁLOGO PERSISTENTE
+// ======================================================
+
+/*
+ * Fuente principal del catálogo: Firebase -> perures/catalogo
+ * restaurantes.json queda como respaldo de migración/recuperación.
+ */
+async function obtenerCatalogoGuardado() {
+    try {
+        const snapshot = await dbPeruRes.ref("perures/catalogo").once("value");
+        if (!snapshot.exists()) return [];
+        const datos = snapshot.val();
+        if (Array.isArray(datos)) return datos.filter(Boolean);
+        if (datos && typeof datos === "object") return Object.values(datos).filter(Boolean);
+        return [];
+    } catch (error) {
+        console.error("Error leyendo catálogo de Firebase:", error);
+        return [];
+    }
+}
+
+async function obtenerCatalogoRespaldoJSON() {
+    const respuesta = await fetch("restaurantes.json");
+    if (!respuesta.ok) throw new Error("No se pudo leer restaurantes.json");
+    const restaurantes = await respuesta.json();
+    return Array.isArray(restaurantes) ? restaurantes : [];
+}
+
+
+// ======================================================
 // 6. GUARDAR DECISIÓN MANUAL
 // ======================================================
 
@@ -370,66 +400,31 @@ async function validarCatalogo() {
     try {
 
         // ------------------------------------------
-        // Leemos el catálogo descubierto.
+        // CARGAR CATÁLOGO
         // ------------------------------------------
 
         let restaurantes;
 
-
         /*
-         * Si en esta sesión acabamos de ejecutar
-         * "Actualizar catálogo", usamos directamente
-         * el catálogo recién rastreado.
-         *
-         * Así Validar catálogo siempre trabaja sobre
-         * la versión más reciente y no sobre un JSON
-         * anterior que pueda contener más registros.
+         * Orden de fuentes:
+         * 1. Catálogo recién sincronizado en esta sesión.
+         * 2. Catálogo persistente de Firebase.
+         * 3. restaurantes.json como respaldo.
          */
-        if (
-            Array.isArray(
-                window.catalogoPeruRes
-            ) &&
-            window.catalogoPeruRes.length > 0
-        ) {
-
-            restaurantes =
-                window.catalogoPeruRes;
-
-
-            console.log(
-                "📦 Validando catálogo recién actualizado:",
-                restaurantes.length
-            );
-
+        if (Array.isArray(window.catalogoPeruRes) && window.catalogoPeruRes.length > 0) {
+            restaurantes = window.catalogoPeruRes;
+            console.log("📦 Catálogo de la sesión:", restaurantes.length);
         } else {
-
-            /*
-             * Si todavía no se ha actualizado el catálogo
-             * durante esta sesión, usamos restaurantes.json
-             * como respaldo.
-             */
-            const respuesta =
-                await fetch(
-                    "restaurantes.json"
-                );
-
-
-            if (!respuesta.ok) {
-
-                throw new Error(
-                    "No se pudo leer restaurantes.json"
-                );
+            const catalogoFirebase = await obtenerCatalogoGuardado();
+            if (catalogoFirebase.length > 0) {
+                restaurantes = catalogoFirebase;
+                window.catalogoPeruRes = restaurantes;
+                console.log("🔥 Catálogo cargado desde Firebase:", restaurantes.length);
+            } else {
+                restaurantes = await obtenerCatalogoRespaldoJSON();
+                window.catalogoPeruRes = restaurantes;
+                console.warn("📄 Firebase todavía no tiene catálogo. Usando restaurantes.json como respaldo:", restaurantes.length);
             }
-
-
-            restaurantes =
-                await respuesta.json();
-
-
-            console.log(
-                "📄 Validando catálogo guardado:",
-                restaurantes.length
-            );
         }
 
 

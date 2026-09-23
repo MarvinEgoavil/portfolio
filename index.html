@@ -1,801 +1,855 @@
-<!DOCTYPE html>
-<html lang="es">
+    <!DOCTYPE html>
+    <html lang="es">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Portfolio de Edinson Marvin Egoavil Samaniego - desarrollador y artista.">
-  <meta name="author" content="Edinson Marvin Egoavil Samaniego">
-  <meta name="keywords" content="portfolio, desarrollo web, Java, Flutter, artista, Marvin Egoavil">
-  <meta name="robots" content="index, follow">
-  <title>Mi Portfolio</title>
-
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Portfolio de Marvin Egoavil">
-  <meta property="og:description" content="Desarrollador con alma artística. Mira mis proyectos y contáctame.">
-  <meta property="og:image" content="">
-  <meta property="og:url" content="https://marvinegoavil.com">
-  <meta property="og:type" content="website">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="Portfolio de Edinson Marvin Egoavil Samaniego - desarrollador y artista.">
+      <meta name="author" content="Edinson Marvin Egoavil Samaniego">
+      <meta name="keywords" content="portfolio, desarrollo web, Java, Flutter, artista, Marvin Egoavil">
+      <meta name="robots" content="index, follow">
+      <title>Mi Portfolio</title>
 
 
-  <!-- Otros elementos -->
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <!-- Captcha -->
-  <script src="https://www.google.com/recaptcha/api.js?render=6Ld9TWkrAAAAAC_JVShrurJmr29KzKJ7pDSLajkH"></script>
+      <!-- Open Graph -->
+      <meta property="og:title" content="Portfolio de Marvin Egoavil">
+      <meta property="og:description" content="Desarrollador con alma artística. Mira mis proyectos y contáctame.">
+      <meta property="og:image" content="">
+      <meta property="og:url" content="https://marvinegoavil.com">
+      <meta property="og:type" content="website">
 
 
+      <!-- Otros elementos -->
+      <link rel="stylesheet" href="css/main.css">
+      <link rel="icon" type="image/png" href="assets/favicon.png">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
+      <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
 
-  <script type="application/ld+json">
+      <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+      <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+      <!-- Captcha -->
+      <script src="https://www.google.com/recaptcha/api.js?render=6Ld9TWkrAAAAAC_JVShrurJmr29KzKJ7pDSLajkH"></script>
 
 
 
-
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Edinson Marvin Egoavil Samaniego",
-    "url": "https://www.marvinegoavil.com/",
-    "sameAs": [
-      "https://www.linkedin.com/in/marvinegoavil/",
-      "https://github.com/MarvinEgoavil"
-    ],
-    "jobTitle": "Desarrollador y Artista",
-    "image": "https://www.marvinegoavil.com/assets/favicon.png"
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "OCRApp v1.0",
-    "applicationCategory": "Productividad",
-    "operatingSystem": "Windows, Linux",
-    "description": "Aplicación de escritorio desarrollada en Java que permite extraer texto desde imágenes y archivos PDF mediante OCR.",
-    "url": "https://github.com/MarvinEgoavil/OCRApp",
-    "creator": {
-      "@type": "Person",
-      "name": "Edinson Marvin Egoavil Samaniego"
-    }
-  }
-  </script>
-
-</head>
-
-<body>
-  <!-- Canvas 2d -->
-  <canvas id="estrellas-fugaces"></canvas>
+      <script type="application/ld+json">
 
 
-  <!-- ✅ Fondo Provisional -->
-  <div id="background-placeholder"></div>
-
-  <!-- ✅ Fondo Vanta.js -->
-  <div id="background"></div>
-
-  <div id="overlay" class="overlay"></div>
-  <div id="sidebar" class="sidebar">
-
-    <div class="sidebar-header">
-      <div class="menu-left">
-        <img src="assets/favicon.png" alt="Logo Marvin" class="sidebar-avatar">
-        <span class="sidebar-menu-title">Menu</span>
-      </div>
-      <button id="close-sidebar" class="close-sidebar" aria-label="Cerrar menú">&times;</button>
-    </div>
 
 
-    <ul class="sidebar-menu">
-      <li>
-        <a href="#inicio">
-          <i class="fas fa-house-user"></i>
-          <span>Inicio</span>
-        </a>
-      </li>
-      <li>
-        <a href="#sobre-mi">
-          <i class="fas fa-user"></i>
-          <span>Sobre mí</span>
-        </a>
-      </li>
-      <li>
-        <a href="#proyectos">
-          <i class="fas fa-rocket"></i>
-          <span>Proyectos</span>
-        </a>
-      </li>
-      <li>
-        <button class="submenu-toggle" aria-expanded="false" aria-controls="submenu-certificaciones">
-          <i class="fas fa-certificate"></i>
-          <span>Certificaciones</span>
-          <i class="fas fa-chevron-down submenu-arrow"></i>
-        </button>
-        <ul class="submenu" id="submenu-certificaciones"> ... </ul>
-      </li>
-      <li>
-        <a href="#contacto">
-          <i class="fas fa-envelope"></i>
-          <span>Contacto</span>
-        </a>
-      </li>
-    </ul>
-    <div class="sidebar-language">
-      <div class="language-dropdown">
-        <button id="language-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="selected-language"
-          type="button">
-          <span class="fi fi-gb" aria-hidden="true"></span>
-          <span id="selected-language">English</span>
-          <span class="arrow" aria-hidden="true">&#9662;</span>
-        </button>
-        <ul id="language-list" role="listbox" tabindex="-1" aria-label="Selecciona idioma" hidden>
-          <li role="option" data-lang="es" aria-selected="false">
-            <button type="button" class="lang-option"><span class="fi fi-es"></span> Español</button>
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Edinson Marvin Egoavil Samaniego",
+        "url": "https://www.marvinegoavil.com/",
+        "sameAs": [
+          "https://www.linkedin.com/in/marvinegoavil/",
+          "https://github.com/MarvinEgoavil"
+        ],
+        "jobTitle": "Desarrollador y Artista",
+        "image": "https://www.marvinegoavil.com/assets/favicon.png"
+      }
+      </script>
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "OCRApp v1.0",
+        "applicationCategory": "Productividad",
+        "operatingSystem": "Windows, Linux",
+        "description": "Aplicación de escritorio desarrollada en Java que permite extraer texto desde imágenes y archivos PDF mediante OCR.",
+        "url": "https://github.com/MarvinEgoavil/OCRApp",
+        "creator": {
+          "@type": "Person",
+          "name": "Edinson Marvin Egoavil Samaniego"
+        }
+      }
+      </script>
+
+    </head>
+
+    <body>
+      <!-- Canvas 2d -->
+      <canvas id="estrellas-fugaces"></canvas>
+
+
+      <!-- ✅ Fondo Provisional -->
+      <div id="background-placeholder"></div>
+
+      <!-- ✅ Fondo Vanta.js -->
+      <div id="background"></div>
+
+      <div id="overlay" class="overlay"></div>
+      <div id="sidebar" class="sidebar">
+
+        <div class="sidebar-header">
+          <div class="menu-left">
+            <img src="assets/favicon.png" alt="Logo Marvin" class="sidebar-avatar">
+            <span class="sidebar-menu-title">Menu</span>
+          </div>
+          <button id="close-sidebar" class="close-sidebar" aria-label="Cerrar menú">&times;</button>
+        </div>
+
+
+        <ul class="sidebar-menu">
+          <li>
+            <a href="#inicio">
+              <i class="fas fa-house-user"></i>
+              <span>Inicio</span>
+            </a>
           </li>
-          <li role="option" data-lang="en" aria-selected="true">
-            <button type="button" class="lang-option"><span class="fi fi-gb"></span> English</button>
+          <li>
+            <a href="#sobre-mi">
+              <i class="fas fa-user"></i>
+              <span>Sobre mí</span>
+            </a>
           </li>
-          <li role="option" data-lang="fr" aria-selected="false">
-            <button type="button" class="lang-option"><span class="fi fi-fr"></span> Français</button>
+          <li>
+            <a href="#proyectos">
+              <i class="fas fa-rocket"></i>
+              <span>Proyectos</span>
+            </a>
           </li>
-          <li role="option" data-lang="qu" aria-selected="false">
-            <button type="button" class="lang-option"><span class="fi fi-pe"></span> Quechua</button>
+          <li>
+            <button class="submenu-toggle" aria-expanded="false" aria-controls="submenu-certificaciones">
+              <i class="fas fa-certificate"></i>
+              <span>Certificaciones</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </button>
+            <ul class="submenu" id="submenu-certificaciones"> ... </ul>
+          </li>
+          <li>
+            <a href="#contacto">
+              <i class="fas fa-envelope"></i>
+              <span>Contacto</span>
+            </a>
           </li>
         </ul>
-      </div>
-    </div>
-
-
-  </div>
-  <a href="#inicio" class="skip-link sr-only" data-i18n="skip_to_content">Saltar al contenido principal</a>
-
-
-  <!-- HEADER  -->
-  <header>
-    <div class="navbar-container">
-      <div class="sidebar-glow-bg"></div>
-      <!-- IZQUIERDA: Logo y nombre -->
-      <div class="name-with-hacker">
-        <img src="assets/favicon.png" alt="Icono de Marvin, desarrollador y artista" class="hacker-icon" loading="lazy"
-          aria-hidden="true">
-        <div class="marvin-wrap">
-          <div class="spaceship">
-            <div class="particles"></div>
-            <div class="beam"></div>
-          </div>
-          <div class="marvin-name">
-            <span>M</span><span>A</span><span>R</span><span>V</span><span>I</span><span>N</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- CENTRO: Menú de navegación -->
-      <nav id="nav-menu" aria-label="Navegación principal">
-
-        <ul class="navbar">
-          <li>
-            <a href="#inicio" data-i18n="nav_inicio">Inicio</a>
-          </li>
-
-          <li class="has-submenu">
-            <a href="#" class="submenu-toggle" aria-haspopup="true" aria-controls="submenu-sobre-mi"
-              aria-expanded="false" data-i18n="nav_sobre_mi">Sobre mí</a>
-            <ul class="submenu" id="submenu-sobre-mi">
-              <li><a href="#titulo" data-i18n="nav_titulo">Titulo oficial</a></li>
-              <li><a href="#" data-i18n="nav_curriculum">Ver Curriculum</a></li>
-              <li><a href="#certificaciones" data-i18n="nav_certificaciones">Certificaciones</a></li>
+        <div class="sidebar-language">
+          <div class="language-dropdown">
+            <button id="language-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="selected-language"
+              type="button">
+              <span class="fi fi-gb" aria-hidden="true"></span>
+              <span id="selected-language">English</span>
+              <span class="arrow" aria-hidden="true">&#9662;</span>
+            </button>
+            <ul id="language-list" role="listbox" tabindex="-1" aria-label="Selecciona idioma" hidden>
+              <li role="option" data-lang="es" aria-selected="false">
+                <button type="button" class="lang-option"><span class="fi fi-es"></span> Español</button>
+              </li>
+              <li role="option" data-lang="en" aria-selected="true">
+                <button type="button" class="lang-option"><span class="fi fi-gb"></span> English</button>
+              </li>
+              <li role="option" data-lang="fr" aria-selected="false">
+                <button type="button" class="lang-option"><span class="fi fi-fr"></span> Français</button>
+              </li>
+              <li role="option" data-lang="qu" aria-selected="false">
+                <button type="button" class="lang-option"><span class="fi fi-pe"></span> Quechua</button>
+              </li>
             </ul>
-          </li>
+          </div>
+        </div>
 
-          <li class="has-submenu">
-            <a href="#" class="submenu-toggle" aria-haspopup="true" aria-controls="submenu-proyectos"
-              aria-expanded="false" data-i18n="nav_proyectos">Proyectos</a>
-            <ul class="submenu" id="submenu-proyectos">
-              <li><a href="#proyectos-web">Web interactiva</a></li>
-              <li><a href="#proyectos-moviles">Aplicaciones móviles</a></li>
-              <li><a href="#proyectos-juegos">Juegos</a></li>
-              <li><a href="#proyectos">Proyectos pequeños</a></li>
+
+      </div>
+      <a href="#inicio" class="skip-link sr-only" data-i18n="skip_to_content">Saltar al contenido principal</a>
+
+
+      <!-- HEADER  -->
+      <header>
+        <div class="navbar-container">
+          <div class="sidebar-glow-bg"></div>
+          <!-- IZQUIERDA: Logo y nombre -->
+          <div class="name-with-hacker">
+            <img src="assets/favicon.png" alt="Icono de Marvin, desarrollador y artista" class="hacker-icon" loading="lazy"
+              aria-hidden="true">
+            <div class="marvin-wrap">
+              <div class="spaceship">
+                <div class="particles"></div>
+                <div class="beam"></div>
+              </div>
+              <div class="marvin-name">
+                <span>M</span><span>A</span><span>R</span><span>V</span><span>I</span><span>N</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CENTRO: Menú de navegación -->
+          <nav id="nav-menu" aria-label="Navegación principal">
+
+            <ul class="navbar">
+              <li>
+                <a href="#inicio" data-i18n="nav_inicio">Inicio</a>
+              </li>
+
+              <li class="has-submenu">
+                <a href="#" class="submenu-toggle" aria-haspopup="true" aria-controls="submenu-sobre-mi"
+                  aria-expanded="false" data-i18n="nav_sobre_mi">Sobre mí</a>
+                <ul class="submenu" id="submenu-sobre-mi">
+                  <li><a href="#titulo" data-i18n="nav_titulo">Titulo oficial</a></li>
+                  <li><a href="#" data-i18n="nav_curriculum">Ver Curriculum</a></li>
+                  <li><a href="#certificaciones" data-i18n="nav_certificaciones">Certificaciones</a></li>
+                </ul>
+              </li>
+
+              <li class="has-submenu">
+                <a href="#" class="submenu-toggle" aria-haspopup="true" aria-controls="submenu-proyectos"
+                  aria-expanded="false" data-i18n="nav_proyectos">Proyectos</a>
+                <ul class="submenu" id="submenu-proyectos">
+                  <li><a href="#proyectos-web">Web interactiva</a></li>
+                  <li><a href="#proyectos-moviles">Aplicaciones móviles</a></li>
+                  <li><a href="#proyectos-juegos">Juegos</a></li>
+                  <li><a href="#proyectos">Proyectos pequeños</a></li>
+                </ul>
+              </li>
+
+              <li>
+                <a href="#contacto" data-i18n="nav_contacto">Contacto</a>
+              </li>
+              <li>
+                <a href="https://drive.google.com/uc?export=download&id=1xpUMho826IULWUu2b6SwrdQDe3z_LK3P" download
+                  data-i18n="nav_descargar_cv">Descargar CV</a>
+              </li>
             </ul>
-          </li>
+          </nav>
 
-          <li>
-            <a href="#contacto" data-i18n="nav_contacto">Contacto</a>
-          </li>
-          <li>
-            <a href="https://drive.google.com/uc?export=download&id=1xpUMho826IULWUu2b6SwrdQDe3z_LK3P" download
-              data-i18n="nav_descargar_cv">Descargar CV</a>
-          </li>
-        </ul>
-      </nav>
+          <!-- Selector de idioma ESCRITORIO -->
+          <div class="language-dropdown desktop-language">
+            <button id="language-btn-desktop" aria-haspopup="listbox" aria-expanded="false"
+              aria-labelledby="selected-language-desktop" type="button">
+              <span class="fi fi-gb" aria-hidden="true"></span>
+              <span id="selected-language-desktop">English</span>
+              <span class="arrow" aria-hidden="true">&#9662;</span>
+            </button>
+            <ul id="language-list-desktop" role="listbox" tabindex="-1" aria-label="Selecciona idioma" hidden>
+              <li role="option" data-lang="es" aria-selected="false">
+                <button type="button" class="lang-option"><span class="fi fi-es"></span> Español</button>
+              </li>
+              <li role="option" data-lang="en" aria-selected="true">
+                <button type="button" class="lang-option"><span class="fi fi-gb"></span> English</button>
+              </li>
+              <li role="option" data-lang="fr" aria-selected="false">
+                <button type="button" class="lang-option"><span class="fi fi-fr"></span> Français</button>
+              </li>
+              <li role="option" data-lang="qu" aria-selected="false">
+                <button type="button" class="lang-option"><span class="fi fi-pe"></span> Quechua</button>
+              </li>
+            </ul>
+          </div>
 
-      <!-- Selector de idioma ESCRITORIO -->
-      <div class="language-dropdown desktop-language">
-        <button id="language-btn-desktop" aria-haspopup="listbox" aria-expanded="false"
-          aria-labelledby="selected-language-desktop" type="button">
-          <span class="fi fi-gb" aria-hidden="true"></span>
-          <span id="selected-language-desktop">English</span>
-          <span class="arrow" aria-hidden="true">&#9662;</span>
-        </button>
-        <ul id="language-list-desktop" role="listbox" tabindex="-1" aria-label="Selecciona idioma" hidden>
-          <li role="option" data-lang="es" aria-selected="false">
-            <button type="button" class="lang-option"><span class="fi fi-es"></span> Español</button>
-          </li>
-          <li role="option" data-lang="en" aria-selected="true">
-            <button type="button" class="lang-option"><span class="fi fi-gb"></span> English</button>
-          </li>
-          <li role="option" data-lang="fr" aria-selected="false">
-            <button type="button" class="lang-option"><span class="fi fi-fr"></span> Français</button>
-          </li>
-          <li role="option" data-lang="qu" aria-selected="false">
-            <button type="button" class="lang-option"><span class="fi fi-pe"></span> Quechua</button>
-          </li>
-        </ul>
-      </div>
-
-      <!-- DERECHA: SOLO en móvil, los dos botones -->
-      <div class="top-mobile-actions" role="navigation" aria-label="Menú móvil">
-        <button id="mobile-search-btn" class="search-btn-mobile" aria-label="Abrir búsqueda" type="button">
-          <i class="fas fa-search" aria-hidden="true"></i>
-        </button>
-        <button id="mobile-hamburger" class="hamburger" aria-label="Abrir menú lateral" aria-expanded="false"
-          aria-controls="sidebar" type="button">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-    </div>
-
-
-  </header>
-
-  <div class="social-menu">
-    <div class="social-icon" data-color="#ff8000">
-      <svg class="circle-anim" width="44" height="44">
-        <circle cx="22" cy="22" r="20" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="125.6"
-          stroke-dashoffset="125.6" />
-      </svg>
-      <a href="https://megoavils.blogspot.com/" target="_blank"><i class="fab fa-blogger-b"></i></a>
-    </div>
-    <div class="social-icon" data-color="#E4405F">
-      <svg class="circle-anim" width="44" height="44">
-        <circle cx="22" cy="22" r="20" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="125.6"
-          stroke-dashoffset="125.6" />
-      </svg>
-      <a href="https://www.instagram.com/marvinegoavilz/" target="_blank"><i class="fab fa-instagram"></i></a>
-    </div>
-    <div class="social-icon" data-color="#0077B5">
-      <svg class="circle-anim" width="44" height="44">
-        <circle cx="22" cy="22" r="20" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="125.6"
-          stroke-dashoffset="125.6" />
-      </svg>
-      <a href="https://www.linkedin.com/in/marvinegoavil/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-    </div>
-    <div class="social-icon" data-color="#6e5494">
-      <svg class="circle-anim" width="44" height="44">
-        <circle cx="22" cy="22" r="20" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="125.6"
-          stroke-dashoffset="125.6" />
-      </svg>
-      <a href="https://github.com/MarvinEgoavil" target="_blank"><i class="fab fa-github"></i></a>
-    </div>
-  </div>
-
-
-
-  <main>
-
-    <section id="inicio" class="seccion hero" aria-labelledby="titulo-inicio">
-      <div class="titulo-inicio-wrap">
-        <ul class="letras-humo titulo-principal alineado" aria-label="Hola, soy Marvin">
-          <li>H</li>
-          <li>o</li>
-          <li>l</li>
-          <li>a</li>
-          <li>,</li>
-          <li>&nbsp;</li>
-          <li>s</li>
-          <li>o</li>
-          <li>y</li>
-          <li>&nbsp;</li>
-          <li>M</li>
-          <li>a</li>
-          <li>r</li>
-          <li>v</li>
-          <li>i</li>
-          <li>n</li>
-        </ul>
-        <h2 class="titulo-animado titulo-principal alineado" id="titulo-inicio">
-          <img id="emoji-marvin" src="assets/emoji.webp" alt="Emoji Marvin" class="emoji-marvin" loading="lazy">
-        </h2>
-      </div>
-
-      <p data-i18n="hero_desc">Transformo ideas en experiencias digitales con alma artística.</p>
-
-      <a href="#proyectos" class="btn-cta" data-i18n="nav_proyectos">Ver mis proyectos</a>
-    </section>
-
-    <div class="buscador-seccion">
-      <i class="fas fa-search"></i>
-      <input id="buscador" data-i18n-placeholder="buscador_placeholder"
-        placeholder="¿Qué deseas buscar en mi universo digital?" autocomplete="off">
-      <div id="resultados-buscador" class="resultados-buscador hidden-by-js"></div>
-    </div>
-
-    <section id="sobre-mi" class="seccion" aria-labelledby="titulo-sobre-mi">
-      <h2 class="titulo-animado con-icono">
-        <span class="titulo-emoji" aria-hidden="true">🎭</span>
-        <span id="titulo-sobre-mi" class="sr-only" data-i18n="sobre_mi_title">Sobre mí</span>
-      </h2>
-      <ul class="letras-humo" aria-label="Sobre mí">
-        <li>S</li>
-        <li>o</li>
-        <li>b</li>
-        <li>r</li>
-        <li>e</li>
-        <li>&nbsp;</li>
-        <li>m</li>
-        <li>í</li>
-      </ul>
-
-      <p data-i18n="about_desc">
-        Soy un desarrollador apasionado por el arte, la música y la tecnología. Combino la lógica con la emoción para
-        crear experiencias únicas.
-      </p>
-    </section>
-
-
-    <section id="proyectos" class="seccion" aria-labelledby="titulo-proyectos">
-      <h2 class="titulo-animado con-icono">
-        <span class="titulo-emoji" aria-hidden="true">🚀</span>
-        <span id="titulo-proyectos" data-i18n="proyectos_title" class="sr-only">Proyectos</span>
-      </h2>
-      <ul class="letras-humo" aria-label="Proyectos">
-        <li>M</li>
-        <li>i</li>
-        <li>s</li>
-        <li>&nbsp;</li>
-        <li>P</li>
-        <li>r</li>
-        <li>o</li>
-        <li>y</li>
-        <li>e</li>
-        <li>c</li>
-        <li>t</li>
-        <li>o</li>
-        <li>s</li>
-      </ul>
-
-
-      <div class="proyectos-container">
-        <div class="proyecto">
-          <h3 data-i18n="project_ocr_title"><i class="fas fa-file-code"></i> OCRApp v1.0</h3>
-
-          <p data-i18n="ocrapp_desc">
-            Aplicación de escritorio desarrollada en Java que permite extraer texto desde imágenes y archivos PDF
-            mediante
-            OCR. Versión básica funcional para pruebas iniciales.
-          </p>
-          <a href="https://github.com/MarvinEgoavil/OCRApp" target="_blank" data-i18n="view_github"
-            rel="noopener noreferrer">Ver en GitHub</a>
+          <!-- DERECHA: SOLO en móvil, los dos botones -->
+          <div class="top-mobile-actions" role="navigation" aria-label="Menú móvil">
+            <button id="mobile-search-btn" class="search-btn-mobile" aria-label="Abrir búsqueda" type="button">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+            <button id="mobile-hamburger" class="hamburger" aria-label="Abrir menú lateral" aria-expanded="false"
+              aria-controls="sidebar" type="button">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
         </div>
 
 
-        <div class="proyecto">
-          <h3 data-i18n="calc_title">🧮 Calculadora Python + Historial</h3>
+      </header>
 
-          <p data-i18n="calc_desc">Aplicación de consola que permite realizar operaciones matemáticas y registra cada
-            cálculo en un historial
-            visual con pandas.</p>
-          <a href="https://github.com/MarvinEgoavil/pajaritos_proyecto1" target="_blank" data-i18n="view_github"
-            rel="noopener noreferrer">Ver en
-            GitHub</a>
+      <div class="social-menu">
+        <div class="social-icon" data-color="#ff8000">
+          <svg class="circle-anim" width="44" height="44">
+            <circle cx="22" cy="22" r="20" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="125.6"
+              stroke-dashoffset="125.6" />
+          </svg>
+          <a href="https://megoavils.blogspot.com/" target="_blank"><i class="fab fa-blogger-b"></i></a>
         </div>
-        <div class="proyecto">
-          <h3 data-i18n="project_goblin_title"><i class="fas fa-gamepad"></i> Goblin Kid 2D</h3>
-
-          <a href="https://www.youtube.com/watch?v=bh0N6oQdCvs&t=9s" target="_blank" rel="noopener noreferrer"
-            class="juego-goblin">
-            <img src="assets/juego.jpg" alt="Miniatura Goblin Kid 2D" class="proyecto-miniatura">
-
-          </a>
-
-          <p data-i18n="goblin_desc">
-            Juego de plataformas hecho con Unity y C#, como parte del curso de realización de videojuegos.
-          </p>
-
-          <a href="https://www.youtube.com/watch?v=bh0N6oQdCvs&t=9s" target="_blank" data-i18n="view_project"
-            rel="noopener noreferrer">Ver proyecto</a>
+        <div class="social-icon" data-color="#E4405F">
+          <svg class="circle-anim" width="44" height="44">
+            <circle cx="22" cy="22" r="20" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="125.6"
+              stroke-dashoffset="125.6" />
+          </svg>
+          <a href="https://www.instagram.com/marvinegoavilz/" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
-        <div class="proyecto">
-          <h3>
-            <i class="fas fa-file-pdf"></i>
-            Rellenador EX-17 v1.0.0
-          </h3>
-
-          <a href="https://github.com/MarvinEgoavil/RellenadorEX17/releases/tag/v1.0.0" target="_blank"
-            rel="noopener noreferrer" class="proyecto-imagen-link">
-
-            <img src="assets/resultado.png" alt="Rellenador EX-17" class="proyecto-miniatura">
-          </a>
-
-          <p>
-            Aplicación de escritorio desarrollada en Java para automatizar
-            el rellenado del formulario EX-17 mediante JavaFX y Apache PDFBox.
-          </p>
-
-          <a href="https://github.com/MarvinEgoavil/RellenadorEX17" target="_blank" rel="noopener noreferrer">
-            Ver en GitHub
-          </a>
+        <div class="social-icon" data-color="#0077B5">
+          <svg class="circle-anim" width="44" height="44">
+            <circle cx="22" cy="22" r="20" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="125.6"
+              stroke-dashoffset="125.6" />
+          </svg>
+          <a href="https://www.linkedin.com/in/marvinegoavil/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
         </div>
-        <!-- Agrega más tarjetas aquí -->
+        <div class="social-icon" data-color="#6e5494">
+          <svg class="circle-anim" width="44" height="44">
+            <circle cx="22" cy="22" r="20" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="125.6"
+              stroke-dashoffset="125.6" />
+          </svg>
+          <a href="https://github.com/MarvinEgoavil" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
       </div>
-    </section>
 
-    <section id="titulo" class="seccion">
-      <h2 class="titulo-seccion titulo-modal-trigger" tabindex="0" role="button" aria-label="Ver título en pantalla">
-        <ul class="letras-humo" data-i18n="titulo_academico_titulo_humo">
-          <li>T</li>
-          <li>í</li>
-          <li>t</li>
-          <li>u</li>
-          <li>l</li>
-          <li>o</li>
-        </ul>
-      </h2>
-      <div class="titulo-block">
-        <img src="/assets/titulo.jpg" alt="Título Técnico Superior en DAM" class="titulo-img titulo-modal-trigger"
-          loading="lazy">
-        <div class="titulo-info">
-          <h3 class="titulo-nombre" data-i18n="titulo_academico_nombre">
-            TÉCNICO SUPERIOR EN DESARROLLO DE APLICACIONES MULTIPLATAFORMA
-          </h3>
-          <p class="titulo-centro" data-i18n="titulo_academico_centro">
-            CENTRO PRIVADO DE FORMACIÓN PROFESIONAL ESPECÍFICA CEV CENTRO DE ESTUDIOS DEL VIDEO
+
+
+      <main>
+
+        <section id="inicio" class="seccion hero" aria-labelledby="titulo-inicio">
+          <div class="titulo-inicio-wrap">
+            <ul class="letras-humo titulo-principal alineado" aria-label="Hola, soy Marvin">
+              <li>H</li>
+              <li>o</li>
+              <li>l</li>
+              <li>a</li>
+              <li>,</li>
+              <li>&nbsp;</li>
+              <li>s</li>
+              <li>o</li>
+              <li>y</li>
+              <li>&nbsp;</li>
+              <li>M</li>
+              <li>a</li>
+              <li>r</li>
+              <li>v</li>
+              <li>i</li>
+              <li>n</li>
+            </ul>
+            <h2 class="titulo-animado titulo-principal alineado" id="titulo-inicio">
+              <img id="emoji-marvin" src="assets/emoji.webp" alt="Emoji Marvin" class="emoji-marvin" loading="lazy">
+            </h2>
+          </div>
+
+          <p data-i18n="hero_desc">Transformo ideas en experiencias digitales con alma artística.</p>
+
+          <a href="#proyectos" class="btn-cta" data-i18n="nav_proyectos">Ver mis proyectos</a>
+        </section>
+
+        <div class="buscador-seccion">
+          <i class="fas fa-search"></i>
+          <input id="buscador" data-i18n-placeholder="buscador_placeholder"
+            placeholder="¿Qué deseas buscar en mi universo digital?" autocomplete="off">
+          <div id="resultados-buscador" class="resultados-buscador hidden-by-js"></div>
+        </div>
+
+        <section id="sobre-mi" class="seccion" aria-labelledby="titulo-sobre-mi">
+          <h2 class="titulo-animado con-icono">
+            <span class="titulo-emoji" aria-hidden="true">🎭</span>
+            <span id="titulo-sobre-mi" class="sr-only" data-i18n="sobre_mi_title">Sobre mí</span>
+          </h2>
+          <ul class="letras-humo" aria-label="Sobre mí">
+            <li>S</li>
+            <li>o</li>
+            <li>b</li>
+            <li>r</li>
+            <li>e</li>
+            <li>&nbsp;</li>
+            <li>m</li>
+            <li>í</li>
+          </ul>
+
+          <p data-i18n="about_desc">
+            Soy un desarrollador apasionado por el arte, la música y la tecnología. Combino la lógica con la emoción para
+            crear experiencias únicas.
           </p>
-          <p class="titulo-lugar" data-i18n="titulo_academico_lugar">
-            Madrid, España
-          </p>
-          <p class="titulo-fecha" data-i18n="titulo_academico_fecha">
-            Expedición: 13 de abril de 2022
-          </p>
-          <p class="titulo-nota" data-i18n="titulo_academico_nota">
-            Calificación final: 8
-          </p>
-          <button class="btn-cta especial titulo-modal-trigger" type="button" data-i18n="ver_titulo_btn">
-            Ver título
+        </section>
+
+
+        <section id="proyectos" class="seccion" aria-labelledby="titulo-proyectos">
+          <h2 class="titulo-animado con-icono">
+            <span class="titulo-emoji" aria-hidden="true">🚀</span>
+            <span id="titulo-proyectos" data-i18n="proyectos_title" class="sr-only">Proyectos</span>
+          </h2>
+          <ul class="letras-humo" aria-label="Proyectos">
+            <li>M</li>
+            <li>i</li>
+            <li>s</li>
+            <li>&nbsp;</li>
+            <li>P</li>
+            <li>r</li>
+            <li>o</li>
+            <li>y</li>
+            <li>e</li>
+            <li>c</li>
+            <li>t</li>
+            <li>o</li>
+            <li>s</li>
+          </ul>
+
+
+          <div class="proyectos-container">
+            <div class="proyecto">
+              <h3 data-i18n="project_ocr_title"><i class="fas fa-file-code"></i> OCRApp v1.0</h3>
+
+              <p data-i18n="ocrapp_desc">
+                Aplicación de escritorio desarrollada en Java que permite extraer texto desde imágenes y archivos PDF
+                mediante
+                OCR. Versión básica funcional para pruebas iniciales.
+              </p>
+              <a href="https://github.com/MarvinEgoavil/OCRApp" target="_blank" data-i18n="view_github"
+                rel="noopener noreferrer">Ver en GitHub</a>
+            </div>
+
+
+            <div class="proyecto">
+              <h3 data-i18n="calc_title">🧮 Calculadora Python + Historial</h3>
+
+              <p data-i18n="calc_desc">Aplicación de consola que permite realizar operaciones matemáticas y registra cada
+                cálculo en un historial
+                visual con pandas.</p>
+              <a href="https://github.com/MarvinEgoavil/pajaritos_proyecto1" target="_blank" data-i18n="view_github"
+                rel="noopener noreferrer">Ver en
+                GitHub</a>
+            </div>
+            <div class="proyecto">
+              <h3 data-i18n="project_goblin_title"><i class="fas fa-gamepad"></i> Goblin Kid 2D</h3>
+
+              <a href="https://www.youtube.com/watch?v=bh0N6oQdCvs&t=9s" target="_blank" rel="noopener noreferrer"
+                class="juego-goblin">
+                <img src="assets/juego.jpg" alt="Miniatura Goblin Kid 2D" class="proyecto-miniatura">
+
+              </a>
+
+              <p data-i18n="goblin_desc">
+                Juego de plataformas hecho con Unity y C#, como parte del curso de realización de videojuegos.
+              </p>
+
+              <a href="https://www.youtube.com/watch?v=bh0N6oQdCvs&t=9s" target="_blank" data-i18n="view_project"
+                rel="noopener noreferrer">Ver proyecto</a>
+            </div>
+            <!-- Rellenador EX-17 v1.0.0 -->
+            <div class="proyecto">
+              <h3>
+                <i class="fas fa-file-pdf"></i>
+                Rellenador EX-17 v1.0.0
+              </h3>
+
+              <a href="https://github.com/MarvinEgoavil/RellenadorEX17/releases/tag/v1.0.0" target="_blank"
+                rel="noopener noreferrer" class="proyecto-imagen-link">
+                <img src="assets/resultado.png" alt="Rellenador EX-17 v1.0.0" class="proyecto-miniatura">
+              </a>
+
+              <p data-i18n="rellenador_v1_desc">
+                Aplicación de escritorio desarrollada en Java para automatizar
+                el rellenado del formulario EX-17 mediante JavaFX y Apache PDFBox.
+              </p>
+
+              <a href="https://github.com/MarvinEgoavil/RellenadorEX17" target="_blank" rel="noopener noreferrer"
+                data-i18n="view_github">
+                Ver en GitHub
+              </a>
+            </div>
+
+            <!-- Rellenador EX-17 v1.2.0 -->
+            <div class="proyecto">
+              <h3>
+                <i class="fas fa-file-pdf"></i>
+                Rellenador EX-17 v1.2.0
+              </h3>
+
+              <a href="https://github.com/MarvinEgoavil/RellenadorEX17/releases/tag/v1.2.0" target="_blank"
+                rel="noopener noreferrer" class="proyecto-imagen-link">
+
+                <img src="assets/minuatura-Rellenadorv1.2.png" alt="Rellenador EX-17 v1.2.0" class="proyecto-miniatura">
+              </a>
+
+              <p data-i18n="rellenador_v12_desc">
+                Aplicación de escritorio para Windows desarrollada en Java 21 y JavaFX
+                que automatiza la generación del formulario EX-17. Detecta y extrae
+                automáticamente datos desde formularios EX-03, EX-25, EX-26, EX-31 y
+                EX-32 mediante Apache PDFBox.
+              </p>
+
+              <a href="https://github.com/MarvinEgoavil/RellenadorEX17" target="_blank" rel="noopener noreferrer"
+                data-i18n="view_github">
+                Ver en GitHub
+              </a>
+
+              <br>
+
+              <a href="https://github.com/MarvinEgoavil/RellenadorEX17/releases/tag/v1.2.0" target="_blank"
+                rel="noopener noreferrer" data-i18n="download_v12">
+                Descargar v1.2.0
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="titulo" class="seccion">
+          <h2 class="titulo-seccion titulo-modal-trigger" tabindex="0" role="button" aria-label="Ver título en pantalla">
+            <ul class="letras-humo" data-i18n="titulo_academico_titulo_humo">
+              <li>T</li>
+              <li>í</li>
+              <li>t</li>
+              <li>u</li>
+              <li>l</li>
+              <li>o</li>
+            </ul>
+          </h2>
+          <div class="titulo-block">
+            <img src="assets/titulo.jpg" alt="Título Técnico Superior en DAM" class="titulo-img titulo-modal-trigger"
+              loading="lazy">
+            <div class="titulo-info">
+              <h3 class="titulo-nombre" data-i18n="titulo_academico_nombre">
+                TÉCNICO SUPERIOR EN DESARROLLO DE APLICACIONES MULTIPLATAFORMA
+              </h3>
+              <p class="titulo-centro" data-i18n="titulo_academico_centro">
+                CENTRO PRIVADO DE FORMACIÓN PROFESIONAL ESPECÍFICA CEV CENTRO DE ESTUDIOS DEL VIDEO
+              </p>
+              <p class="titulo-lugar" data-i18n="titulo_academico_lugar">
+                Madrid, España
+              </p>
+              <p class="titulo-fecha" data-i18n="titulo_academico_fecha">
+                Expedición: 13 de abril de 2022
+              </p>
+              <p class="titulo-nota" data-i18n="titulo_academico_nota">
+                Calificación final: 8
+              </p>
+              <button class="btn-cta especial titulo-modal-trigger" type="button" data-i18n="ver_titulo_btn">
+                Ver título
+              </button>
+            </div>
+          </div>
+
+          <!-- MODAL DE TÍTULO PROTEGIDO -->
+          <div id="titulo-modal" class="cv-modal" aria-modal="true" role="dialog" tabindex="-1">
+            <div class="cv-modal-overlay"></div>
+
+            <div class="cv-modal-content">
+              <button id="close-titulo-modal" class="cv-modal-close" aria-label="Cerrar modal">&times;</button>
+
+              <div class="titulo-protegido-wrap">
+                <img src="assets/titulo.jpg" alt="Título Técnico Superior en DAM" class="cv-modal-img titulo-bloqueado">
+
+                <div id="titulo-lock-panel" class="titulo-lock-panel">
+                  <div class="titulo-lock-icon" aria-hidden="true">🔒</div>
+                  <h3>Documento protegido</h3>
+                  <p>Introduce la clave para visualizar mi título académico.</p>
+
+                  <div class="titulo-password-row">
+                    <input id="titulo-password" type="password" placeholder="Introduce la clave" autocomplete="off"
+                      aria-label="Clave para visualizar el título">
+
+                    <button id="titulo-unlock-btn" type="button">
+                      Desbloquear
+                    </button>
+                  </div>
+
+                  <p id="titulo-password-error" class="titulo-password-error" aria-live="polite"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <section id="certificaciones" class="seccion" aria-labelledby="titulo-certificaciones">
+          <h2 class="titulo-animado con-icono">
+            <span class="titulo-emoji" aria-hidden="true">📜</span>
+            <span id="titulo-certificaciones" data-i18n="certificaciones_title" class="sr-only">Certificaciones</span>
+          </h2>
+          <ul class="letras-humo" aria-label="Certificaciones">
+            <li>C</li>
+            <li>e</li>
+            <li>r</li>
+            <li>t</li>
+            <li>i</li>
+            <li>f</li>
+            <li>i</li>
+            <li>c</li>
+            <li>a</li>
+            <li>c</li>
+            <li>i</li>
+            <li>o</li>
+            <li>n</li>
+            <li>e</li>
+            <li>s</li>
+          </ul>
+
+          <div class="certificaciones-grid">
+            <div class="certificacion">
+              <img src="https://miro.medium.com/v2/resize:fit:1200/1*VOn3ZQ6P-Cy3eGrtZhUK1Q.png" alt="Oracle Badge"
+                width="80" class="cert-img cert-modal-trigger" loading="lazy"
+                data-img="https://miro.medium.com/v2/resize:fit:1200/1*VOn3ZQ6P-Cy3eGrtZhUK1Q.png"
+                data-alt="Oracle Certified Professional: Java SE 17">
+              <div class="cert-info">
+                <h3>Oracle Certified Professional: Java SE 17</h3>
+                <p>1Z0-829: Oracle Certified Professional: Java SE 17 Developer (en progreso)</p>
+              </div>
+            </div>
+
+            <div class="certificacion">
+              <img
+                src="https://yt3.googleusercontent.com/ytc/AIdro_lGRc-05M2OoE1ejQdxeFhyP7OkJg9h4Y-7CK_5je3QqFI=s900-c-k-c0x00ffffff-no-rj"
+                alt="Certificado FreeCodeCamp Responsive Web Design" class="cert-img cert-modal-trigger" loading="lazy"
+                data-img="https://yt3.googleusercontent.com/ytc/AIdro_lGRc-05M2OoE1ejQdxeFhyP7OkJg9h4Y-7CK_5je3QqFI=s900-c-k-c0x00ffffff-no-rj"
+                data-alt="Certificado FreeCodeCamp Responsive Web Design">
+              <div class="cert-info">
+                <h3>Responsive Web Design</h3>
+                <p>Certificación obtenida en FreeCodeCamp (2025)</p>
+              </div>
+            </div>
+
+            <div class="certificacion">
+              <img src="https://cdn.worldvectorlogo.com/logos/udemy-3.svg" alt="Certificado Udemy Flutter y Dart Completo"
+                style="height: 60px;" class="cert-img cert-modal-trigger" loading="lazy"
+                data-img="https://cdn.worldvectorlogo.com/logos/udemy-3.svg"
+                data-alt="Certificado Udemy Flutter y Dart Completo">
+              <div class="cert-info">
+                <h3>Flutter y Dart Completo</h3>
+                <p>Curso realizado en Udemy con más de 50 horas de contenido</p>
+              </div>
+            </div>
+
+            <div class="certificacion">
+              <img
+                src="https://www.pue.es/Areas/Training/Resources/Images/Sections/Courses/Providers/Microsoft/Categories/Azure/badge-azure-fundamentals.png"
+                alt="Microsoft Certified: Azure Fundamentals" class="cert-img cert-modal-trigger" loading="lazy"
+                data-img="https://www.pue.es/Areas/Training/Resources/Images/Sections/Courses/Providers/Microsoft/Categories/Azure/badge-azure-fundamentals.png"
+                data-alt="Microsoft Certified: Azure Fundamentals">
+              <div class="cert-info">
+                <h3>Microsoft Certified: Azure Fundamentals</h3>
+                <p>Certificación AZ-900 — <strong>En progreso</strong></p>
+              </div>
+            </div>
+
+            <div class="certificacion">
+              <img src="https://github.githubassets.com/assets/arctic-code-vault-contributor-default-df8d74122a06.png"
+                alt="Arctic Code Vault Contributor" class="cert-img cert-modal-trigger" style="max-height: 80px;"
+                loading="lazy"
+                data-img="https://github.githubassets.com/assets/arctic-code-vault-contributor-default-df8d74122a06.png"
+                data-alt="Arctic Code Vault Contributor">
+              <div class="cert-info">
+                <h3>Arctic Code Vault Contributor</h3>
+                <p>GitHub archivó mi código en 2020 como parte de su iniciativa para preservar el software abierto en el
+                  Ártico.
+                  ¡Mi código es historia!</p>
+              </div>
+            </div>
+
+            <div class="certificacion">
+              <img src="/assets/udemy-cert-web.jpg" alt="Certificado Udemy Desarrollo Web Completo"
+                class="cert-img cert-modal-trigger" loading="lazy" data-img="/assets/udemy-cert-web.jpg"
+                data-alt="Certificado Udemy Desarrollo Web Completo">
+              <div class="cert-info">
+                <h3 class="cert-title" data-i18n="cert_udemy_web_title">
+                  Desarrollo Web Completo con HTML5, CSS3, JS, AJAX, PHP, MySQL
+                </h3>
+                <p class="cert-provider">Udemy</p>
+                <p class="cert-author" data-i18n="cert_udemy_web_author">
+                  Instructor: Juan Pablo De la Torre Valdez
+                </p>
+                <p class="cert-duration" data-i18n="cert_udemy_web_duration">
+                  Duración: 82 horas
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+          <!-- Puedes seguir agregando más -->
+          </div>
+        </section>
+
+        <div id="cert-modal" class="cv-modal" aria-modal="true" role="dialog" tabindex="-1">
+          <div class="cv-modal-overlay"></div>
+          <div class="cv-modal-content">
+            <button id="close-cert-modal" class="cv-modal-close" aria-label="Cerrar modal">&times;</button>
+            <img src="" alt="Certificación" class="cv-modal-img" id="cert-modal-img">
+          </div>
+        </div>
+
+
+
+        <section id="testimonios" class="seccion-testimonios" aria-labelledby="titulo-testimonios">
+          <h2 class="titulo-animado con-icono">
+            <span class="titulo-emoji" aria-hidden="true">💬</span>
+            <span id="titulo-testimonios" data-i18n="testimonios_title" class="sr-only">Testimonios</span>
+          </h2>
+          <ul class="letras-humo" aria-label="Testimonios">
+            <li>T</li>
+            <li>e</li>
+            <li>s</li>
+            <li>t</li>
+            <li>i</li>
+            <li>m</li>
+            <li>o</li>
+            <li>n</li>
+            <li>i</li>
+            <li>o</li>
+            <li>s</li>
+          </ul>
+          <!-- Contenedor de tarjetas de testimonios -->
+          <div id="testimonial-cards" class="grid-testimonios" aria-live="polite"></div>
+
+          <!-- Botón ver más comentarios -->
+          <button id="ver-todos-btn" class="btn-ver-todos">
+            Mostrar todos los comentarios
           </button>
-        </div>
-      </div>
 
-      <!-- MODAL DE IMAGEN DE TÍTULO -->
-      <div id="titulo-modal" class="cv-modal" aria-modal="true" role="dialog" tabindex="-1">
-        <div class="cv-modal-overlay"></div>
-        <div class="cv-modal-content">
-          <button id="close-titulo-modal" class="cv-modal-close" aria-label="Cerrar modal">&times;</button>
-          <img src="/assets/Titulo_grande.png" alt="Título Técnico Superior en DAM" class="cv-modal-img">
-        </div>
-      </div>
-    </section>
+          <!-- Formulario de nuevo testimonio -->
+          <form id="testimonial-form" aria-label="Formulario de testimonios" class="testimonio-form" autocomplete="off">
+            <fieldset>
+              <legend class="sr-only">Nuevo testimonio</legend>
 
+              <label for="nombre" class="sr-only" data-i18n="form_nombre_label">Nombre</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required autocomplete="name"
+                data-i18n="form_nombre_placeholder">
 
-    <section id="certificaciones" class="seccion" aria-labelledby="titulo-certificaciones">
-      <h2 class="titulo-animado con-icono">
-        <span class="titulo-emoji" aria-hidden="true">📜</span>
-        <span id="titulo-certificaciones" data-i18n="certificaciones_title" class="sr-only">Certificaciones</span>
-      </h2>
-      <ul class="letras-humo" aria-label="Certificaciones">
-        <li>C</li>
-        <li>e</li>
-        <li>r</li>
-        <li>t</li>
-        <li>i</li>
-        <li>f</li>
-        <li>i</li>
-        <li>c</li>
-        <li>a</li>
-        <li>c</li>
-        <li>i</li>
-        <li>o</li>
-        <li>n</li>
-        <li>e</li>
-        <li>s</li>
-      </ul>
+              <label for="cargo" class="sr-only" data-i18n="form_cargo_label">Cargo o Empresa</label>
+              <input type="text" id="cargo" name="cargo" placeholder="Tu cargo o empresa" required
+                autocomplete="organization" data-i18n="form_cargo_placeholder">
 
-      <div class="certificaciones-grid">
-        <div class="certificacion">
-          <img src="https://miro.medium.com/v2/resize:fit:1200/1*VOn3ZQ6P-Cy3eGrtZhUK1Q.png" alt="Oracle Badge"
-            width="80" class="cert-img cert-modal-trigger" loading="lazy"
-            data-img="https://miro.medium.com/v2/resize:fit:1200/1*VOn3ZQ6P-Cy3eGrtZhUK1Q.png"
-            data-alt="Oracle Certified Professional: Java SE 17">
-          <div class="cert-info">
-            <h3>Oracle Certified Professional: Java SE 17</h3>
-            <p>1Z0-829: Oracle Certified Professional: Java SE 17 Developer (en progreso)</p>
+              <label for="mensaje" class="sr-only" data-i18n="form_mensaje_label">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu testimonio aquí..." required
+                data-i18n="form_mensaje_placeholder"></textarea>
+
+              <small class="form-hint" data-i18n="form_hint">
+                Pulsa <b>Ctrl+Enter</b> para enviar tu testimonio más rápido.
+              </small>
+
+              <button type="submit" aria-label="Enviar testimonio" data-i18n="form_boton_enviar">
+                🚀 Enviar Testimonio
+              </button>
+            </fieldset>
+          </form>
+        </section>
+
+        <section id="contacto" class="seccion" aria-labelledby="titulo-contacto">
+          <h2 class="titulo-animado con-icono">
+            <span class="titulo-emoji" aria-hidden="true">📞</span>
+            <span id="titulo-contacto" data-i18n="contacto_title" class="sr-only">Contacto</span>
+          </h2>
+          <ul class="letras-humo" aria-label="Contacto">
+            <li>C</li>
+            <li>o</li>
+            <li>n</li>
+            <li>t</li>
+            <li>a</li>
+            <li>c</li>
+            <li>t</li>
+            <li>o</li>
+          </ul>
+
+          <div class="cosmic-contact-card" role="region" aria-label="Información de contacto">
+            <div class="contact-row">
+              <span class="icon-bg pulseGlow"><i class="fas fa-envelope"></i></span>
+              <div class="contact-info-row">
+                <span class="label" data-i18n="contacto_correo_label">Correo:</span>
+                <a href="mailto:marvinegoavilz@gmail.com" class="contact-link correo">marvinegoavilz@gmail.com</a>
+              </div>
+            </div>
+            <hr class="contact-separator">
+            <div class="contact-row">
+              <span class="icon-bg pulseGlow"><i class="fas fa-phone-alt"></i></span>
+              <div class="contact-info-row">
+                <span class="label" data-i18n="contacto_telefono_label">Teléfono:</span>
+                <a href="tel:+34722516228" class="contact-link">722 516 228</a>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="certificacion">
-          <img
-            src="https://yt3.googleusercontent.com/ytc/AIdro_lGRc-05M2OoE1ejQdxeFhyP7OkJg9h4Y-7CK_5je3QqFI=s900-c-k-c0x00ffffff-no-rj"
-            alt="Certificado FreeCodeCamp Responsive Web Design" class="cert-img cert-modal-trigger" loading="lazy"
-            data-img="https://yt3.googleusercontent.com/ytc/AIdro_lGRc-05M2OoE1ejQdxeFhyP7OkJg9h4Y-7CK_5je3QqFI=s900-c-k-c0x00ffffff-no-rj"
-            data-alt="Certificado FreeCodeCamp Responsive Web Design">
-          <div class="cert-info">
-            <h3>Responsive Web Design</h3>
-            <p>Certificación obtenida en FreeCodeCamp (2025)</p>
+          <div class="cosmic-contact-extra">
+            <div class="contact-location">
+              <h3 class="direccion-titulo">
+                <i class="fas fa-map-marker-alt"></i> <span data-i18n="contacto_ubicacion_label">Ubicación</span>
+              </h3>
+              <p data-i18n="contacto_direccion">P.º de Alberto Palacios, 2, 28021 Madrid</p>
+              <div class="map-container">
+                <div id="mi-mapa"></div>
+              </div>
+            </div>
+            <form id="contact-form" class="contact-form">
+              <h3 data-i18n="contacto_form_titulo">Envíame un mensaje</h3>
+              <input type="text" name="nombre" placeholder="Tu nombre" required
+                data-i18n-placeholder="contacto_form_nombre_placeholder">
+              <input type="email" name="email" placeholder="Tu correo electrónico" required
+                data-i18n-placeholder="contacto_form_email_placeholder">
+              <textarea name="mensaje" placeholder="Tu mensaje" required
+                data-i18n-placeholder="contacto_form_mensaje_placeholder"></textarea>
+
+              <input type="hidden" id="recaptcha-token" name="g-recaptcha-response">
+              <button type="submit" data-i18n="contacto_form_boton">Enviar</button>
+              <div id="form-contacto-respuesta" class="form-respuesta"></div>
+            </form>
           </div>
-        </div>
+        </section>
 
-        <div class="certificacion">
-          <img src="https://cdn.worldvectorlogo.com/logos/udemy-3.svg" alt="Certificado Udemy Flutter y Dart Completo"
-            style="height: 60px;" class="cert-img cert-modal-trigger" loading="lazy"
-            data-img="https://cdn.worldvectorlogo.com/logos/udemy-3.svg"
-            data-alt="Certificado Udemy Flutter y Dart Completo">
-          <div class="cert-info">
-            <h3>Flutter y Dart Completo</h3>
-            <p>Curso realizado en Udemy con más de 50 horas de contenido</p>
-          </div>
-        </div>
 
-        <div class="certificacion">
-          <img
-            src="https://www.pue.es/Areas/Training/Resources/Images/Sections/Courses/Providers/Microsoft/Categories/Azure/badge-azure-fundamentals.png"
-            alt="Microsoft Certified: Azure Fundamentals" class="cert-img cert-modal-trigger" loading="lazy"
-            data-img="https://www.pue.es/Areas/Training/Resources/Images/Sections/Courses/Providers/Microsoft/Categories/Azure/badge-azure-fundamentals.png"
-            data-alt="Microsoft Certified: Azure Fundamentals">
-          <div class="cert-info">
-            <h3>Microsoft Certified: Azure Fundamentals</h3>
-            <p>Certificación AZ-900 — <strong>En progreso</strong></p>
-          </div>
-        </div>
+      </main>
 
-        <div class="certificacion">
-          <img src="https://github.githubassets.com/assets/arctic-code-vault-contributor-default-df8d74122a06.png"
-            alt="Arctic Code Vault Contributor" class="cert-img cert-modal-trigger" style="max-height: 80px;"
-            loading="lazy"
-            data-img="https://github.githubassets.com/assets/arctic-code-vault-contributor-default-df8d74122a06.png"
-            data-alt="Arctic Code Vault Contributor">
-          <div class="cert-info">
-            <h3>Arctic Code Vault Contributor</h3>
-            <p>GitHub archivó mi código en 2020 como parte de su iniciativa para preservar el software abierto en el
-              Ártico.
-              ¡Mi código es historia!</p>
-          </div>
-        </div>
 
-        <div class="certificacion">
-          <img src="/assets/udemy-cert-web.jpg" alt="Certificado Udemy Desarrollo Web Completo"
-            class="cert-img cert-modal-trigger" loading="lazy" data-img="/assets/udemy-cert-web.jpg"
-            data-alt="Certificado Udemy Desarrollo Web Completo">
-          <div class="cert-info">
-            <h3 class="cert-title" data-i18n="cert_udemy_web_title">
-              Desarrollo Web Completo con HTML5, CSS3, JS, AJAX, PHP, MySQL
-            </h3>
-            <p class="cert-provider">Udemy</p>
-            <p class="cert-author" data-i18n="cert_udemy_web_author">
-              Instructor: Juan Pablo De la Torre Valdez
-            </p>
-            <p class="cert-duration" data-i18n="cert_udemy_web_duration">
-              Duración: 82 horas
+      <footer id="footer">
+        <div class="footer-main">
+          <div class="footer-col">
+            <h3 class="footer-title">Marvin Egoavil</h3>
+            <p>
+              <span data-i18n="footer_bio1" class="footer_bio"></span>
+              <span data-i18n="footer_bio2" class="footer_bio"></span><br>
+              <span class="footer_bio"> Made with 💖 y JavaScript Vanilla. </span>
             </p>
           </div>
-        </div>
-      </div>
 
-
-
-
-
-
-
-      <!-- Puedes seguir agregando más -->
-      </div>
-    </section>
-
-    <div id="cert-modal" class="cv-modal" aria-modal="true" role="dialog" tabindex="-1">
-      <div class="cv-modal-overlay"></div>
-      <div class="cv-modal-content">
-        <button id="close-cert-modal" class="cv-modal-close" aria-label="Cerrar modal">&times;</button>
-        <img src="" alt="Certificación" class="cv-modal-img" id="cert-modal-img">
-      </div>
-    </div>
-
-
-
-    <section id="testimonios" class="seccion-testimonios" aria-labelledby="titulo-testimonios">
-      <h2 class="titulo-animado con-icono">
-        <span class="titulo-emoji" aria-hidden="true">💬</span>
-        <span id="titulo-testimonios" data-i18n="testimonios_title" class="sr-only">Testimonios</span>
-      </h2>
-      <ul class="letras-humo" aria-label="Testimonios">
-        <li>T</li>
-        <li>e</li>
-        <li>s</li>
-        <li>t</li>
-        <li>i</li>
-        <li>m</li>
-        <li>o</li>
-        <li>n</li>
-        <li>i</li>
-        <li>o</li>
-        <li>s</li>
-      </ul>
-      <!-- Contenedor de tarjetas de testimonios -->
-      <div id="testimonial-cards" class="grid-testimonios" aria-live="polite"></div>
-
-      <!-- Botón ver más comentarios -->
-      <button id="ver-todos-btn" class="btn-ver-todos">
-        Mostrar todos los comentarios
-      </button>
-
-      <!-- Formulario de nuevo testimonio -->
-      <form id="testimonial-form" aria-label="Formulario de testimonios" class="testimonio-form" autocomplete="off">
-        <fieldset>
-          <legend class="sr-only">Nuevo testimonio</legend>
-
-          <label for="nombre" class="sr-only" data-i18n="form_nombre_label">Nombre</label>
-          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required autocomplete="name"
-            data-i18n="form_nombre_placeholder">
-
-          <label for="cargo" class="sr-only" data-i18n="form_cargo_label">Cargo o Empresa</label>
-          <input type="text" id="cargo" name="cargo" placeholder="Tu cargo o empresa" required
-            autocomplete="organization" data-i18n="form_cargo_placeholder">
-
-          <label for="mensaje" class="sr-only" data-i18n="form_mensaje_label">Mensaje</label>
-          <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu testimonio aquí..." required
-            data-i18n="form_mensaje_placeholder"></textarea>
-
-          <small class="form-hint" data-i18n="form_hint">
-            Pulsa <b>Ctrl+Enter</b> para enviar tu testimonio más rápido.
-          </small>
-
-          <button type="submit" aria-label="Enviar testimonio" data-i18n="form_boton_enviar">
-            🚀 Enviar Testimonio
-          </button>
-        </fieldset>
-      </form>
-    </section>
-
-    <section id="contacto" class="seccion" aria-labelledby="titulo-contacto">
-      <h2 class="titulo-animado con-icono">
-        <span class="titulo-emoji" aria-hidden="true">📞</span>
-        <span id="titulo-contacto" data-i18n="contacto_title" class="sr-only">Contacto</span>
-      </h2>
-      <ul class="letras-humo" aria-label="Contacto">
-        <li>C</li>
-        <li>o</li>
-        <li>n</li>
-        <li>t</li>
-        <li>a</li>
-        <li>c</li>
-        <li>t</li>
-        <li>o</li>
-      </ul>
-
-      <div class="cosmic-contact-card" role="region" aria-label="Información de contacto">
-        <div class="contact-row">
-          <span class="icon-bg pulseGlow"><i class="fas fa-envelope"></i></span>
-          <div class="contact-info-row">
-            <span class="label" data-i18n="contacto_correo_label">Correo:</span>
-            <a href="mailto:marvinegoavilz@gmail.com" class="contact-link correo">marvinegoavilz@gmail.com</a>
+          <div class="footer-col move-right">
+            <h4 class="footer-subtitle" data-i18n="footer_more"></h4>
+            <ul class="footer-links">
+              <li><a href="#about" data-i18n="nav_about"></a></li>
+              <li><a href="#projects" data-i18n="nav_projects"></a></li>
+              <li><a href="#certificates" data-i18n="nav_certificates"></a></li>
+              <li><a href="#contact" data-i18n="nav_contact"></a></li>
+            </ul>
           </div>
         </div>
-        <hr class="contact-separator">
-        <div class="contact-row">
-          <span class="icon-bg pulseGlow"><i class="fas fa-phone-alt"></i></span>
-          <div class="contact-info-row">
-            <span class="label" data-i18n="contacto_telefono_label">Teléfono:</span>
-            <a href="tel:+34722516228" class="contact-link">722 516 228</a>
+
+        <hr class="footer-divider">
+
+        <div class="footer-social-row">
+          <div class="footer-social-links">
+            <a href="https://github.com/MarvinEgoavil" target="_blank" aria-label="GitHub" rel="noopener noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:marvinegoavilz@gmail.com" target="_blank" aria-label="Correo" rel="noopener noreferrer">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/marvinegoavil" target="_blank" aria-label="LinkedIn"
+              rel="noopener noreferrer">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://marvin-egoavil.blogspot.com" target="_blank" aria-label="Blogger" rel="noopener noreferrer">
+              <i class="fab fa-blogger-b"></i>
+            </a>
+            <a href="https://t.me/MarvinEgoavil" target="_blank" aria-label="Telegram" rel="noopener noreferrer">
+              <i class="fab fa-telegram-plane"></i>
+            </a>
           </div>
         </div>
-      </div>
 
-      <div class="cosmic-contact-extra">
-        <div class="contact-location">
-          <h3 class="direccion-titulo">
-            <i class="fas fa-map-marker-alt"></i> <span data-i18n="contacto_ubicacion_label">Ubicación</span>
-          </h3>
-          <p data-i18n="contacto_direccion">P.º de Alberto Palacios, 2, 28021 Madrid</p>
-          <div class="map-container">
-            <div id="mi-mapa"></div>
-          </div>
+        <hr class="footer-divider">
+
+        <div class="footer-copyright">
+          <p data-i18n="footer_text"></p>
         </div>
-        <form id="contact-form" class="contact-form">
-          <h3 data-i18n="contacto_form_titulo">Envíame un mensaje</h3>
-          <input type="text" name="nombre" placeholder="Tu nombre" required
-            data-i18n-placeholder="contacto_form_nombre_placeholder">
-          <input type="email" name="email" placeholder="Tu correo electrónico" required
-            data-i18n-placeholder="contacto_form_email_placeholder">
-          <textarea name="mensaje" placeholder="Tu mensaje" required
-            data-i18n-placeholder="contacto_form_mensaje_placeholder"></textarea>
-
-          <input type="hidden" id="recaptcha-token" name="g-recaptcha-response">
-          <button type="submit" data-i18n="contacto_form_boton">Enviar</button>
-          <div id="form-contacto-respuesta" class="form-respuesta"></div>
-        </form>
-      </div>
-    </section>
-
-
-  </main>
-
-
-  <footer id="footer">
-    <div class="footer-main">
-      <div class="footer-col">
-        <h3 class="footer-title">Marvin Egoavil</h3>
-        <p>
-          <span data-i18n="footer_bio1" class="footer_bio"></span>
-          <span data-i18n="footer_bio2" class="footer_bio"></span><br>
-          <span class="footer_bio"> Made with 💖 y JavaScript Vanilla. </span>
-        </p>
-      </div>
-
-      <div class="footer-col move-right">
-        <h4 class="footer-subtitle" data-i18n="footer_more"></h4>
-        <ul class="footer-links">
-          <li><a href="#about" data-i18n="nav_about"></a></li>
-          <li><a href="#projects" data-i18n="nav_projects"></a></li>
-          <li><a href="#certificates" data-i18n="nav_certificates"></a></li>
-          <li><a href="#contact" data-i18n="nav_contact"></a></li>
-        </ul>
-      </div>
-    </div>
-
-    <hr class="footer-divider">
-
-    <div class="footer-social-row">
-      <div class="footer-social-links">
-        <a href="https://github.com/MarvinEgoavil" target="_blank" aria-label="GitHub" rel="noopener noreferrer">
-          <i class="fab fa-github"></i>
-        </a>
-        <a href="mailto:marvinegoavilz@gmail.com" target="_blank" aria-label="Correo" rel="noopener noreferrer">
-          <i class="fas fa-envelope"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/marvinegoavil" target="_blank" aria-label="LinkedIn"
-          rel="noopener noreferrer">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-        <a href="https://marvin-egoavil.blogspot.com" target="_blank" aria-label="Blogger" rel="noopener noreferrer">
-          <i class="fab fa-blogger-b"></i>
-        </a>
-        <a href="https://t.me/MarvinEgoavil" target="_blank" aria-label="Telegram" rel="noopener noreferrer">
-          <i class="fab fa-telegram-plane"></i>
-        </a>
-      </div>
-    </div>
-
-    <hr class="footer-divider">
-
-    <div class="footer-copyright">
-      <p data-i18n="footer_text"></p>
-    </div>
-  </footer>
+      </footer>
 
 
 
 
 
 
-  <!-- Three.js y Vanta.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+      <!-- Three.js y Vanta.js -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <!-- SweetAlert2 -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-database-compat.js"></script>
+      <!-- Firebase -->
+      <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-database-compat.js"></script>
 
-  <!-- Tu JS principal (debe ir al final si usa imports de arriba) -->
-  <script type="module" src="js/main.js"></script>
-</body>
+      <!-- Tu JS principal (debe ir al final si usa imports de arriba) -->
+      <script type="module" src="js/main.js"></script>
+    </body>
 
-</html>
+    </html>

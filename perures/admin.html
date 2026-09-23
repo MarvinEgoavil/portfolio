@@ -44,7 +44,9 @@
         <div class="acciones-admin">
 
             <button id="btn-actualizar-catalogo">
-                Actualizar catálogo
+                <span class="texto-boton">
+                    Actualizar catálogo
+                </span>
             </button>
 
             <button id="btn-validar-catalogo">
@@ -135,14 +137,14 @@
          GOOGLE PLACES
     ================================================== -->
 
-    <script src="config.js"></script>
+    <script src="js/config.js"></script>
 
 
     <!-- ==================================================
          ACTUALIZADOR DE RESTAURANTES
     ================================================== -->
 
-    <script src="actualizar-restaurantes.js"></script>
+    <script src="js/actualizar-restaurantes.js"></script>
 
     <!-- ==================================================
      HTML2CANVAS
@@ -151,6 +153,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
     </script>
+
     <!-- ==================================================
          ADMINISTRACIÓN DE PERURES
     ================================================== -->
@@ -167,7 +170,6 @@
         } from "../js/firebase-config.js";
 
 
-        // Inicializamos Firebase.
         obtenerFirebaseDB();
 
 
@@ -175,10 +177,8 @@
         // VALIDADOR
         // ==================================================
 
-        // Cargamos el validador
-        // después de inicializar Firebase.
         await import(
-            "./validar-restaurantes.js"
+            "./js/validar-restaurantes.js"
         );
 
 
@@ -205,6 +205,66 @@
 
 
         // ==================================================
+        // PROGRESO REAL DEL BOTÓN ACTUALIZAR
+        // ==================================================
+
+        const textoBotonActualizar =
+            botonActualizar.querySelector(
+                ".texto-boton"
+            );
+
+
+        function pintarProgresoActualizacion(
+            porcentaje
+        ) {
+
+            const progreso =
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        Math.round(
+                            porcentaje
+                        )
+                    )
+                );
+
+
+            /*
+             * JavaScript solo comunica el porcentaje.
+             * CSS se encarga de dibujar la capa gris.
+             */
+            botonActualizar.style.setProperty(
+                "--progreso",
+                progreso + "%"
+            );
+
+
+            textoBotonActualizar.textContent =
+                "Actualizando... " +
+                progreso +
+                "%";
+        }
+
+
+        function limpiarProgresoActualizacion() {
+
+            botonActualizar.classList.remove(
+                "actualizando"
+            );
+
+
+            botonActualizar.style.removeProperty(
+                "--progreso"
+            );
+
+
+            textoBotonActualizar.textContent =
+                "Actualizar catálogo";
+        }
+
+
+        // ==================================================
         // BOTÓN ACTUALIZAR CATÁLOGO
         // ==================================================
 
@@ -212,10 +272,32 @@
             "click",
             async function () {
 
-                botonActualizar.disabled = true;
+                botonActualizar.classList.add(
+                    "actualizando"
+                );
 
-                botonActualizar.textContent =
-                    "Actualizando...";
+
+                /*
+                 * Lo bloqueamos manualmente con pointer-events
+                 * mientras el rastreo está activo.
+                 *
+                 * El botón conserva su fondo rojo y CSS dibuja
+                 * encima la capa gris que representa lo pendiente.
+                 */
+                botonActualizar.setAttribute(
+                    "aria-disabled",
+                    "true"
+                );
+
+
+                botonActualizar.style.pointerEvents =
+                    "none";
+
+
+                pintarProgresoActualizacion(
+                    0
+                );
+
 
                 estadoActualizacion.textContent =
                     "Rastreando restaurantes...";
@@ -224,13 +306,88 @@
                 try {
 
                     const catalogo =
-                        await actualizarCatalogo();
+                        await actualizarCatalogo(
+                            function (
+                                porcentaje,
+                                mensaje
+                            ) {
+
+                                pintarProgresoActualizacion(
+                                    porcentaje
+                                );
 
 
+                                if (mensaje) {
+
+                                    estadoActualizacion.textContent =
+                                        mensaje;
+                                }
+                            }
+                        );
+
+
+                    pintarProgresoActualizacion(
+                        100
+                    );
+
+
+                    /*
+                     * IMPORTANTE:
+                     * actualizarCatalogo() guarda el catálogo nuevo en Firebase,
+                     * pero la lista visible del administrador ya estaba renderizada
+                     * con los datos anteriores.
+                     *
+                     * Volvemos a ejecutar la validación para releer Firebase,
+                     * aplicar las decisiones existentes y repintar contadores/tarjetas.
+                     */
                     estadoActualizacion.textContent =
-                        "Catálogo terminado: " +
-                        catalogo.length +
-                        " restaurantes únicos.";
+                        "Actualización terminada. Refrescando catálogo...";
+
+
+                    await window.validarCatalogo();
+
+
+                    const estadisticas =
+                        catalogo.estadisticasActualizacion ||
+                        window.estadisticasActualizacionPeruRes ||
+                        null;
+
+
+                    if (estadisticas) {
+
+                        estadoActualizacion.textContent =
+                            "Actualización terminada · " +
+                            "Encontrados: " +
+                            estadisticas.encontrados +
+                            " · Nuevos: " +
+                            estadisticas.nuevos +
+                            " · Actualizados: " +
+                            estadisticas.actualizados +
+                            " · Total: " +
+                            estadisticas.total;
+
+                    } else {
+
+                        estadoActualizacion.textContent =
+                            "Catálogo terminado: " +
+                            catalogo.length +
+                            " restaurantes persistentes.";
+                    }
+
+
+                    /*
+                     * Dejamos visible el 100% un instante
+                     * antes de devolver el botón a su estado normal.
+                     */
+                    await new Promise(
+                        function (resolver) {
+
+                            setTimeout(
+                                resolver,
+                                450
+                            );
+                        }
+                    );
 
                 } catch (error) {
 
@@ -242,13 +399,21 @@
 
                     estadoActualizacion.textContent =
                         "Ha ocurrido un error durante la actualización.";
+
+                } finally {
+
+                    botonActualizar.removeAttribute(
+                        "aria-disabled"
+                    );
+
+
+                    botonActualizar.style.removeProperty(
+                        "pointer-events"
+                    );
+
+
+                    limpiarProgresoActualizacion();
                 }
-
-
-                botonActualizar.disabled = false;
-
-                botonActualizar.textContent =
-                    "Actualizar catálogo";
             }
         );
 
@@ -305,6 +470,7 @@
             }
         );
 
+
         // ==========================================================
         // PANEL SUPERIOR
         // OCULTAR MIENTRAS HAY SCROLL
@@ -327,21 +493,16 @@
                 "scroll",
                 function () {
 
-                    // Mientras el usuario está haciendo scroll,
-                    // ocultamos el panel completo.
                     panelAdmin.classList.add(
                         "panel-oculto"
                     );
 
 
-                    // Cancelamos el temporizador anterior.
                     clearTimeout(
                         temporizadorScroll
                     );
 
 
-                    // Si pasan 300 ms sin nuevos eventos
-                    // de scroll, consideramos que se detuvo.
                     temporizadorScroll =
                         setTimeout(
                             function () {

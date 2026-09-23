@@ -341,6 +341,131 @@ body {
 
 
 #btn-actualizar-catalogo,
+
+/* ==========================================================
+   PROGRESO REAL — BOTÓN ACTUALIZAR CATÁLOGO
+   ========================================================== */
+
+/*
+   El botón conserva SIEMPRE su fondo rojo original.
+
+   Durante el rastreo, ::before crea una capa gris por encima.
+   Esa capa representa el trabajo que todavía falta y se
+   encoge desde la izquierda conforme aumenta --progreso.
+
+   0%   = 100% gris
+   50%  = 50% gris
+   100% = 0% gris
+*/
+
+#btn-actualizar-catalogo {
+    position: relative;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    /*
+       Conserva exactamente el mismo contorno redondeado
+       definido para los botones principales.
+    */
+    border-radius:
+        12px;
+
+    --progreso:
+        0%;
+}
+
+
+#btn-actualizar-catalogo::before {
+    content: "";
+
+    position: absolute;
+
+    z-index: 1;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    width:
+        calc(100% - var(--progreso));
+
+    /*
+       Hereda exactamente el mismo redondeado del botón.
+       Así la capa gris no convierte visualmente el botón
+       en un rectángulo durante la actualización.
+    */
+    border-radius:
+        inherit;
+
+    background:
+        #b8b8b8;
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+
+    transition:
+        width 0.28s ease;
+}
+
+
+/*
+   La capa gris solo aparece mientras JavaScript
+   añade la clase .actualizando.
+*/
+
+#btn-actualizar-catalogo.actualizando::before {
+    opacity:
+        1;
+}
+
+
+/*
+   El texto queda siempre por encima de la capa gris.
+*/
+
+#btn-actualizar-catalogo .texto-boton {
+    position: relative;
+
+    z-index: 2;
+
+    display: inline-block;
+
+    pointer-events:
+        none;
+}
+
+
+/*
+   Mientras se actualiza no aplicamos el hover rojo oscuro,
+   porque la visualización debe representar únicamente
+   rojo completado + gris pendiente.
+*/
+
+#btn-actualizar-catalogo.actualizando {
+    cursor:
+        wait;
+}
+
+
+#btn-actualizar-catalogo.actualizando:hover {
+    transform:
+        none;
+
+    background:
+        linear-gradient(135deg,
+            #e11127,
+            #bd071a);
+
+    box-shadow:
+        var(--shadow-button);
+}
+
+
 #btn-validar-catalogo {
     min-height: 52px;
 

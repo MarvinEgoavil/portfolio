@@ -7,12 +7,14 @@
 // - ampliar cobertura con varias consultas,
 // - hacer una segunda pasada por distritos,
 // - eliminar duplicados por Place ID,
-// - dejar el catálogo disponible en window.catalogoPeruRes,
+// - sincronizar el catálogo persistente con Firebase por Place ID,
+// - dejar el catálogo completo disponible en window.catalogoPeruRes,
 // - mantener compatibilidad con admin.html y validar-restaurantes.js.
 //
 // IMPORTANTE:
 // Este archivo NO valida restaurantes ni guarda decisiones.
-// Eso sigue siendo responsabilidad de validar-restaurantes.js.
+// Sí persiste/sincroniza el catálogo en Firebase.
+// Las decisiones siguen siendo responsabilidad de validar-restaurantes.js.
 // ======================================================
 
 console.log("Actualizador de PeruRes iniciado.");
@@ -97,7 +99,16 @@ const consultasPeruanas = [
     "chifa peruano",
     "gastronomía peruana",
     "cocina peruana",
-    "peruvian restaurant"
+    "peruvian restaurant",
+
+    // Consultas adicionales para descubrir negocios que Google
+    // puede clasificar de forma distinta en búsquedas equivalentes.
+    "ceviche peruano",
+    "pollo a la brasa peruano",
+    "anticuchos peruanos",
+    "comida criolla peruana",
+    "marisquería peruana",
+    "nikkei peruano"
 ];
 
 
@@ -163,7 +174,31 @@ const consultasDistritos = [
     "comida peruana Alcobendas",
 
     "restaurante peruano Torrejón de Ardoz",
-    "comida peruana Torrejón de Ardoz"
+    "comida peruana Torrejón de Ardoz",
+
+    "restaurante peruano Getafe",
+    "comida peruana Getafe",
+
+    "restaurante peruano Leganés",
+    "comida peruana Leganés",
+
+    "restaurante peruano Fuenlabrada",
+    "comida peruana Fuenlabrada",
+
+    "restaurante peruano Alcorcón",
+    "comida peruana Alcorcón",
+
+    "restaurante peruano Móstoles",
+    "comida peruana Móstoles",
+
+    "restaurante peruano Parla",
+    "comida peruana Parla",
+
+    "restaurante peruano Coslada",
+    "comida peruana Coslada",
+
+    "restaurante peruano San Sebastián de los Reyes",
+    "comida peruana San Sebastián de los Reyes"
 ];
 
 
@@ -386,10 +421,105 @@ async function buscarConsultaEnZona(
 
 
 // ======================================================
+// 8.1 PROGRESO REAL DEL RASTREO
+// ======================================================
+
+/*
+ * El progreso se calcula a partir del trabajo real:
+ *
+ * - cada consulta general completada;
+ * - cada consulta por distrito completada;
+ * - sincronización final con Firebase.
+ *
+ * No usamos temporizadores falsos para mover el porcentaje.
+ */
+
+function crearControlProgreso(
+    callbackProgreso
+) {
+
+    const totalConsultas =
+        zonasMadrid.length *
+        consultasPeruanas.length +
+        consultasDistritos.length;
+
+
+    let consultasCompletadas =
+        0;
+
+
+    function emitir(
+        porcentaje,
+        mensaje
+    ) {
+
+        const porcentajeSeguro =
+            Math.max(
+                0,
+                Math.min(
+                    100,
+                    Math.round(
+                        porcentaje
+                    )
+                )
+            );
+
+
+        if (
+            typeof callbackProgreso ===
+            "function"
+        ) {
+
+            callbackProgreso(
+                porcentajeSeguro,
+                mensaje
+            );
+        }
+    }
+
+
+    function registrarConsulta(
+        mensaje
+    ) {
+
+        consultasCompletadas++;
+
+
+        /*
+         * Reservamos el 95% para el rastreo.
+         * El 5% restante corresponde a la sincronización
+         * y lectura final de Firebase.
+         */
+        const porcentaje =
+            totalConsultas > 0
+                ? (
+                    consultasCompletadas /
+                    totalConsultas
+                ) * 95
+                : 95;
+
+
+        emitir(
+            porcentaje,
+            mensaje
+        );
+    }
+
+
+    return {
+        emitir,
+        registrarConsulta
+    };
+}
+
+
+// ======================================================
 // 9. FASE 1: BÚSQUEDA GENERAL POR ZONAS
 // ======================================================
 
-async function ejecutarBusquedaGeneral() {
+async function ejecutarBusquedaGeneral(
+    controlProgreso
+) {
 
     console.log("");
     console.log("========================================");
@@ -417,6 +547,17 @@ async function ejecutarBusquedaGeneral() {
             );
 
 
+            if (controlProgreso) {
+
+                controlProgreso.registrarConsulta(
+                    "Rastreando " +
+                    zona.nombre +
+                    " · " +
+                    consulta
+                );
+            }
+
+
             console.log(
                 "🍽️ Restaurantes únicos acumulados:",
                 restaurantesUnicos.size
@@ -430,7 +571,9 @@ async function ejecutarBusquedaGeneral() {
 // 10. FASE 2: BÚSQUEDA ESPECÍFICA POR DISTRITOS
 // ======================================================
 
-async function ejecutarBusquedaDistritos() {
+async function ejecutarBusquedaDistritos(
+    controlProgreso
+) {
 
     console.log("");
     console.log("========================================");
@@ -464,6 +607,15 @@ async function ejecutarBusquedaDistritos() {
         );
 
 
+        if (controlProgreso) {
+
+            controlProgreso.registrarConsulta(
+                "Rastreando distrito · " +
+                consulta
+            );
+        }
+
+
         console.log(
             "🍽️ Restaurantes únicos acumulados:",
             restaurantesUnicos.size
@@ -473,10 +625,274 @@ async function ejecutarBusquedaDistritos() {
 
 
 // ======================================================
+// 10.1 CATÁLOGO PERSISTENTE EN FIREBASE
+// ======================================================
+
+/*
+ * A partir de esta versión, Google Places deja de ser
+ * únicamente una fuente temporal para la sesión.
+ *
+ * El catálogo persistente vive en:
+ *
+ *     perures/catalogo/<Place ID>
+ *
+ * Las decisiones del administrador continúan separadas en:
+ *
+ *     perures/decisiones/<Place ID>
+ *
+ * De esta forma, actualizar el catálogo NO borra ni mezcla
+ * las decisiones VALIDADO / REVISAR / DESCARTADO.
+ */
+
+function obtenerReferenciaCatalogoFirebase() {
+
+    if (
+        typeof firebase === "undefined" ||
+        !firebase.database
+    ) {
+
+        throw new Error(
+            "Firebase no está disponible. Revisa el orden de los scripts en admin.html."
+        );
+    }
+
+
+    return firebase
+        .database()
+        .ref(
+            "perures/catalogo"
+        );
+}
+
+
+async function obtenerCatalogoPersistente() {
+
+    const snapshot =
+        await obtenerReferenciaCatalogoFirebase()
+            .once(
+                "value"
+            );
+
+
+    if (!snapshot.exists()) {
+
+        return {};
+    }
+
+
+    return snapshot.val() || {};
+}
+
+
+function prepararRestauranteParaFirebase(
+    restaurante
+) {
+
+    /*
+     * Realtime Database no admite undefined.
+     * JSON.parse/stringify elimina esas propiedades y
+     * conserva el objeto de Google Places en un formato
+     * seguro para persistir.
+     */
+    return JSON.parse(
+        JSON.stringify(
+            restaurante
+        )
+    );
+}
+
+
+async function sincronizarCatalogoConFirebase(
+    catalogoDescubierto
+) {
+
+    const catalogoExistente =
+        await obtenerCatalogoPersistente();
+
+
+    const actualizaciones = {};
+
+
+    let nuevos = 0;
+    let existentes = 0;
+
+
+    catalogoDescubierto.forEach(
+        function (restaurante) {
+
+            if (
+                !restaurante ||
+                !restaurante.id
+            ) {
+
+                return;
+            }
+
+
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    catalogoExistente,
+                    restaurante.id
+                )
+            ) {
+
+                existentes++;
+
+            } else {
+
+                nuevos++;
+            }
+
+
+            /*
+             * Upsert por Place ID:
+             *
+             * - si existe, actualizamos sus datos;
+             * - si no existe, lo creamos;
+             * - NO eliminamos restaurantes antiguos que
+             *   Google no haya devuelto en este rastreo.
+             */
+            // Preparamos los datos nuevos que acabamos
+            // de recibir de Google Places.
+            const restauranteActualizado =
+                prepararRestauranteParaFirebase(
+                    restaurante
+                );
+
+
+            // ======================================================
+            // CONSERVAR DATOS ENRIQUECIDOS
+            // ======================================================
+            //
+            // Algunos datos no proceden de Google Places.
+            // Por ejemplo, el teléfono lo obtendremos después
+            // mediante nuestro script obtener-telefono.js.
+            //
+            // Si el restaurante ya existe en Firebase y tiene
+            // teléfono, lo conservamos para que una futura
+            // actualización del catálogo no lo elimine.
+            // ======================================================
+
+            const restauranteAnterior =
+                catalogoExistente[
+                restaurante.id
+                ];
+
+
+            if (
+                restauranteAnterior &&
+                restauranteAnterior.telefono
+            ) {
+
+                restauranteActualizado.telefono =
+                    restauranteAnterior.telefono;
+
+
+                // También conservaremos estos campos cuando
+                // posteriormente los añadamos desde el script.
+
+                if (
+                    restauranteAnterior.telefonoFuente
+                ) {
+
+                    restauranteActualizado.telefonoFuente =
+                        restauranteAnterior.telefonoFuente;
+                }
+
+
+                if (
+                    restauranteAnterior.telefonoActualizado
+                ) {
+
+                    restauranteActualizado.telefonoActualizado =
+                        restauranteAnterior.telefonoActualizado;
+                }
+            }
+
+
+            // Finalmente guardamos el restaurante actualizado,
+            // pero manteniendo su teléfono si ya lo tenía.
+
+            actualizaciones[
+                restaurante.id
+            ] =
+                restauranteActualizado;
+
+
+        }
+    );
+
+
+    if (
+        Object.keys(
+            actualizaciones
+        ).length > 0
+    ) {
+
+        await obtenerReferenciaCatalogoFirebase()
+            .update(
+                actualizaciones
+            );
+    }
+
+
+    /*
+     * Volvemos a leer Firebase después del upsert.
+     * Este es el catálogo completo y persistente:
+     * antiguos + encontrados/actualizados + nuevos.
+     */
+    const catalogoFinalObjeto =
+        await obtenerCatalogoPersistente();
+
+
+    const catalogoFinal =
+        Object.values(
+            catalogoFinalObjeto
+        ).filter(
+            Boolean
+        );
+
+
+    console.log(
+        "🔥 Sincronización Firebase terminada."
+    );
+
+    console.log(
+        "➕ Restaurantes nuevos:",
+        nuevos
+    );
+
+    console.log(
+        "🔄 Restaurantes encontrados que ya existían:",
+        existentes
+    );
+
+    console.log(
+        "💾 Total persistente en Firebase:",
+        catalogoFinal.length
+    );
+
+
+    return {
+        catalogo:
+            catalogoFinal,
+
+        nuevos:
+            nuevos,
+
+        existentes:
+            existentes
+    };
+}
+
+
+// ======================================================
 // 11. ACTUALIZAR CATÁLOGO COMPLETO DE PERURES
 // ======================================================
 
-async function actualizarCatalogo() {
+async function actualizarCatalogo(
+    callbackProgreso = null
+) {
 
     console.log("========================================");
     console.log("🇵🇪 INICIANDO CATÁLOGO PERURES");
@@ -494,60 +910,103 @@ async function actualizarCatalogo() {
     restaurantesUnicos.clear();
 
 
+    const controlProgreso =
+        crearControlProgreso(
+            callbackProgreso
+        );
+
+
+    controlProgreso.emitir(
+        0,
+        "Preparando rastreo..."
+    );
+
+
     // ==================================================
     // FASE 1
     // ==================================================
 
-    await ejecutarBusquedaGeneral();
+    await ejecutarBusquedaGeneral(
+        controlProgreso
+    );
 
 
     // ==================================================
     // FASE 2
     // ==================================================
 
-    await ejecutarBusquedaDistritos();
+    await ejecutarBusquedaDistritos(
+        controlProgreso
+    );
 
 
     // ==================================================
-    // CONVERTIR MAP A ARRAY
+    // CONVERTIR RESULTADOS DEL RASTREO A ARRAY
     // ==================================================
 
-    const catalogo =
+    const catalogoDescubierto =
         Array.from(
             restaurantesUnicos.values()
         );
 
 
-    // ==================================================
-    // RESULTADO FINAL
-    // ==================================================
-
     console.log("");
     console.log("========================================");
-    console.log("✅ RASTREO FINALIZADO");
+    console.log("✅ RASTREO DE GOOGLE FINALIZADO");
     console.log(
-        "🇵🇪 TOTAL RESTAURANTES ÚNICOS:",
-        catalogo.length
+        "🇵🇪 RESTAURANTES ÚNICOS ENCONTRADOS:",
+        catalogoDescubierto.length
     );
     console.log("========================================");
 
 
-    console.log(
-        "CATÁLOGO PERURES:",
-        catalogo
+    // ==================================================
+    // SINCRONIZAR CON EL CATÁLOGO PERSISTENTE
+    // ==================================================
+
+    /*
+     * MUY IMPORTANTE:
+     *
+     * No reemplazamos Firebase con el rastreo actual.
+     * Hacemos un UPSERT por Place ID.
+     *
+     * Esto evita perder un restaurante antiguo simplemente
+     * porque Google no lo devolvió en una ejecución concreta.
+     */
+    controlProgreso.emitir(
+        96,
+        "Guardando catálogo en Firebase..."
+    );
+
+
+    const resultadoSincronizacion =
+        await sincronizarCatalogoConFirebase(
+            catalogoDescubierto
+        );
+
+
+    const catalogo =
+        resultadoSincronizacion.catalogo;
+
+
+    controlProgreso.emitir(
+        100,
+        "Catálogo actualizado."
     );
 
 
     // ==================================================
-    // EXPONER CATÁLOGO PARA EL ADMIN Y EL VALIDADOR
+    // EXPONER CATÁLOGO COMPLETO AL ADMIN / VALIDADOR
     // ==================================================
 
     window.catalogoPeruRes =
         catalogo;
 
 
-    // También dejamos una versión JSON preparada
-    // para copiar desde consola si la necesitas.
+    /*
+     * Conservamos esta variable por compatibilidad y para
+     * poder exportar/copiar el catálogo completo si hace falta.
+     */
     window.catalogoPeruResJSON =
         JSON.stringify(
             catalogo,
@@ -557,12 +1016,49 @@ async function actualizarCatalogo() {
 
 
     console.log(
-        "💾 Catálogo preparado en window.catalogoPeruRes"
+        "💾 Catálogo persistente disponible en window.catalogoPeruRes:",
+        catalogo.length
     );
 
 
     console.log(
-        "📄 JSON preparado en window.catalogoPeruResJSON"
+        "📄 JSON completo preparado en window.catalogoPeruResJSON"
+    );
+
+
+    /*
+     * Conservamos el retorno como ARRAY para no romper admin.html,
+     * que actualmente utiliza catalogo.length.
+     *
+     * Las estadísticas se adjuntan como una propiedad adicional
+     * del propio array y también quedan disponibles globalmente.
+     */
+    const estadisticasActualizacion = {
+        encontrados:
+            catalogoDescubierto.length,
+
+        nuevos:
+            resultadoSincronizacion.nuevos,
+
+        actualizados:
+            resultadoSincronizacion.existentes,
+
+        total:
+            catalogo.length
+    };
+
+
+    catalogo.estadisticasActualizacion =
+        estadisticasActualizacion;
+
+
+    window.estadisticasActualizacionPeruRes =
+        estadisticasActualizacion;
+
+
+    console.log(
+        "📊 RESUMEN ACTUALIZACIÓN:",
+        estadisticasActualizacion
     );
 
 
