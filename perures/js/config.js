@@ -3,4 +3,4 @@
 // IMPORTANTE:
 // Sustituye el texto que está entre comillas por TU clave real.
 // No me envíes esa clave por el chat.
-const GOOGLE_API_KEY = "***REMOVED_OLD_GOOGLE_API_KEY***";
+const GOOGLE_API_KEY = "AIzaSyA_crCBTf-k8PyHKRclUkt5khr0-hY0Mjg";
