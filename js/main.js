@@ -10,7 +10,8 @@ import { inicializarFormularioContacto } from './formulario.js';
 import { configurarHeaderStickyAnimado } from './headerScroll.js';
 import { iniciarCanvas2d } from './canvas2d.js';
 import { inicializarBuscador } from './buscador.js';
-import { inicializarTitulo,inicializarCertModal } from './modals.js';
+import { inicializarTitulo, inicializarCertModal } from './modals.js';
+import { inicializarContacto } from './contacto.js';
 
 // === Función principal: inicialización global ===
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,6 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarBuscador();
   inicializarTitulo();
   inicializarCertModal();
+  inicializarMapaContacto();
+  inicializarFormularioContacto();
+  inicializarContacto();
+  configurarHeaderStickyAnimado();
 })
 
 
