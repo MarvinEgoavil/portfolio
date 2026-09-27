@@ -1,0 +1,1910 @@
+/* ==========================================================
+   CONTACTO — ARCHIVO SEPARADO DE components.css
+   Extraído del bloque CONTACTO V2 original.
+   Ajustes aplicados:
+   - El panel derecho conserva 680px como altura mínima en escritorio,
+     pero puede crecer cuando el contenido de "A tercero" lo necesite.
+   - El loader respeta el atributo hidden sin forzar la cascada.
+========================================================== */
+
+/* ==========================================================
+   CONTACTO V2
+   Versión consolidada
+   - Sin reglas duplicadas dentro de Contacto V2
+   - Cajón derecho estable en escritorio
+   - Sin scroll interno en escritorio
+   - El contenido cambia sin redimensionar las columnas
+   - Mobile First
+   - Todo aislado dentro de #contacto
+========================================================== */
+
+#contacto {
+  --contact-bg: rgba(25, 22, 35, 0.94);
+  --contact-bg-soft: rgba(255, 255, 255, 0.045);
+  --contact-border: rgba(255, 255, 255, 0.11);
+  --contact-purple: #9b35f4;
+  --contact-purple-light: #b96cff;
+  --contact-text: #ffffff;
+  --contact-muted: #b9b3c7;
+
+  width: 100%;
+  padding: 48px 16px;
+  box-sizing: border-box;
+}
+
+
+/* ==========================================================
+   TÍTULOS
+========================================================== */
+
+#contacto .contacto-v2-section-title {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto 28px;
+  color: var(--contact-text);
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+#contacto .contacto-v2-title {
+  width: 100%;
+  margin: 0;
+  color: var(--contact-text);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  font-weight: 750;
+  line-height: 1.25;
+  text-align: center;
+}
+
+#contacto .contacto-v2-title i {
+  margin-right: 7px;
+  color: var(--contact-purple-light);
+}
+
+
+/* ==========================================================
+   LAYOUT PRINCIPAL
+========================================================== */
+
+#contacto .contacto-v2-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+#contacto .contacto-v2-left,
+#contacto .contacto-v2-right {
+  width: 100%;
+  min-width: 0;
+}
+
+#contacto .contacto-v2-left {
+  display: flex;
+  flex-direction: column;
+}
+
+#contacto .contacto-v2-right {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+
+/* ==========================================================
+   COLUMNA IZQUIERDA — UBICACIÓN
+========================================================== */
+
+#contacto .contacto-v2-location {
+  width: 100%;
+  min-width: 0;
+  padding: 18px;
+  box-sizing: border-box;
+
+  background: var(--contact-bg);
+  border: 1px solid var(--contact-border);
+  border-radius: 20px;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.28),
+    0 0 30px rgba(142, 45, 226, 0.08);
+}
+
+/* Admite tanto el HTML nuevo como el heading anterior */
+#contacto .contacto-v2-location-header,
+#contacto .contacto-v2-card-heading {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+#contacto .contacto-v2-card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+#contacto .contacto-v2-location-header h3,
+#contacto .contacto-v2-card-heading h3 {
+  margin: 0 0 4px;
+  color: #fff;
+  font-size: 1.08rem;
+}
+
+#contacto .contacto-v2-location-header p,
+#contacto .contacto-v2-card-heading p {
+  margin: 0;
+  color: var(--contact-muted);
+  font-size: 0.88rem;
+}
+
+#contacto .contacto-v2-icon {
+  color: #fff;
+}
+
+
+/* ==========================================================
+   MAPA
+========================================================== */
+
+#contacto .contacto-v2-map {
+  width: 100%;
+  height: 230px;
+  min-height: 230px;
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+}
+
+#contacto .contacto-v2-map #mi-mapa {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 0;
+}
+
+
+/* ==========================================================
+   REDES SOCIALES
+========================================================== */
+
+#contacto .contacto-v2-social {
+  margin-top: 7px;
+  text-align: center;
+}
+
+#contacto .contacto-v2-social-title {
+  display: block;
+  margin: 0 0 10px;
+  color: var(--contact-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+#contacto .contacto-v2-social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 11px;
+}
+
+#contacto .contacto-v2-social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.045);
+  color: #fff;
+
+  text-decoration: none;
+  font-size: 1.1rem;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+#contacto .contacto-v2-social-links a:hover,
+#contacto .contacto-v2-social-links a:focus-visible {
+  transform: translateY(-3px);
+  background: rgba(155, 53, 244, 0.18);
+  border-color: rgba(185, 108, 255, 0.7);
+  box-shadow: 0 8px 25px rgba(142, 45, 226, 0.25);
+}
+
+
+/* ==========================================================
+   COLUMNA DERECHA — CAJÓN PRINCIPAL
+========================================================== */
+
+#contacto .contacto-v2-communication {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
+  padding: 18px;
+  box-sizing: border-box;
+
+  background: var(--contact-bg);
+  border: 1px solid var(--contact-border);
+  border-radius: 20px;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.28),
+    0 0 30px rgba(142, 45, 226, 0.08);
+}
+
+
+/* ==========================================================
+   CABECERA — ¿CÓMO QUIERES COMUNICARTE?
+========================================================== */
+
+#contacto .contacto-v2-communication-header {
+  flex: 0 0 auto;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#contacto .contacto-v2-communication-header h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+#contacto .contacto-v2-communication-header p {
+  margin: 4px 0 0;
+  color: var(--contact-muted);
+  font-size: 0.88rem;
+  line-height: 1.2;
+}
+
+#contacto .contacto-v2-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  margin-top: 2px;
+  color: #fff;
+  font-size: 0.88rem;
+}
+
+#contacto .contacto-v2-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #63e68b;
+  box-shadow: 0 0 8px rgba(99, 230, 139, 0.55);
+}
+
+
+/* ==========================================================
+   SELECTOR DE CANALES
+========================================================== */
+
+#contacto .contacto-v2-channels {
+  flex: 0 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+
+  margin: 10px 0 10px;
+}
+
+#contacto .contacto-channel {
+  appearance: none;
+  -webkit-appearance: none;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+  min-height: 54px;
+  padding: 6px;
+
+  border: 1px solid rgba(190, 130, 255, 0.18);
+  border-radius: 13px;
+
+  background:
+    linear-gradient(145deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 255, 255, 0.018));
+
+  color: rgba(255, 255, 255, 0.78);
+  font-family: inherit;
+  cursor: pointer;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 6px 18px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+}
+
+#contacto .contacto-channel>i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 26px;
+  height: 26px;
+  margin-bottom: 3px;
+
+  border-radius: 8px;
+  background: rgba(151, 71, 255, 0.11);
+
+  color: #bd86ff;
+  font-size: 0.9rem;
+
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+#contacto .contacto-channel>span {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+
+  color: inherit;
+  font-size: 0.76rem;
+  font-weight: 650;
+  line-height: 1.15;
+
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#contacto .contacto-channel:hover {
+  transform: translateY(-2px);
+  border-color: rgba(190, 130, 255, 0.48);
+
+  background:
+    linear-gradient(145deg,
+      rgba(151, 71, 255, 0.12),
+      rgba(91, 31, 150, 0.07));
+
+  color: #fff;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 9px 22px rgba(73, 20, 120, 0.18);
+}
+
+#contacto .contacto-channel:hover>i {
+  transform: translateY(-1px) scale(1.06);
+  background: rgba(151, 71, 255, 0.18);
+  color: #d3aaff;
+}
+
+#contacto .contacto-channel.active,
+#contacto .contacto-channel[aria-selected="true"] {
+  transform: translateY(-1px);
+  border-color: rgba(190, 130, 255, 0.7);
+
+  background:
+    linear-gradient(145deg,
+      rgba(151, 71, 255, 0.27),
+      rgba(91, 31, 150, 0.15));
+
+  color: #fff;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(205, 160, 255, 0.08),
+    0 8px 22px rgba(132, 48, 210, 0.18),
+    0 0 18px rgba(151, 71, 255, 0.08);
+}
+
+#contacto .contacto-channel.active>i,
+#contacto .contacto-channel[aria-selected="true"]>i {
+  background:
+    linear-gradient(145deg,
+      rgba(188, 126, 255, 0.32),
+      rgba(133, 55, 220, 0.24));
+
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(133, 55, 220, 0.18);
+}
+
+#contacto .contacto-channel-locked {
+  border-style: dashed;
+}
+
+#contacto .contacto-channel-locked>i {
+  color: #c5b4d7;
+}
+
+#contacto .contacto-channel:focus-visible {
+  outline: 2px solid #bd86ff;
+  outline-offset: 3px;
+}
+
+
+/* ==========================================================
+   CONTENIDO DINÁMICO
+   IMPORTANTE: no crea scrollbar interno
+========================================================== */
+
+#contacto #contacto-channel-content,
+#contacto .contacto-v2-channel-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Compatibilidad con paneles dinámicos creados por JS */
+#contacto .contacto-v2-dynamic {
+  min-height: 0;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#contacto .contacto-panel {
+  display: none;
+}
+
+#contacto .contacto-panel.active {
+  display: block;
+  animation: contactoPanelEntrada 0.25s ease;
+}
+
+@keyframes contactoPanelEntrada {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ==========================================================
+   CABECERA DEL PANEL ACTIVO
+========================================================== */
+
+#contacto .contacto-v2-panel-header,
+#contacto .contacto-panel-header {
+  margin: 5px 0 9px;
+  text-align: center;
+}
+
+#contacto .contacto-v2-panel-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 2px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+#contacto .contacto-v2-panel-header h3,
+#contacto .contacto-panel-header h4 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+#contacto .contacto-v2-panel-header p,
+#contacto .contacto-panel-header p {
+  margin: 3px 0 0;
+  color: var(--contact-muted);
+  font-size: 0.83rem;
+  line-height: 1.2;
+}
+
+
+/* ==========================================================
+   FORMULARIO
+========================================================== */
+
+#contacto .contacto-v2-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 15px 18px;
+  box-sizing: border-box;
+
+  background: rgba(255, 255, 255, 0.035);
+  border: 0;
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+#contacto .contacto-v2-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  margin: 0;
+  color: #ded7e8;
+
+  font-size: 0.78rem;
+  font-weight: 650;
+  text-align: left;
+}
+
+#contacto .contacto-v2-form input,
+#contacto .contacto-v2-form textarea,
+#contacto .contacto-v2-form select {
+  width: 100%;
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 8px 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  outline: none;
+
+  background: rgba(0, 0, 0, 0.22);
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 0.93rem;
+
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+#contacto .contacto-v2-form input[type="text"],
+#contacto .contacto-v2-form input[type="email"] {
+  height: 42px;
+  min-height: 42px;
+}
+
+#contacto .contacto-v2-form textarea {
+  height: 90px;
+  min-height: 90px;
+  max-height: 90px;
+  padding-top: 10px;
+  resize: none;
+}
+
+#contacto .contacto-v2-form input::placeholder,
+#contacto .contacto-v2-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.38);
+}
+
+#contacto .contacto-v2-form input:focus,
+#contacto .contacto-v2-form textarea:focus,
+#contacto .contacto-v2-form select:focus {
+  border-color: var(--contact-purple-light);
+  background: rgba(0, 0, 0, 0.31);
+  box-shadow: 0 0 0 3px rgba(155, 53, 244, 0.12);
+}
+
+
+/* ==========================================================
+   BOTÓN ENVIAR
+========================================================== */
+
+#contacto .contacto-v2-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: 100%;
+  height: 42px;
+  min-height: 42px;
+
+  margin: 2px 0 0;
+  padding: 8px 16px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: linear-gradient(90deg, #ae52fe 0%, #7a14ed 100%);
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 750;
+
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(108, 15, 224, 0.22);
+
+  transition:
+    transform 0.18s ease,
+    filter 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+#contacto .contacto-v2-submit:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 10px 28px rgba(108, 15, 224, 0.32);
+}
+
+#contacto .contacto-v2-submit:active {
+  transform: translateY(0);
+}
+
+#contacto .contacto-v2-submit:focus-visible {
+  outline: 2px solid #d5b4ff;
+  outline-offset: 3px;
+}
+
+
+/* ==========================================================
+   RESPUESTA DEL FORMULARIO
+========================================================== */
+
+#contacto #form-contacto-respuesta {
+  margin: 2px 0 0;
+  min-height: 0;
+  font-size: 0.8rem;
+  line-height: 1.25;
+  text-align: center;
+}
+
+#contacto #form-contacto-respuesta:empty {
+  display: none;
+}
+
+
+/* ==========================================================
+   PRIVACIDAD
+========================================================== */
+
+#contacto .contacto-v2-privacy,
+#contacto .contacto-v2-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  margin: 8px auto 0;
+  padding: 0;
+
+  color: #aaa3b5;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+#contacto .contacto-v2-privacy i,
+#contacto .contacto-v2-security i {
+  flex: 0 0 auto;
+  color: #b96cff;
+}
+
+
+/* ==========================================================
+   PANELES ALTERNATIVOS
+   WhatsApp / Telegram / Llamar / SMS / A tercero
+========================================================== */
+
+#contacto .contacto-call-box,
+#contacto .contacto-lock-box {
+  width: 100%;
+  max-width: 430px;
+  margin: 12px auto 0;
+  padding: 20px 16px;
+  box-sizing: border-box;
+
+  text-align: center;
+
+  border: 1px solid rgba(185, 108, 255, 0.2);
+  border-radius: 15px;
+
+  background: rgba(155, 53, 244, 0.055);
+}
+
+#contacto .contacto-call-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 12px;
+
+  border-radius: 50%;
+  background: rgba(155, 53, 244, 0.15);
+  color: var(--contact-purple-light);
+
+  font-size: 1.45rem;
+  box-shadow: 0 0 25px rgba(142, 45, 226, 0.17);
+}
+
+#contacto .contacto-phone-number {
+  margin: 0 0 14px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+#contacto .contacto-lock-icon {
+  margin-bottom: 9px;
+  color: var(--contact-purple-light);
+  font-size: 1.65rem;
+}
+
+#contacto .contacto-lock-box h4 {
+  margin: 0 0 6px;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+#contacto .contacto-lock-box p {
+  margin: 0 0 14px;
+  color: var(--contact-muted);
+  font-size: 0.83rem;
+  line-height: 1.4;
+}
+
+
+/* ==========================================================
+   A TERCERO — PANTALLA BLOQUEADA
+   Versión compacta y equilibrada
+========================================================== */
+
+#contacto .tercero-unlock-box {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  margin: 10px auto 0;
+  padding: 18px 20px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  text-align: center;
+
+  border: 1px solid rgba(185, 108, 255, 0.26);
+  border-radius: 15px;
+
+  background:
+    radial-gradient(circle at 50% 0%,
+      rgba(155, 53, 244, 0.12),
+      transparent 46%),
+    rgba(155, 53, 244, 0.045);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 10px 28px rgba(0, 0, 0, 0.14);
+}
+
+
+/* ---------- Candado ---------- */
+
+#contacto .tercero-unlock-box .contacto-lock-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 50px;
+  height: 50px;
+
+  margin: 0 auto 9px;
+
+  border-radius: 50%;
+
+  background: rgba(155, 53, 244, 0.14);
+  color: var(--contact-purple-light);
+
+  font-size: 1.35rem;
+
+  box-shadow:
+    0 0 20px rgba(155, 53, 244, 0.18),
+    inset 0 0 12px rgba(185, 108, 255, 0.05);
+}
+
+
+/* ---------- Título ---------- */
+
+#contacto .tercero-unlock-box h4 {
+  margin: 0 0 5px;
+
+  color: #fff;
+
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+
+/* ---------- Descripción ---------- */
+
+#contacto .tercero-unlock-box>p:not(.contacto-tercero-estado) {
+  max-width: 340px;
+
+  margin: 0 auto 13px;
+
+  color: var(--contact-muted);
+
+  font-size: 0.81rem;
+  line-height: 1.4;
+}
+
+
+/* ---------- Input clave ---------- */
+
+#contacto .contacto-tercero-clave {
+  display: block;
+
+  width: 100%;
+  height: 44px;
+
+  margin: 0 auto 20px;
+  padding: 0 14px;
+
+  box-sizing: border-box;
+
+  border: 1px solid rgba(185, 108, 255, 0.25);
+  border-radius: 10px;
+
+  outline: none;
+
+  background: rgba(7, 6, 14, 0.58);
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 0.88rem;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+#contacto .contacto-tercero-clave::placeholder {
+  color: rgba(220, 214, 229, 0.43);
+}
+
+#contacto .contacto-tercero-clave:hover {
+  border-color: rgba(185, 108, 255, 0.42);
+}
+
+#contacto .contacto-tercero-clave:focus {
+  border-color: rgba(185, 108, 255, 0.8);
+
+  background: rgba(10, 8, 18, 0.78);
+
+  box-shadow:
+    0 0 0 3px rgba(155, 53, 244, 0.10),
+    0 0 18px rgba(155, 53, 244, 0.10);
+}
+
+
+/* ---------- Cloudflare Turnstile ---------- */
+
+#contacto .tercero-unlock-box .cf-turnstile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  margin: 0 auto;
+}
+
+
+/*
+  Cloudflare genera un iframe internamente.
+  Lo centramos sin intentar modificar su contenido.
+*/
+
+#contacto .tercero-unlock-box .cf-turnstile iframe {
+  display: block;
+
+  max-width: 100%;
+
+  margin: 0 auto;
+}
+
+
+/* ---------- Botón desbloquear ---------- */
+
+#contacto .contacto-tercero-desbloquear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  width: 100%;
+  min-height: 44px;
+
+  margin: 18px 0 0;
+  padding: 10px 17px;
+
+  box-sizing: border-box;
+
+  border: 1px solid rgba(196, 132, 255, 0.30);
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  background:
+    linear-gradient(135deg,
+      #a744ff 0%,
+      #7c16f5 100%);
+
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  box-shadow:
+    0 7px 20px rgba(126, 25, 245, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+
+#contacto .contacto-tercero-desbloquear:not(:disabled):hover {
+  transform: translateY(-1px);
+
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 9px 24px rgba(126, 25, 245, 0.27),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+#contacto .contacto-tercero-desbloquear:active {
+  transform: translateY(0);
+}
+
+#contacto .contacto-tercero-desbloquear:focus-visible {
+  outline: 2px solid #d5b4ff;
+  outline-offset: 3px;
+}
+
+#contacto .contacto-tercero-desbloquear i {
+  font-size: 0.86rem;
+}
+
+
+/* ---------- Estado / errores ---------- */
+
+#contacto .contacto-tercero-estado {
+  min-height: 0;
+
+  margin: 8px 0 0;
+
+  text-align: center;
+
+  color: var(--contact-muted);
+
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+#contacto .contacto-tercero-estado:empty {
+  display: none;
+}
+
+#contacto .contacto-tercero-estado.error {
+  color: #ff7c91;
+}
+
+#contacto .contacto-tercero-estado.ok {
+  color: #74efa8;
+}
+
+
+/* ---------- Móvil ---------- */
+
+@media (max-width: 480px) {
+
+  #contacto .tercero-unlock-box {
+    padding: 17px 14px 18px;
+  }
+
+  #contacto .tercero-unlock-box .contacto-lock-icon {
+    width: 46px;
+    height: 46px;
+
+    font-size: 1.25rem;
+  }
+
+  #contacto .tercero-unlock-box .cf-turnstile {
+    overflow: hidden;
+  }
+}
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (min-width: 600px) {
+  #contacto {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  #contacto .contacto-v2-location,
+  #contacto .contacto-v2-communication {
+    padding: 22px;
+  }
+
+  #contacto .contacto-v2-map {
+    height: 280px;
+    min-height: 280px;
+  }
+}
+
+
+/* ==========================================================
+   DESKTOP
+========================================================== */
+
+@media (min-width: 900px) {
+  #contacto {
+    padding: 60px 32px 55px;
+  }
+
+  #contacto .contacto-v2-layout {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: start;
+    gap: 28px;
+  }
+
+  /*
+    La izquierda se centra verticalmente respecto al bloque derecho.
+    No se estira con él.
+  */
+  #contacto .contacto-v2-left {
+    align-self: center;
+  }
+
+  #contacto .contacto-v2-right {
+    align-self: start;
+  }
+
+  #contacto .contacto-v2-location,
+  #contacto .contacto-v2-communication {
+    padding: 24px;
+  }
+
+  /*
+    CAJÓN DERECHO ESTÁTICO:
+    cambiar de Correo a WhatsApp/Telegram/etc. no cambia su tamaño.
+  */
+  #contacto .contacto-v2-communication {
+    height: auto;
+    min-height: 680px;
+    max-height: none;
+    overflow: visible;
+  }
+
+  /*
+    El contenido NO tiene scroll propio.
+    Todo el modo Correo está compactado para caber en los 680px.
+  */
+  #contacto #contacto-channel-content,
+  #contacto .contacto-v2-channel-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  #contacto .contacto-v2-map {
+    height: 330px;
+    min-height: 330px;
+  }
+}
+
+
+/* ==========================================================
+   DESKTOP GRANDE
+========================================================== */
+
+@media (min-width: 1200px) {
+  #contacto .contacto-v2-layout {
+    gap: 34px;
+  }
+
+  #contacto .contacto-v2-map {
+    height: 350px;
+    min-height: 350px;
+  }
+}
+
+
+/* ==========================================================
+   MÓVIL
+========================================================== */
+
+@media (max-width: 599px) {
+  #contacto .contacto-v2-channels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #contacto .contacto-channel {
+    min-height: 60px;
+  }
+
+  /*
+    En móvil no fijamos altura:
+    la pantalla puede ser estrecha y debe crecer naturalmente.
+  */
+  #contacto .contacto-v2-communication {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+
+/* ==========================================================
+   ACCESIBILIDAD
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  #contacto .contacto-channel,
+  #contacto .contacto-v2-social-links a,
+  #contacto .contacto-v2-submit {
+    transition: none;
+  }
+
+  #contacto .contacto-panel.active {
+    animation: none;
+  }
+}
+
+
+/* ==========================================================
+   ESTADO TURNSTILE VERIFICADO
+   Añadir al bloque A TERCERO de components.css
+========================================================== */
+
+#contacto .turnstile-verificado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: 100%;
+  margin: 14px auto 0;
+
+  color: #74efa8;
+
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+#contacto .turnstile-verificado i {
+  flex: 0 0 auto;
+  font-size: 0.9rem;
+}
+
+#contacto .turnstile-verificado span {
+  display: inline-block;
+}
+
+/* ==========================================================
+   THIRD PARTY — MOSTRAR / OCULTAR CLAVE
+   Añadir al final de components.css
+========================================================== */
+
+#contacto .contacto-tercero-clave-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 0 auto 11px;
+}
+
+#contacto .contacto-tercero-clave-wrapper .contacto-tercero-clave {
+  width: 100%;
+  margin: 0;
+  padding-right: 48px;
+}
+
+#contacto .contacto-tercero-ver-clave {
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  padding: 0;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: transparent;
+  color: rgba(220, 214, 229, 0.62);
+
+  cursor: pointer;
+
+  font-size: 0.92rem;
+
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+#contacto .contacto-tercero-ver-clave:hover {
+  color: #fff;
+  background: rgba(185, 108, 255, 0.10);
+}
+
+#contacto .contacto-tercero-ver-clave:focus-visible {
+  outline: 2px solid var(--contact-purple-light);
+  outline-offset: 1px;
+}
+
+#contacto .contacto-tercero-ver-clave[aria-pressed="true"] {
+  color: var(--contact-purple-light);
+}
+
+
+/* THIRD PARTY — estados + mini OVNI pixel */
+#contacto .contacto-tercero-clave.tercero-clave-error {
+  border-color: #ff4f83;
+  box-shadow: 0 0 0 1px rgba(255, 79, 131, .28), 0 0 16px rgba(255, 79, 131, .12);
+}
+
+#contacto .contacto-tercero-estado.error {
+  color: #ff6d98;
+  font-weight: 700;
+}
+
+#contacto .tercero-space-loader:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  min-height: 116px;
+  margin: 3px 0 12px;
+  text-align: center;
+}
+
+#contacto .tercero-space-loader>strong {
+  margin-top: 3px;
+  font-size: .95rem;
+}
+
+#contacto .tercero-space-loader>span {
+  opacity: .7;
+  font-size: .78rem;
+}
+
+#contacto .tercero-orbita {
+  position: relative;
+  width: 150px;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#contacto .tercero-orbita::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 50%;
+  height: 42px;
+  border: 2px dashed rgba(178, 82, 255, .55);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+#contacto .tercero-planeta {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  font-size: 32px;
+  filter: drop-shadow(0 0 6px rgba(160, 74, 255, .6));
+  animation: tercero-planeta-pulso 1.5s ease-in-out infinite;
+}
+
+#contacto .tercero-ovni {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 50%;
+  width: 31px;
+  height: 20px;
+  animation: tercero-ovni-orbita 1.75s linear infinite;
+}
+
+#contacto .tercero-ovni-cupula {
+  position: absolute;
+  left: 10px;
+  top: 1px;
+  width: 12px;
+  height: 8px;
+  background: #d79aff;
+  border: 2px solid #9c36ef;
+  border-radius: 8px 8px 3px 3px;
+}
+
+#contacto .tercero-ovni-nave {
+  position: absolute;
+  left: 3px;
+  top: 8px;
+  width: 26px;
+  height: 8px;
+  background: #a83cff;
+  border: 2px solid #7020ad;
+  clip-path: polygon(14% 0, 86% 0, 100% 50%, 83% 100%, 17% 100%, 0 50%);
+  box-shadow: 0 0 8px rgba(173, 65, 255, .7);
+}
+
+#contacto .tercero-ovni-luz {
+  position: absolute;
+  left: 10px;
+  top: 16px;
+  width: 12px;
+  height: 4px;
+  background: #efc5ff;
+  box-shadow: 0 2px 0 #b953ff, 0 0 8px #c86cff;
+}
+
+#contacto .tercero-unlock-box.tercero-acceso-concedido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+#contacto .tercero-success-icon {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  color: #55efae;
+  background: rgba(39, 225, 147, .12);
+  font-size: 1.55rem;
+  box-shadow: 0 0 0 10px rgba(39, 225, 147, .035), 0 0 24px rgba(39, 225, 147, .15);
+}
+
+#contacto .tercero-acceso-concedido h4 {
+  margin: 0;
+}
+
+#contacto .tercero-acceso-concedido>p {
+  margin: -5px 0 3px;
+}
+
+#contacto .tercero-success-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(56, 233, 164, .65);
+  border-radius: 12px;
+  color: #63efb2;
+  background: rgba(22, 121, 86, .12);
+  text-align: left;
+}
+
+#contacto .tercero-success-box>div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#contacto .tercero-success-box span {
+  opacity: .82;
+  font-size: .77rem;
+}
+
+@keyframes tercero-ovni-orbita {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg) translateX(59px) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg) translateX(59px) rotate(-360deg);
+  }
+}
+
+@keyframes tercero-planeta-pulso {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+
+  #contacto .tercero-ovni,
+  #contacto .tercero-planeta {
+    animation: none;
+  }
+}
+
+
+/* ==========================================================
+   THIRD PARTY — INTENTOS Y BLOQUEO TEMPORAL
+   Añadir al FINAL de components.css
+========================================================== */
+
+/* Información permanente de intentos */
+#contacto .tercero-intentos-info {
+  width: 100%;
+  margin: 2px 0 10px;
+  padding: 10px 12px;
+
+  border: 1px solid rgba(171, 94, 255, 0.22);
+  border-radius: 10px;
+
+  background: rgba(112, 54, 170, 0.07);
+}
+
+#contacto .tercero-intentos-linea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  font-size: 0.82rem;
+}
+
+#contacto .tercero-intentos-linea span {
+  color: rgba(232, 224, 240, 0.78);
+}
+
+#contacto .tercero-intentos-linea strong {
+  color: #c58aff;
+  font-size: 0.86rem;
+}
+
+#contacto .tercero-intentos-detalle {
+  margin-top: 5px;
+
+  color: rgba(220, 211, 229, 0.67);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+#contacto .tercero-intentos-info.tercero-intentos-alerta {
+  border-color: rgba(255, 183, 77, 0.42);
+  background: rgba(255, 167, 38, 0.06);
+}
+
+#contacto .tercero-intentos-info.tercero-intentos-alerta .tercero-intentos-linea strong {
+  color: #ffc56d;
+}
+
+/* Mensaje de clave incorrecta: con espacio propio */
+#contacto .contacto-tercero-estado {
+  width: 100%;
+  min-height: 22px;
+  margin: 9px 0 0;
+  line-height: 1.4;
+}
+
+#contacto .contacto-tercero-estado.error {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 7px;
+
+  color: #ff6d98;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ==========================================================
+   BLOQUEO DE 5 MINUTOS
+========================================================== */
+
+#contacto .tercero-unlock-box.tercero-bloqueado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  text-align: center;
+}
+
+#contacto .tercero-bloqueo-icono {
+  display: grid;
+  place-items: center;
+
+  width: 68px;
+  height: 68px;
+  margin-bottom: 6px;
+
+  border: 1px solid rgba(190, 107, 255, 0.34);
+  border-radius: 50%;
+
+  color: #c77dff;
+  background: rgba(128, 54, 188, 0.10);
+
+  font-size: 1.55rem;
+
+  box-shadow:
+    0 0 0 10px rgba(151, 65, 211, 0.025),
+    0 0 26px rgba(166, 75, 231, 0.13);
+}
+
+#contacto .tercero-bloqueado h4 {
+  margin: 7px 0 4px;
+}
+
+#contacto .tercero-bloqueado>p {
+  max-width: 390px;
+  margin: 0 auto 18px;
+
+  color: rgba(226, 218, 235, 0.72);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+#contacto .tercero-bloqueo-etiqueta {
+  color: rgba(224, 215, 234, 0.72);
+  font-size: 0.75rem;
+}
+
+#contacto .tercero-bloqueo-reloj {
+  margin-top: 6px;
+
+  color: #d49aff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+
+  text-shadow:
+    0 0 12px rgba(182, 82, 255, 0.30);
+}
+
+
+/* ==========================================================
+   A TERCERO - FORMULARIO DE ENVÍO
+   ========================================================== */
+
+.tercero-acceso-concedido .contacto-v2-field-label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  gap: 8px;
+  margin-top: 18px;
+  text-align: left;
+}
+
+.tercero-acceso-concedido .contacto-v2-field-label>span:first-child {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f5f5f5;
+}
+
+.tercero-acceso-concedido .contacto-v2-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 54px;
+  padding: 0 16px;
+
+  color: #ffffff;
+  font: inherit;
+
+  background: rgba(8, 5, 18, 0.72);
+  border: 1px solid rgba(168, 85, 247, 0.38);
+  border-radius: 12px;
+
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.tercero-acceso-concedido .contacto-v2-input:focus {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.12);
+}
+
+.tercero-acceso-concedido .contacto-v2-input::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+
+/* MENSAJE */
+
+.tercero-acceso-concedido .contacto-v2-textarea {
+  box-sizing: border-box;
+  display: block;
+
+  width: 100%;
+  min-height: 130px;
+
+  padding: 14px 16px;
+
+  color: #ffffff;
+  font: inherit;
+  line-height: 1.5;
+
+  background: rgba(8, 5, 18, 0.72);
+  border: 1px solid rgba(168, 85, 247, 0.38);
+  border-radius: 12px;
+
+  resize: none;
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.tercero-acceso-concedido .contacto-v2-textarea:focus {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.12);
+}
+
+.tercero-acceso-concedido .contacto-v2-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+
+/* CONTADOR */
+
+.tercero-acceso-concedido .tercero-mensaje-contador {
+  display: block;
+  align-self: flex-end;
+
+  margin-top: -2px;
+
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+
+/* BOTÓN */
+
+.tercero-acceso-concedido .contacto-tercero-desbloquear {
+  width: 100%;
+  margin-top: 22px;
+}
+
+
+/* MENSAJE DE RESULTADO */
+
+.tercero-acceso-concedido .contacto-tercero-estado {
+  width: 100%;
+  margin-top: 14px;
+  text-align: center;
+}
+
+
+/* ==========================================================
+   A TERCERO - SELECTOR INTERNACIONAL
+   ========================================================== */
+
+.tercero-telefono-wrapper {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  width: 100%;
+}
+
+.tercero-selector-pais {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-width: 112px;
+  height: 54px;
+  padding: 0 13px;
+
+  color: #fff;
+  font: inherit;
+
+  background: rgba(8, 5, 18, 0.82);
+  border: 1px solid rgba(168, 85, 247, 0.38);
+  border-right: 0;
+  border-radius: 12px 0 0 12px;
+
+  cursor: pointer;
+}
+
+.tercero-bandera {
+  font-size: 1.25rem;
+}
+
+.tercero-prefijo {
+  font-weight: 600;
+}
+
+.tercero-selector-pais i {
+  font-size: 0.65rem;
+  opacity: 0.65;
+}
+
+.tercero-telefono-wrapper .tercero-numero-input {
+  border-radius: 0 12px 12px 0;
+}
+
+
+/* MENÚ */
+
+.tercero-menu-paises {
+  position: absolute;
+  z-index: 50;
+
+  top: calc(100% + 8px);
+  left: 0;
+
+  width: 100%;
+  max-height: 300px;
+  padding: 8px;
+
+  background: rgba(15, 10, 27, 0.98);
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  border-radius: 12px;
+
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+}
+
+.tercero-menu-paises[hidden] {
+  display: none;
+}
+
+
+/* BUSCADOR */
+
+.tercero-buscador-pais {
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  margin-bottom: 7px;
+
+  color: #fff;
+  font: inherit;
+
+  background: rgba(5, 3, 12, 0.85);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 8px;
+
+  outline: none;
+}
+
+.tercero-buscador-pais:focus {
+  border-color: #a855f7;
+}
+
+
+/* LISTA */
+
+.tercero-lista-paises {
+  max-height: 230px;
+  overflow-y: auto;
+}
+
+.tercero-pais-opcion {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  padding: 10px;
+
+  color: #fff;
+  font: inherit;
+  text-align: left;
+
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.tercero-pais-opcion:hover {
+  background: rgba(168, 85, 247, 0.15);
+}
+
+.tercero-pais-bandera {
+  font-size: 1.2rem;
+}
+
+.tercero-pais-nombre {
+  font-weight: 500;
+}
+
+.tercero-pais-prefijo {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.tercero-bandera {
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.tercero-selector-pais {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tercero-bandera-selector {
+  width: 24px;
+  height: 16px;
+  display: block;
+  object-fit: cover;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.tercero-prefijo {
+  line-height: 1;
+  white-space: nowrap;
+}

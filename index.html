@@ -1733,17 +1733,6 @@
   </footer>
 
 
-
-
-
-
-
-
-
-
-
-
-
   <!-- Three.js y Vanta.js -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
@@ -1766,11 +1755,15 @@
 
 
 
-  <!-- Tu JS principal (debe ir al final si usa imports de arriba) -->
+  
+<!-- Tu JS principal -->
+<script type="module" src="js/main.js"></script>
 
-  <script type="module" src="js/main.js"></script>
-
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<!-- Cloudflare Turnstile: renderizado manual -->
+<script
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+  defer>
+</script>
 
 </body>
 
