@@ -209,7 +209,7 @@ export function inicializarContacto() {
   // ==================================================
 
 
- function mostrarCorreo() {
+function mostrarCorreo() {
 
   limpiarPanel();
 
@@ -220,23 +220,35 @@ export function inicializarContacto() {
     'contacto-tab-email'
   );
 
-  // Inicializar Turnstile cuando el formulario
-  // de correo ya esté visible en el DOM.
-  const contenedor = panelCorreo.querySelector('.cf-turnstile');
+  const contenedor = panelCorreo.querySelector(".cf-turnstile");
 
-  if (
-    contenedor &&
-    window.turnstile &&
-    !contenedor.dataset.widgetId
-  ) {
-    const widgetId = window.turnstile.render(contenedor, {
-      sitekey: contenedor.dataset.sitekey,
-      theme: 'dark'
-    });
+  if (!contenedor) return;
 
-    contenedor.dataset.widgetId = widgetId;
+  function inicializarTurnstile() {
+
+    if (!contenedor.isConnected) return;
+
+    if (!window.turnstile) {
+      setTimeout(inicializarTurnstile, 200);
+      return;
+    }
+
+    if (contenedor.dataset.widgetId) return;
+
+    try {
+      const widgetId = window.turnstile.render(contenedor, {
+        sitekey: contenedor.dataset.sitekey,
+        theme: "dark"
+      });
+
+      contenedor.dataset.widgetId = widgetId;
+
+    } catch (error) {
+      console.error("Error al inicializar Turnstile:", error);
+    }
   }
 
+  inicializarTurnstile();
 }
 
   // ==================================================
