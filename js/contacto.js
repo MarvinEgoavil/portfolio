@@ -209,27 +209,35 @@ export function inicializarContacto() {
   // ==================================================
 
 
-  function mostrarCorreo() {
+ function mostrarCorreo() {
 
+  limpiarPanel();
 
+  panel.appendChild(panelCorreo);
 
-    limpiarPanel();
+  panel.setAttribute(
+    'aria-labelledby',
+    'contacto-tab-email'
+  );
 
+  // Inicializar Turnstile cuando el formulario
+  // de correo ya esté visible en el DOM.
+  const contenedor = panelCorreo.querySelector('.cf-turnstile');
 
+  if (
+    contenedor &&
+    window.turnstile &&
+    !contenedor.dataset.widgetId
+  ) {
+    const widgetId = window.turnstile.render(contenedor, {
+      sitekey: contenedor.dataset.sitekey,
+      theme: 'dark'
+    });
 
-    panel.appendChild(panelCorreo);
-
-
-
-    panel.setAttribute(
-
-      'aria-labelledby',
-
-      'contacto-tab-email'
-
-    );
-
+    contenedor.dataset.widgetId = widgetId;
   }
+
+}
 
   // ==================================================
 
