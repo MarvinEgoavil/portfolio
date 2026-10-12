@@ -15,25 +15,25 @@ import { inicializarContacto } from './contacto.js';
 
 // === Función principal: inicialización global ===
 document.addEventListener("DOMContentLoaded", () => {
-  // Inicialización de módulos y componentes
+
   configurarSidebarMovil();
   configurarEmojiGuiñador();
   configurarSubmenus();
   iniciarIdioma();
   iniciarVantaFondo();
   iniciarFirebase();
+
   inicializarMapaContacto();
   inicializarFormularioContacto();
+  inicializarContacto();
+
   configurarHeaderStickyAnimado();
   iniciarCanvas2d();
   inicializarBuscador();
   inicializarTitulo();
   inicializarCertModal();
-  inicializarMapaContacto();
-  inicializarFormularioContacto();
-  inicializarContacto();
-  configurarHeaderStickyAnimado();
-})
+
+});
 
 
 // === SOCIAL-MENU: Animación SVG profesional === //
