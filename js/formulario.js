@@ -1,23 +1,71 @@
-
 export function inicializarFormularioContacto() {
   const form = document.getElementById("contact-form");
-  if (!form) return;
+  const pantalla = document.getElementById("contacto-correo-estado");
+  const titulo = document.getElementById("correo-estado-titulo");
+  const descripcion = document.getElementById("correo-estado-descripcion");
+  const accion = document.getElementById("correo-estado-accion");
+  const respuesta = document.getElementById("form-contacto-respuesta");
 
-  const respuestaDiv = document.getElementById(
-    "form-contacto-respuesta"
-  );
+  if (!form || !pantalla || !titulo || !descripcion || !accion) {
+    return;
+  }
 
   const URL_API =
     "https://portfolioapi.marvinegoavilz.workers.dev/correo";
 
   let enviando = false;
 
-  form.addEventListener("submit", async function (e) {
+  const botonEnviar = form.querySelector('button[type="submit"]');
+
+  function mostrarFormulario() {
+    pantalla.hidden = true;
+    form.hidden = false;
+    accion.hidden = true;
+  }
+
+  function mostrarEstado(estado, mensajeTitulo, mensajeDescripcion) {
+    form.hidden = true;
+    pantalla.hidden = false;
+    pantalla.dataset.estado = estado;
+
+    titulo.textContent = mensajeTitulo;
+    descripcion.textContent = mensajeDescripcion;
+
+    accion.hidden = estado === "sending";
+  }
+
+function reiniciarTurnstile() {
+  const widget = form.querySelector(".cf-turnstile");
+
+  if (!window.turnstile || !widget) return;
+
+  const widgetId = widget.dataset.widgetId;
+
+  if (!widgetId) return;
+
+  try {
+    window.turnstile.reset(widgetId);
+  } catch (error) {
+    console.warn("No se pudo reiniciar Turnstile:", error);
+  }
+}
+
+  accion.addEventListener("click", () => {
+    if (enviando) return;
+
+    if (pantalla.dataset.estado === "success") {
+      form.reset();
+    }
+
+    mostrarFormulario();
+    reiniciarTurnstile();
+   
+  });
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     if (enviando) return;
-
-    respuestaDiv.textContent = "";
 
     const datos = {
       nombre: form.elements.namedItem("nombre").value.trim(),
@@ -27,9 +75,8 @@ export function inicializarFormularioContacto() {
     };
 
     if (!datos.nombre || !datos.email || !datos.mensaje) {
-      respuestaDiv.textContent =
-        "Por favor, completa todos los campos.";
-      respuestaDiv.style.color = "#f67400";
+      respuesta.textContent = "Completa todos los campos.";
+      respuesta.style.color = "#ff7c91";
       return;
     }
 
@@ -40,21 +87,21 @@ export function inicializarFormularioContacto() {
     datos.turnstileToken = tokenInput?.value || "";
 
     if (!datos.turnstileToken) {
-      respuestaDiv.textContent =
-        "Completa la verificación de seguridad.";
-      respuestaDiv.style.color = "#f67400";
+      respuesta.textContent = "Completa la verificación de seguridad.";
+      respuesta.style.color = "#ff7c91";
       return;
     }
 
-    const botonEnviar = form.querySelector(
-      'button[type="submit"]'
-    );
-
     enviando = true;
+    respuesta.textContent = "";
 
-    if (botonEnviar) {
-      botonEnviar.disabled = true;
-    }
+    if (botonEnviar) botonEnviar.disabled = true;
+
+    mostrarEstado(
+      "sending",
+      "Enviando tu mensaje...",
+      "Estamos procesando tu correo de forma segura."
+    );
 
     try {
       const res = await fetch(URL_API, {
@@ -67,48 +114,35 @@ export function inicializarFormularioContacto() {
 
       const resultado = await res.json();
 
-      if (res.ok && resultado.ok === true) {
-        respuestaDiv.textContent =
-          "Correo enviado correctamente.";
-        respuestaDiv.style.color = "#f6c800";
-
-        form.reset();
-      } else {
-        respuestaDiv.textContent =
-          resultado.error ||
-          "Ocurrió un error al enviar el correo.";
-
-        respuestaDiv.style.color = "#ff4444";
+      if (!res.ok || resultado.ok !== true) {
+        throw new Error(
+          resultado.error || "No se pudo enviar el correo."
+        );
       }
+
+      mostrarEstado(
+        "success",
+        "¡Mensaje enviado correctamente!",
+        "Gracias por escribirme. Te responderé lo antes posible."
+      );
+
+      accion.textContent = "Enviar otro mensaje";
+
     } catch (error) {
       console.error("Error al enviar correo:", error);
 
-      respuestaDiv.textContent =
-        "No se pudo enviar. Inténtalo de nuevo más tarde.";
+      mostrarEstado(
+        "error",
+        "No se pudo enviar el mensaje",
+        "Ha ocurrido un problema. Puedes volver al formulario e intentarlo de nuevo."
+      );
 
-      respuestaDiv.style.color = "#ff4444";
+      accion.textContent = "Volver al formulario";
+
     } finally {
       enviando = false;
 
-      if (botonEnviar) {
-        botonEnviar.disabled = false;
-      }
-
-      // Turnstile utiliza tokens de un solo uso.
-      if (window.turnstile) {
-        const widget = form.querySelector(".cf-turnstile");
-
-        if (widget) {
-          try {
-            window.turnstile.reset(widget);
-          } catch (error) {
-            console.warn(
-              "No se pudo reiniciar Turnstile:",
-              error
-            );
-          }
-        }
-      }
+      if (botonEnviar) botonEnviar.disabled = false;
     }
   });
 }

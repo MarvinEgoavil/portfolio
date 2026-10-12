@@ -58,26 +58,7 @@
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-
-
-  <!-- Captcha -->
-
-  <script src="https://www.google.com/recaptcha/api.js?render=6Ld9TWkrAAAAAC_JVShrurJmr29KzKJ7pDSLajkH"></script>
-
-
-
-
-
-
-
   <script type="application/ld+json">
-
-
-
-
-
-
-
 
 
       {
@@ -1562,43 +1543,81 @@
 
               </div>
 
+<!-- FORMULARIO DE CORREO -->
+<div id="contacto-correo-contenedor">
 
-              <!-- FORMULARIO -->
-              <form id="contact-form" class="contact-form contacto-v2-form">
+  <form id="contact-form" class="contact-form contacto-v2-form">
 
-                <label>
-                  <span>Tu nombre</span>
+    <label>
+      <span>Tu nombre</span>
+      <input type="text" name="nombre"
+        placeholder="¿Cómo te llamas?"
+        required autocomplete="name">
+    </label>
 
-                  <input type="text" name="nombre" placeholder="¿Cómo te llamas?" required autocomplete="name">
-                </label>
+    <label>
+      <span>Tu correo electrónico</span>
+      <input type="email" name="email"
+        placeholder="tu@email.com"
+        required autocomplete="email">
+    </label>
 
-                <label>
-                  <span>Tu correo electrónico</span>
+    <label>
+      <span>Mensaje</span>
+      <textarea name="mensaje"
+        placeholder="Cuéntame, ¿en qué puedo ayudarte?"
+        required></textarea>
+    </label>
 
-                  <input type="email" name="email" placeholder="tu@email.com" required autocomplete="email">
-                </label>
+    <div class="cf-turnstile"
+      data-sitekey="0x4AAAAAAFDSCDpEwCi8yFgN"
+      data-theme="dark">
+    </div>
 
-                <label>
-                  <span>Mensaje</span>
+    <button type="submit" class="contacto-v2-submit">
+      <i class="fas fa-paper-plane" aria-hidden="true"></i>
+      <span>Enviar correo</span>
+    </button>
 
-                  <textarea name="mensaje" placeholder="Cuéntame, ¿en qué puedo ayudarte?" required></textarea>
-                </label>
+    <div id="form-contacto-respuesta"
+      class="form-respuesta"
+      role="status"
+      aria-live="polite">
+    </div>
 
-                <div class="cf-turnstile" data-sitekey="0x4AAAAAAFDSCDpEwCi8yFgN" data-theme="dark">
-                </div>
+  </form>
 
-                <button type="submit" class="contacto-v2-submit">
+  <!-- PANTALLA DE ENVÍO -->
+  <section id="contacto-correo-estado"
+    class="correo-estado"
+    aria-live="polite"
+    aria-label="Estado del envío"
+    hidden>
 
-                  <i class="fas fa-paper-plane" aria-hidden="true"></i>
-                  <span>Enviar correo</span>
+    <div class="correo-sobre" aria-hidden="true">
+      <div class="correo-carta"></div>
+      <div class="correo-sobre-cuerpo"></div>
+      <div class="correo-sobre-solapa"></div>
+    </div>
 
-                </button>
+    <h4 id="correo-estado-titulo">
+      Enviando tu mensaje...
+    </h4>
 
-                <div id="form-contacto-respuesta" class="form-respuesta" aria-live="polite">
-                </div>
+    <p id="correo-estado-descripcion">
+      Estamos procesando tu correo.
+    </p>
 
-              </form>
+    <button id="correo-estado-accion"
+      type="button"
+      class="contacto-v2-submit"
+      hidden>
+      Enviar otro mensaje
+    </button>
 
+  </section>
+
+</div>
 
               <!-- PRIVACIDAD -->
               <div class="contacto-v2-privacy">
